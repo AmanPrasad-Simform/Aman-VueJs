@@ -1,0 +1,9 @@
+[v-cloak]{
+    display: none;
+}
+input[type="text"]{
+    display: block;
+}
+.red{
+    color: red;
+}

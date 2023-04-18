@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script defer src="index.js"></script>
+  <link rel="stylesheet" href="index.css" />
+  <title>VueJs</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{ name() }}</p>
+    <hr />
+
+    <label>firstname</label>
+    <input type="text" v-model="firstName" />
+    <label>lastname</label>
+    <input type="text" :value="lastName" v-on:input="lastname('this is the message',$event)" />
+    <button @click="count++">Count is : {{count}}</button>
+    <p>
+      <label>Role :: </label>
+      <input type="radio" value="frontend" id="frontend" v-model="role" />
+      <label for="frontend">frontend</label>
+      <input type="radio" value="backend" id="backend" v-model="role" />
+      <label for="frontend">backend</label>
+    </p>
+    <p>Your role is : {{role}}</p>
+    <p>{{message}}</p>
+    <input type="text" v-model="inputValue">
+    <p>
+      <a v-bind:href="url" target="_blank">Vuejs</a>
+    <p :class="{'red':isRed}">This is red text</p>
+    </p>
+    <p v-html="content"></p>
+    <p>Your age is : {{age}}</p>
+    <button @click="increment">Increment</button>
+    <button v-on:click="age--">Decrement</button>
+  </div>
+</body>
+
+</html>

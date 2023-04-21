@@ -18,7 +18,7 @@
 body{
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, #8e9eab, #eef2f3); 
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,7 @@ body{
   }
 .card-wrap{
   width: 290px;
-  background: #fff;
+  /* background: #fff; */
   border-radius: 20px;
   border: 5px solid #fff;
   overflow: hidden;

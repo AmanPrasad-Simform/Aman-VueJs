@@ -1,9 +1,12 @@
 <template>
-  <h2>Helllo</h2>
+<galleryCars/>
 </template>
 
 <script>
+import galleryCars from './components/galleryList.vue';
+import './assests/gallery-cars.css';
 export default {
+  components: { galleryCars },
   setup() {
     
   },

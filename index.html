@@ -39,6 +39,32 @@
     <p>Your age is : {{age}}</p>
     <button @click="increment">Increment</button>
     <button v-on:click="age--">Decrement</button>
+     
+    <!-- if directive with the select option  -->
+    <div>
+      <p v-if="val==1">This is number 1</p>
+      <p v-else-if="val==2 || val==3">This is number 2</p>
+      <p v-else="val==1">This is Whatever number </p>
+    </div>
+    <select v-model="val">
+      <option value="1">
+        One
+      </option>
+      <option value="2">
+        Two
+      </option>
+      <option value="3">
+        Three
+      </option>
+      <option value="5">
+        ohter
+      </option>
+    </select>
+
+    <!-- v-show  -->
+    <button @click="ok =!ok">ok</button>
+    <h1 v-show="ok">Hello!</h1>
+    <h1 v-show="!ok">there!</h1>
   </div>
 </body>
 

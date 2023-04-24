@@ -1,6 +1,8 @@
-Vue.createApp({
+let vm = Vue.createApp({
     data() {
         return {
+            val:1,
+            ok:true,
             count: 0,
             message: "",
             inputValue:"", 
@@ -34,4 +36,6 @@ Vue.createApp({
           this.message = 'Input value changed to: ' + newValue
         }
       }
-}).mount('#app')
+})
+
+vm.mount('#app')

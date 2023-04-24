@@ -1,0 +1,27 @@
+<!DOCTYPE >
+<html>
+
+<head>
+  <title>VueJS List</title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+
+      <li v-for="(bird,index) in birds">{{bird}} - {{index}}</li>
+      <hr>
+      <li v-for="(person,index) in people">{{index}} : {{person.name}} - {{person.age}} </li>
+      <hr>
+      <li v-for="(value,key,index) of myObject">
+        {{ key }} : {{ value }} : {{index}}
+      </li>
+    </ul>
+    </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,4 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import Navbar from './components/Navbar.vue'
 
-createApp(App).mount('#app')
+let vm = createApp(App)
+
+vm.component("Navbar",Navbar)
+
+vm.mount('#app')

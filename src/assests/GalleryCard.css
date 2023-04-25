@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap');
+* {
+  margin: 0px;
+  padding: 0px;
+}
+ .card-text::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Raleway';
+  background: #F1F6F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.navbar {
+  background-color: #39484A;
+  overflow: hidden;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  z-index: 10;
+}
+.navbar-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-logo img{
+  width: 65px;
+}
+.navbar h1 {
+  line-height: 1;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 35px;
+  background: #F1F6F9;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar p {
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: #F1F6F9;
+  font-size: 20px;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 20px 50px;
+}
+
+.card-wrap {
+  width: 290px;
+  border-radius: 20px;
+  border: 1px solid #212A3E;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  background-color: rgba(155, 164, 181, 0.4);
+}
+
+.card-wrap:hover {
+  transform: scale(1.08);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+  rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  filter: none;
+}
+
+.card-header {
+  height: 250px;
+  width: 100%;
+  border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
+  display: grid;
+  place-items: center;
+
+}
+
+.card-content {
+  display: flex;
+  color: #212A3E;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+  height: 175px;
+  margin: 0 auto;
+}
+
+.card-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+}
+
+.card-text {
+  overflow-y: auto;
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.card-image {
+  height: 145px;
+  margin-top: 10px;
+}
+
+.card-image img {
+  height: 140px;
+  width: 290px;
+  object-fit: contain;
+}
+
+.card-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.card-btn {
+  --color: #39484A;
+  padding: 0.8em 1.7em;
+  background-color: transparent;
+  border-radius: .3em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: var(--color);
+  z-index: 1;
+  color: #212A3E;
+}
+.card-btn:disabled{
+  cursor: not-allowed;
+}
+
+.card-btn::before,
+.card-btn::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+
+}
+
+.card-btn::before {
+  top: -1em;
+  left: -1em;
+}
+
+.card-btn::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+}
+
+.card-btn:enabled:hover::before,
+.card-btn:enabled:hover::after {
+  height: 410px;
+  width: 410px;
+}
+.card-btn:enabled:hover{
+  color: #F1F6F9;
+}
+@media (max-width: 768px) {
+
+  .navbar h1,
+  .navbar p {
+    display: block;
+    text-align: center;
+  }
+}

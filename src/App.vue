@@ -1,14 +1,18 @@
 <template>
-<Navbar />
-<galleryCard/>
+<Navbar/>
+<GalleryCard @car-price='showPrice' />
 </template>
 
 <script>
-import galleryCard from './components/gallery-card.vue';
-import Navbar from './components/Navbar.vue'
-import './assests/gallery-cars.css';
+import GalleryCard from './components/GalleryCard.vue';
+import './assests/GalleryCard.css';
 
 export default {
-  components: { galleryCard, Navbar },
+  components: {GalleryCard },
+  methods:{
+    showPrice(car){
+      swal(car.carName,car.carPrice)
+        }
+  }
 }
 </script>

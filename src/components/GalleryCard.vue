@@ -13,10 +13,11 @@
       <div class="card-button">
         <button
           class="card-btn one"
-          @click="getPrice(car.carName)"
+          @click="getPrice(car)"
           :key="car.carName"
+          :disabled="car.carPrice == undefined "
         >
-          Price
+          {{car.carPrice == undefined ? 'Available Soon' : 'Info' }}
         </button>
       </div>
     </div>
@@ -24,22 +25,18 @@
 </template>
 
 <script>
-import carList from "../assests/carList.json";
+import carList from "../assests/CarList.json";
 export default {
-  name: "galleryCard",
+  name: "GalleryCard",
   data() {
     return {
       carList,
     };
   },
   methods: {
-    getPrice(carName) {
-      for (let i = 0; i < this.carList.length; i++) {
-        if (carName == this.carList[i].carName) {
-          swal(carName, this.carList[i].carPrice);
+    getPrice(car) {
+          this.$emit('car-price',car);
         }
-      }
-    },
   },
 };
 </script>

@@ -19,7 +19,7 @@ body {
 }
 
 .navbar {
-  background-color: #394867;
+  background-color: #39484A;
   overflow: hidden;
   width: 100%;
   position: sticky;
@@ -27,12 +27,19 @@ body {
   text-align: center;
   z-index: 10;
 }
-
+.navbar-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-logo img{
+  width: 65px;
+}
 .navbar h1 {
   line-height: 1;
   padding: 0.5rem;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 35px;
   background: #F1F6F9;
   background-size: cover;
   -webkit-background-clip: text;
@@ -135,7 +142,7 @@ body {
 }
 
 .card-btn {
-  --color: #394867;
+  --color: #39484A;
   padding: 0.8em 1.7em;
   background-color: transparent;
   border-radius: .3em;
@@ -151,7 +158,9 @@ body {
   color: var(--color);
   z-index: 1;
   color: #212A3E;
-
+}
+.card-btn:disabled{
+  cursor: not-allowed;
 }
 
 .card-btn::before,
@@ -179,14 +188,13 @@ body {
   top: calc(100% + 1em);
 }
 
-.card-btn:hover::before,
-.card-btn:hover::after {
+.card-btn:enabled:hover::before,
+.card-btn:enabled:hover::after {
   height: 410px;
   width: 410px;
 }
-.card-btn:hover{
+.card-btn:enabled:hover{
   color: #F1F6F9;
-  ;
 }
 @media (max-width: 768px) {
 

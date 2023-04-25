@@ -1,7 +1,10 @@
 <template>
   <div class="navbar">
+    <div class="navbar-logo">
     <h1>CarNation</h1>
-    <p>Accelerate your journey with us.</p>
+    <img src="../../public/favicon-car.png">
+    </div>
+    <p>- Accelerate your journey with us.</p>
   </div>
 </template>
 

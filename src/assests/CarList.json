@@ -1,7 +1,6 @@
 [
     {
         "carName": "Range Rover Sports",
-        "carPrice": "₹5.80 - ₹9.56 Lakh",
         "carDescription": "Land Rover is crafted to reflect bold design with genuine capability & composure at heart. A reflection of modernity. Captivating in its simplicity.",
         "carImage": "https://www.freeiconspng.com/uploads/land-rover-range-rover-car-png-25.png"
     },
@@ -19,7 +18,6 @@
     },
     {
         "carName": "Honda City",
-        "carPrice": "₹11.04 - ₹15.19 Lakh",
         "carDescription": "The Honda City is a premium sedan with a sleek and modern design. It comes with a range of advanced features including a touchscreen infotainment system, automatic climate control, and a sunroof.",
         "carImage": "https://www.pngmart.com/files/22/Honda-City-PNG-Transparent.png"
     },
@@ -43,7 +41,6 @@
     },
     {
         "carName": "Maruti Suzuki Alto",
-        "carPrice": "₹3.04 - ₹4.41 Lakh",
         "carDescription": "The Maruti Suzuki Alto is a budget-friendly hatchback with a simple yet functional design. It comes with a choice of petrol engines and offers great fuel efficiency, making it a top choice for first-time car buyers.",
         "carImage": "https://marutisuzukiarenaprodcdn.azureedge.net/-/media/images/maruti/marutisuzuki/car/car-profile-shots/alto-800/alto800_blazing_red/alto800_blazing_red_new.ashx"
     },
@@ -58,11 +55,5 @@
         "carPrice": "₹7.95 - ₹13.33 Lakh",
         "carDescription": "The Mahindra XUV300 is a stylish and spacious SUV with a range of advanced features. It comes with a choice of petrol and diesel engines, and offers excellent performance and fuel efficiency.",
         "carImage": "https://prog-ace-cdn.azureedge.net/-/media/project/mahindra/dotcom/mahindra/dark-theme-mahindra-images/hello-xuv/xuv-300/xuv300_-dark-theme-_-hello-xuv_1920x745px_-desktop.png?rev=d70dcda99ef04ee3a2cc77ed3c9a0966"
-    },
-    {
-        "carName": "Renault Kwid",
-        "carPrice": "₹3.32 - ₹5.88 Lakh",
-        "carDescription": "The Renault Kwid is a stylish and compact hatchback with a bold design. It comes with a range of features including touchscreen infotainment, a reverse camera, and a digital instrument cluster.",
-        "carImage": "https://www.freeiconspng.com/uploads/lamborghini-car-png-4.png"
     }
 ]

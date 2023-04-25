@@ -1,13 +1,12 @@
 <template>
-    <h2>Car Title</h2>
+  <div class="navbar">
+    <h1>CarNation</h1>
+    <p>Accelerate your journey with us.</p>
+  </div>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
-
-export default defineComponent({
-    setup() {
-        
-    },
-})
+export default{
+    name: 'Navbar'
+}
 </script>

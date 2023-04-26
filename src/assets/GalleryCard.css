@@ -18,7 +18,7 @@ body {
   gap: 20px;
 }
 
-.navbar {
+.navbar-container {
   background-color: #39484A;
   overflow: hidden;
   width: 100%;
@@ -35,7 +35,7 @@ body {
 .navbar-logo img{
   width: 65px;
 }
-.navbar h1 {
+.navbar-container h1 {
   line-height: 1;
   padding: 0.5rem;
   font-weight: 600;
@@ -47,7 +47,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.navbar p {
+.navbar-container p {
   line-height: 1;
   margin: 0;
   padding: 0.5rem;

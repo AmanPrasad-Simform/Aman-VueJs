@@ -5,7 +5,7 @@
 
 <script>
 import GalleryCard from './components/GalleryCard.vue';
-import './assests/GalleryCard.css';
+import './assets/GalleryCard.css';
 
 export default {
   components: {GalleryCard },

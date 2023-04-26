@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import carList from "../assests/CarList.json";
+import carList from "../assets/CarList.json";
 export default {
   name: "GalleryCard",
   data() {

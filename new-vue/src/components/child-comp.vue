@@ -1,5 +1,5 @@
 <template>
-    <input type="text" ref="myInputa" :value="age">
+    <input type="text" ref="myInputa" :value="aqge">
     <button @click="myInputaa" v-on:click="ageCount">asd</button>
 </template>
 
@@ -13,7 +13,7 @@ export default ({
         }
     },
     props:{
-        age: {
+        aqge: {
             type:Number,
             validator: (value) => {
         if(value<= 25){

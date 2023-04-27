@@ -19,6 +19,8 @@ body {
 }
 
 .navbar-container {
+  display: flex;
+  justify-content: space-around;
   background-color: #39484A;
   overflow: hidden;
   width: 100%;
@@ -27,12 +29,12 @@ body {
   text-align: center;
   z-index: 10;
 }
-.navbar-logo{
+.navbar-title{
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.navbar-logo img{
+.navbar-title img{
   width: 65px;
 }
 .navbar-container h1 {

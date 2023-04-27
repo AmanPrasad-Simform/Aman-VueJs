@@ -15,9 +15,17 @@
           class="card-btn one"
           @click="getPrice(car)"
           :key="car.carName"
-          :disabled="car.carPrice == undefined "
+          :disabled="car.carPrice == undefined"
         >
-          {{car.carPrice == undefined ? 'Available Soon' : 'Info' }}
+          {{ car.carPrice == undefined ? "Available Soon" : "Info" }}
+        </button>
+        <button
+          type="button"
+          class="card-button"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Edit
         </button>
       </div>
     </div>
@@ -26,6 +34,7 @@
 
 <script>
 import carList from "../assets/CarList.json";
+
 export default {
   name: "GalleryCard",
   data() {
@@ -35,10 +44,9 @@ export default {
   },
   methods: {
     getPrice(car) {
-          this.$emit('car-price',car);
-        }
+      this.$emit("car-price", car);
+    },
   },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,97 +1,150 @@
 <template>
-  <VForm class="form" :validation-schema="schema" @submit="createCar">
-    <div class="group">
-      <VField
-        name="carName"
-        placeholder=" "
-        type="text"
-        class="input"
-        v-model="edit ? data : car.carName"
-      />
-      <label for="carName">Car Name</label>
-      <ErrorMessage name="carName" class="error_message" />
-    </div>
-
-    <div class="group">
-      <VField
-        name="carPrice"
-        placeholder=" "
-        type="number"
-        class="input"
-        v-model="car.carPrice"
-      />
-      <label for="carPrice">Price</label>
-      <ErrorMessage name="carPrice" class="error_message" />
-    </div>
-
-    <div class="group">
-      <VField
-        name="carURL"
-        placeholder=" "
-        type="text"
-        class="input"
-        v-model="car.carURL"
-      />
-
-      <label for="carURL">Image URL</label>
-      <ErrorMessage name="carURL" class="error_message" />
-    </div>
-    <div class="group">
-      <vField name="carDetails" :bails="false" v-slot="{ field, errors }">
-        <textarea
-          type="text"
-          placeholder=" "
-          id="comment"
-          class="textarea"
-          v-model="car.carDetails"
-          name="carDetails"
-          rows="3"
-          v-bind="field"
-        />
-        <div class="error_message" v-for="err in errors" :key="err">
-          {{ err }}
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5
+            class="modal-title"
+            style="color: #212a3e"
+            id="staticBackdropLabel"
+          >
+            {{
+              modalType === "add"
+                ? "Add the Car Details"
+                : "Edit the Car Details"
+            }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-      </vField>
-      <label for="carDetails">Car Details</label>
+        <div class="modal-body">
+          <VForm class="form" :validation-schema="schema" @submit="createCar">
+            <div class="group">
+              <VField
+                name="carName"
+                placeholder=" "
+                type="text"
+                class="input"
+                v-model="car.carName"
+              />
+              <label for="carName"> Car Name </label>
+
+              <ErrorMessage name="carName" class="error_message" />
+            </div>
+            <div class="group">
+              <VField
+                name="carPrice"
+                placeholder=" "
+                type="text"
+                class="input"
+                v-model="car.carPrice"
+              />
+              <label for="carPrice">Price</label>
+              <ErrorMessage name="carPrice" class="error_message" />
+            </div>
+
+            <div class="group">
+              <VField
+                name="carURL"
+                placeholder=" "
+                type="text"
+                class="input"
+                v-model="car.carURL"
+              />
+
+              <label for="carURL">Image URL</label>
+              <ErrorMessage name="carURL" class="error_message" />
+            </div>
+            <div class="group">
+              <vField
+                name="carDetails"
+                :bails="false"
+                v-slot="{ field, errors }"
+                v-model="car.carDetails"
+              >
+                <textarea
+                  type="text"
+                  placeholder=" "
+                  id="comment"
+                  class="textarea"
+                  name="carDetails"
+                  rows="3"
+                  v-bind="field"
+                />
+                <div class="error_message" v-for="err in errors" :key="err">
+                  {{ err }}
+                </div>
+              </vField>
+              <label for="carDetails">Car Details</label>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" data-bs-dismiss="modal" @click="toggle">
+                Cancel
+              </button>
+              <button type="submit" class="btn">Submit</button>
+            </div>
+          </VForm>
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
-        Cancel
-      </button>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </VForm>
+  </div>
 </template>
 
 <script>
 import Swal from "sweetalert2";
 export default {
-  onmounted() {
-    console.log("mounted");
-    window.addEventListener("load", this.resetCar);
-  },
   name: "CarForm",
   props: {
+    modalType: String,
     addBtn: Boolean,
+    propps: String,
+    carData: Object,
+  },
+  computed: {
+    car: function () {
+      return {
+        carName: this.carData.carName || "",
+        carPrice: this.carData.carPrice || "",
+        carURL: this.carData.carURL || "",
+        carDetails: this.carData.carDetails || "",
+      };
+    },
   },
   data() {
-    console.log(this.carName);
     return {
-      car: {
-        carName: this.carName || "",
-        carPrice: this.carPrice,
-        carURL: this.carURL,
-        carDetails: this.carDetails,
-      },
       schema: {
-        carName: "required|min:3|max:20",
+        carName: "required|min:10|alphaSpaces",
         carPrice: "required|integer",
         carURL: "required",
-        carDetails: "required|min:3|max:30",
+        carDetails: "required",
       },
     };
   },
   methods: {
+    resetCarData() {
+      // Reset the car object to its initial state
+      this.car = {
+        carName: " ",
+        carPrice: " ",
+        carURL: " ",
+        carDetails: " ",
+      };
+    },
+    toggle() {
+      return (this.addBtnStatus = !this.addBtnStatus);
+    },
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },

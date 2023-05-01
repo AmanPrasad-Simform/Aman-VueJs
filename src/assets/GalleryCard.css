@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap");
 * {
   margin: 0px;
   padding: 0px;
 }
- .card-text::-webkit-scrollbar {
+.card-text::-webkit-scrollbar {
   display: none;
 }
 
 body {
-  font-family: 'Raleway';
-  background: #F1F6F9;
+  font-family: "Raleway";
+  background: #f1f6f9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,9 @@ body {
 }
 
 .navbar-container {
-  background-color: #39484A;
+  display: flex;
+  justify-content: space-around;
+  background-color: #39484a;
   overflow: hidden;
   width: 100%;
   position: sticky;
@@ -27,12 +29,12 @@ body {
   text-align: center;
   z-index: 10;
 }
-.navbar-logo{
+.navbar-title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.navbar-logo img{
+.navbar-title img {
   width: 65px;
 }
 .navbar-container h1 {
@@ -40,7 +42,7 @@ body {
   padding: 0.5rem;
   font-weight: 600;
   font-size: 35px;
-  background: #F1F6F9;
+  background: #f1f6f9;
   background-size: cover;
   -webkit-background-clip: text;
   background-clip: text;
@@ -52,7 +54,7 @@ body {
   margin: 0;
   padding: 0.5rem;
   font-weight: 600;
-  background: #F1F6F9;
+  background: #f1f6f9;
   font-size: 20px;
   background-size: cover;
   -webkit-background-clip: text;
@@ -72,17 +74,16 @@ body {
 .card-wrap {
   width: 290px;
   border-radius: 20px;
-  border: 1px solid #212A3E;
+  border: 1px solid #212a3e;
   overflow: hidden;
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgba(155, 164, 181, 0.4);
 }
 
 .card-wrap:hover {
   transform: scale(1.08);
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
-  rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   filter: none;
 }
 
@@ -92,12 +93,11 @@ body {
   border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
   display: grid;
   place-items: center;
-
 }
 
 .card-content {
   display: flex;
-  color: #212A3E;
+  color: #212a3e;
   flex-direction: column;
   align-items: center;
   width: 85%;
@@ -111,7 +111,6 @@ body {
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 20px;
-
 }
 
 .card-text {
@@ -134,22 +133,21 @@ body {
 
 .card-button {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 85%;
   margin: 0 auto;
   padding-bottom: 10px;
 }
-
 .card-btn {
-  --color: #39484A;
+  --color: #39484a;
   padding: 0.8em 1.7em;
   background-color: transparent;
-  border-radius: .3em;
+  border-radius: 0.3em;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   font-weight: 400;
   font-size: 17px;
   border: 1px solid;
@@ -157,15 +155,16 @@ body {
   text-transform: uppercase;
   color: var(--color);
   z-index: 1;
-  color: #212A3E;
+  color: #212a3e;
+  max-width: 150px;
 }
-.card-btn:disabled{
+.card-btn:disabled {
   cursor: not-allowed;
 }
 
 .card-btn::before,
 .card-btn::after {
-  content: '';
+  content: "";
   display: block;
   width: 30px;
   height: 30px;
@@ -175,7 +174,6 @@ body {
   z-index: -1;
   background-color: var(--color);
   transition: 1s ease;
-
 }
 
 .card-btn::before {
@@ -193,14 +191,18 @@ body {
   height: 410px;
   width: 410px;
 }
-.card-btn:enabled:hover{
-  color: #F1F6F9;
+.card-btn:enabled:hover {
+  color: #f1f6f9;
 }
 @media (max-width: 768px) {
-
-  .navbar h1,
-  .navbar p {
+  .navbar-container h1,
+  .navbar-container p {
     display: block;
     text-align: center;
+  }
+}
+@media (max-width: 500px) {
+  .card-btn {
+    padding: 0.5em 1em;
   }
 }

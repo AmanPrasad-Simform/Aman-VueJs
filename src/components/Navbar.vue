@@ -9,8 +9,6 @@
         <p>- Accelerate your journey with us.</p>
       </div>
       <div class="add-button-container">
-        <!-- Button trigger modal -->
-
         <button
           type="button"
           class="add-button"
@@ -64,5 +62,13 @@ export default {
   border-radius: 0.3em;
   background: transparent;
   color: white;
+}
+@media (max-width: 500px) {
+  .navbar-container p {
+    display: none;
+  }
+  .add-button {
+    padding: 0.6em 1.3em;
+  }
 }
 </style>

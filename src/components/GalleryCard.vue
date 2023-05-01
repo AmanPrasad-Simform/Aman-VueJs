@@ -37,7 +37,6 @@
         </div>
       </div>
     </div>
-    <!-- <CarForm :types="'edit'" /> -->
   </div>
 </template>
 
@@ -87,5 +86,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

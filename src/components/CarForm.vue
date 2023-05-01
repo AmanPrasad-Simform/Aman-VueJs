@@ -13,7 +13,7 @@
         <div class="modal-header">
           <h5
             class="modal-title"
-            style="color: #212a3e"
+            style="color: #39484a"
             id="staticBackdropLabel"
           >
             {{
@@ -47,7 +47,7 @@
               <VField
                 name="carPrice"
                 placeholder=" "
-                type="text"
+                type="number"
                 class="input"
                 v-model="car.carPrice"
               />
@@ -90,10 +90,12 @@
               <label for="carDetails">Car Details</label>
             </div>
             <div class="modal-footer">
-              <button type="reset" data-bs-dismiss="modal" @click="toggle">
+              <button type="reset" data-bs-dismiss="modal" class="aman">
                 Cancel
               </button>
-              <button type="submit" class="btn">Submit</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn">
+                Submit
+              </button>
             </div>
           </VForm>
         </div>
@@ -108,8 +110,6 @@ export default {
   name: "CarForm",
   props: {
     modalType: String,
-    addBtn: Boolean,
-    propps: String,
     carData: Object,
   },
   computed: {
@@ -125,31 +125,19 @@ export default {
   data() {
     return {
       schema: {
-        carName: "required|min:10|alphaSpaces",
+        carName: "required|min:3",
         carPrice: "required|integer",
         carURL: "required",
-        carDetails: "required",
+        carDetails: "required|min:5",
       },
     };
   },
   methods: {
-    resetCarData() {
-      // Reset the car object to its initial state
-      this.car = {
-        carName: " ",
-        carPrice: " ",
-        carURL: " ",
-        carDetails: " ",
-      };
-    },
-    toggle() {
-      return (this.addBtnStatus = !this.addBtnStatus);
-    },
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
     createCar() {
-      this.resetCar();
+      this.resetCar(); // Reset the car object to its initial state
       Swal.fire({
         title: `Car Details added Successfully!`,
         html: `
@@ -169,21 +157,11 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-}
-
 .title {
   font-size: 24px;
   font-weight: 600;
   text-align: center;
 }
-
 .form {
   margin-top: 20px;
   display: flex;
@@ -243,10 +221,10 @@ export default {
 }
 
 .form button {
-  background-color: #606d75;
+  background-color: #39484a;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3em;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;

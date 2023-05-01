@@ -139,7 +139,6 @@ body {
   margin: 0 auto;
   padding-bottom: 10px;
 }
-
 .card-btn {
   --color: #39484a;
   padding: 0.8em 1.7em;
@@ -196,9 +195,14 @@ body {
   color: #f1f6f9;
 }
 @media (max-width: 768px) {
-  .navbar h1,
-  .navbar p {
+  .navbar-container h1,
+  .navbar-container p {
     display: block;
     text-align: center;
+  }
+}
+@media (max-width: 500px) {
+  .card-btn {
+    padding: 0.5em 1em;
   }
 }

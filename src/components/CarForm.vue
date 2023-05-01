@@ -113,10 +113,10 @@ export default {
   computed: {
     car: function () {
       return {
-        carName: this.carData.carName || "",
-        carPrice: this.carData.carPrice || "",
-        carURL: this.carData.carURL || "",
-        carDetails: this.carData.carDetails || "",
+        carName: this.carData.name || "",
+        carPrice: this.carData.price || "",
+        carURL: this.carData.image || "",
+        carDetails: this.carData.details || "",
       };
     },
   },
@@ -134,7 +134,30 @@ export default {
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
+    editCar() {
+      this.axios
+        .put(`https://testapi.io/api/dartya/resource/cardata/`, {
+          name: this.car.carName,
+          price: this.car.carPrice,
+          image: this.car.carURL,
+          details: this.car.carDetails,
+        })
+        .then((response) => {
+          this.$emit("car-created", response.data); // emit event with name 'car-created' and response data
+        });
+    },
     createCar() {
+      this.axios
+        .put(`https://testapi.io/api/dartya/resource/cardata/`, {
+          name: this.car.carName,
+          price: this.car.carPrice,
+          image: this.car.carURL,
+          details: this.car.carDetails,
+        })
+        .then((response) => {
+          //here I want to call the method function of other component
+          this.$emit("car-created", response.data);
+        });
       this.resetCar(); // Reset the car object to its initial state
       Swal.fire({
         title: `Car Details added Successfully!`,

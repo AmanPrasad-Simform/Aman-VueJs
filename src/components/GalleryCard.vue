@@ -3,22 +3,22 @@
     <div class="card-container">
       <div class="card-wrap" v-for="car in carList" :key="car.carName">
         <div class="card-image">
-          <img :src="car.carURL" />
+          <img :src="car.image" />
         </div>
         <div class="card-content">
-          <h1 class="card-title">{{ car.carName }}</h1>
+          <h1 class="card-title">{{ car.name }}</h1>
           <p class="card-text">
-            {{ car.carDetails }}
+            {{ car.details }}
           </p>
         </div>
         <div class="card-button">
           <button
             class="card-btn one"
             @click="getPrice(car)"
-            :key="car.carName"
-            :disabled="car.carPrice == undefined"
+            :key="car.name"
+            :disabled="car.price == undefined"
           >
-            {{ car.carPrice == undefined ? "Coming Soon" : "Info" }}
+            {{ car.price == undefined ? "Available Soon" : "Info" }}
           </button>
           <div>
             <img
@@ -26,13 +26,8 @@
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               @click="editCarData(car)"
-              style="height: 30px"
             />
-            <img
-              src="../assets/deleteIcon.png"
-              @click="deleteCar"
-              style="height: 40px"
-            />
+            <img src="../assets/deleteIcon.png" @click="deleteCar(car.id)" />
           </div>
         </div>
       </div>
@@ -42,20 +37,27 @@
 
 <script>
 import CarForm from "./CarForm.vue";
-import carList from "../assets/carList.json";
+import carList from "../assets/CarList.json";
 import Swal from "sweetalert2";
-
+import * as Vue from "vue"; // in Vue 3
+import axios from "axios";
+import VueAxios from "vue-axios";
 export default {
   name: "GalleryCard",
   components: {
     CarForm,
   },
+  props: {},
   data() {
     return {
-      carList,
+      carList: {},
     };
   },
+
   methods: {
+    typeDefine() {
+      this.type = "edit";
+    },
     getPrice(car) {
       this.$emit("car-price", car);
     },
@@ -64,7 +66,8 @@ export default {
         ...car,
       }); //This creates a new object with the same properties as the car object that is being passed in.
     },
-    deleteCar() {
+    deleteCar(id) {
+      console.log(id);
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -75,6 +78,11 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
+          this.axios
+            .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+            .then((response) => {
+              this.getCarList();
+            });
           Swal.fire("Deleted!", "Your car has been deleted.", "success");
         }
       });

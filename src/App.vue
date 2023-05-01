@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     showPrice(car) {
-      swal(car.carName, "$" + car.carPrice);
+      swal(car.name, "$" + car.price);
     },
     openEditForm(car) {
       this.modalType = "edit";

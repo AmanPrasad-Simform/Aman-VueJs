@@ -68,7 +68,7 @@
               <ErrorMessage name="carURL" class="error_message" />
             </div>
             <div class="group">
-              <vField
+              <VField
                 name="carDetails"
                 :bails="false"
                 v-slot="{ field, errors }"
@@ -86,15 +86,13 @@
                 <div class="error_message" v-for="err in errors" :key="err">
                   {{ err }}
                 </div>
-              </vField>
+              </VField>
               <label for="carDetails">Car Details</label>
             </div>
             <div class="modal-footer">
-              <button type="reset" data-bs-dismiss="modal" class="aman">
-                Cancel
-              </button>
-              <button type="submit" data-bs-dismiss="modal" class="btn">
-                Submit
+              <button type="reset" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" data-bs-dismiss="modal">
+                {{ modalType === "add" ? "Submit" : "Update" }}
               </button>
             </div>
           </VForm>
@@ -125,10 +123,10 @@ export default {
   data() {
     return {
       schema: {
-        carName: "required|min:3",
+        carName: "required|min:5|alphaSpaces",
         carPrice: "required|integer",
-        carURL: "required",
-        carDetails: "required|min:5",
+        carURL: "required|URL",
+        carDetails: "required|min:3|max:120",
       },
     };
   },
@@ -188,7 +186,6 @@ export default {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  /* margin-bottom: 20px; */
   outline: 0;
   width: 100%;
   background-color: transparent;
@@ -238,6 +235,5 @@ export default {
 .error_message {
   color: red;
   position: relative;
-  /* top: -20px; */
 }
 </style>

@@ -31,15 +31,9 @@ export default {
     CarForm,
   },
   methods: {
-    reset() {},
     addCarData(car) {
       this.$emit("add-car", car);
     },
-  },
-  data() {
-    return {
-      addBtn: true,
-    };
   },
 };
 </script>

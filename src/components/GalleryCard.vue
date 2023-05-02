@@ -50,16 +50,12 @@ export default {
   components: {
     CarForm,
   },
-  props: {},
   data() {
     return {
       carList,
     };
   },
   methods: {
-    typeDefine() {
-      this.type = "edit";
-    },
     getPrice(car) {
       this.$emit("car-price", car);
     },

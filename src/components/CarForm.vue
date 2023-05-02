@@ -30,56 +30,56 @@
           ></button>
         </div>
         <div class="modal-body">
-          <VForm class="form" :validation-schema="schema" @submit="createCar">
+          <VForm class="form" :validation-schema="schema" @submit="submitBtn">
             <div class="group">
               <VField
-                name="carName"
+                name="name"
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.carName"
+                v-model="car.name"
               />
-              <label for="carName"> Car Name </label>
+              <label for="name"> Car Name </label>
 
-              <ErrorMessage name="carName" class="error_message" />
+              <ErrorMessage name="name" class="error_message" />
             </div>
             <div class="group">
               <VField
-                name="carPrice"
+                name="price"
                 placeholder=" "
                 type="number"
                 class="input"
-                v-model="car.carPrice"
+                v-model="car.price"
               />
-              <label for="carPrice">Price</label>
-              <ErrorMessage name="carPrice" class="error_message" />
+              <label for="price">Price</label>
+              <ErrorMessage name="price" class="error_message" />
             </div>
 
             <div class="group">
               <VField
-                name="carURL"
+                name="image"
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.carURL"
+                v-model="car.image"
               />
 
-              <label for="carURL">Image URL</label>
-              <ErrorMessage name="carURL" class="error_message" />
+              <label for="image">Image URL</label>
+              <ErrorMessage name="image" class="error_message" />
             </div>
             <div class="group">
               <VField
                 name="carDetails"
                 :bails="false"
                 v-slot="{ field, errors }"
-                v-model="car.carDetails"
+                v-model="car.details"
               >
                 <textarea
                   type="text"
                   placeholder=" "
                   id="comment"
                   class="textarea"
-                  name="carDetails"
+                  name="details"
                   rows="3"
                   v-bind="field"
                 />
@@ -87,22 +87,24 @@
                   {{ err }}
                 </div>
               </VField>
-              <label for="carDetails">Car Details</label>
+              <label for="details">Car Details</label>
             </div>
             <div class="modal-footer">
               <button type="reset" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" data-bs-dismiss="modal">
-                {{ modalType === "add" ? "Submit" : "Update" }}
+                {{ modalType }}
               </button>
             </div>
           </VForm>
         </div>
       </div>
     </div>
+    <!-- <GalleryCard ref="gallery" /> -->
   </div>
 </template>
 
 <script>
+import { postCarDetails, putCarDetails } from "../api/api.js";
 import Swal from "sweetalert2";
 export default {
   name: "CarForm",
@@ -110,23 +112,26 @@ export default {
     modalType: String,
     carData: Object,
   },
-  computed: {
-    car: function () {
-      return {
-        carName: this.carData.name || "",
-        carPrice: this.carData.price || "",
-        carURL: this.carData.image || "",
-        carDetails: this.carData.details || "",
-      };
+  watch: {
+    carData: {
+      handler(newVal) {
+        this.car = newVal;
+      },
     },
   },
   data() {
     return {
       schema: {
-        carName: "required|min:5|alphaSpaces",
-        carPrice: "required|integer",
-        carURL: "required|URL",
-        carDetails: "required|min:3|max:120",
+        name: "required|min:5|alphaSpaces",
+        price: "required|integer",
+        image: "required|URL",
+        details: "required|min:30|max:120",
+      },
+      car: {
+        name: "",
+        price: Number,
+        image: "",
+        details: "",
       },
     };
   },
@@ -137,36 +142,33 @@ export default {
     editCar() {
       this.axios
         .put(`https://testapi.io/api/dartya/resource/cardata/`, {
-          name: this.car.carName,
-          price: this.car.carPrice,
-          image: this.car.carURL,
-          details: this.car.carDetails,
+          name: this.car.name,
+          price: this.car.price,
+          image: this.car.image,
+          details: this.car.details,
         })
         .then((response) => {
-          this.$emit("car-created", response.data); // emit event with name 'car-created' and response data
+          // this.$emit("car-created", response.data); // emit event with name 'car-edited' and response data
         });
     },
-    createCar() {
-      this.axios
-        .put(`https://testapi.io/api/dartya/resource/cardata/`, {
-          name: this.car.carName,
-          price: this.car.carPrice,
-          image: this.car.carURL,
-          details: this.car.carDetails,
-        })
-        .then((response) => {
-          //here I want to call the method function of other component
-          this.$emit("car-created", response.data);
-        });
+    async submitBtn() {
+      const temp = this.modalType;
+      let resp = {};
+      if (temp !== "edit") {
+        resp = await postCarDetails(this.car);
+      } else {
+        resp = await putCarDetails(this.car);
+      }
+      this.$emit("car-created");
       this.resetCar(); // Reset the car object to its initial state
       Swal.fire({
         title: `Car Details added Successfully!`,
         html: `
       <div>
-        <img src="${this.car.carURL}" alt="Logo" style="width: 300px;" />
-        <h3>car: ${this.car.carName}</h3>
-        <p>Price: ${this.car.carPrice}</p>
-        <p>Details: ${this.car.carDetails}</p>
+        <img src="${this.car.image}" alt="Logo" style="width: 300px;" />
+        <h3>car: ${this.car.name}</h3>
+        <p>Price: ${this.car.price}</p>
+        <p>Details: ${this.car.details}</p>
       </div>
   `,
         showCloseButton: false,
@@ -183,6 +185,7 @@ export default {
   font-weight: 600;
   text-align: center;
 }
+
 .form {
   margin-top: 20px;
   display: flex;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card-container">
-      <div class="card-wrap" v-for="car in carList" :key="car.carName">
+      <div class="card-wrap" v-for="car in carDetails" :key="car.name">
         <div class="card-image">
           <img :src="car.image" />
         </div>
@@ -32,28 +32,40 @@
         </div>
       </div>
     </div>
+    <!-- <CarForm @car-created="getCarList" /> -->
   </div>
 </template>
 
 <script>
+import { getCarDetails, deleteCarDetails } from "../api/api.js";
 import CarForm from "./CarForm.vue";
 import carList from "../assets/CarList.json";
 import Swal from "sweetalert2";
 import * as Vue from "vue"; // in Vue 3
 import axios from "axios";
 import VueAxios from "vue-axios";
+
 export default {
   name: "GalleryCard",
   components: {
     CarForm,
   },
-  props: {},
-  data() {
-    return {
-      carList: {},
-    };
-  },
 
+  props: {
+    carList: Object,
+  },
+  // data() {
+  //   return {
+  //     carList: {},
+  //   };
+  // },
+  watch: {
+    carList: {
+      handler(newValue) {
+        this.carDetails = [...newValue];
+      },
+    },
+  },
   methods: {
     typeDefine() {
       this.type = "edit";
@@ -76,13 +88,12 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
-          this.axios
-            .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
-            .then((response) => {
-              this.getCarList();
-            });
+          console.log("Herererer");
+          await deleteCarDetails(id);
+          this.carDetails = await getCarDetails();
+          this.$emit("car-deleted");
           Swal.fire("Deleted!", "Your car has been deleted.", "success");
         }
       });

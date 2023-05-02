@@ -139,25 +139,21 @@ export default {
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
-    editCar() {
-      this.axios
-        .put(`https://testapi.io/api/dartya/resource/cardata/`, {
-          name: this.car.name,
-          price: this.car.price,
-          image: this.car.image,
-          details: this.car.details,
-        })
-        .then((response) => {
-          // this.$emit("car-created", response.data); // emit event with name 'car-edited' and response data
-        });
-    },
     async submitBtn() {
       const temp = this.modalType;
       let resp = {};
       if (temp !== "edit") {
-        resp = await postCarDetails(this.car);
+        try {
+          resp = await postCarDetails(this.car);
+        } catch (e) {
+          alert(e);
+        }
       } else {
-        resp = await putCarDetails(this.car);
+        try {
+          resp = await putCarDetails(this.car);
+        } catch (e) {
+          alert(e);
+        }
       }
       this.$emit("car-created");
       this.resetCar(); // Reset the car object to its initial state

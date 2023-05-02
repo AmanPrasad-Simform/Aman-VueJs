@@ -32,7 +32,6 @@
         </div>
       </div>
     </div>
-    <!-- <CarForm @car-created="getCarList" /> -->
   </div>
 </template>
 
@@ -41,9 +40,7 @@ import { getCarDetails, deleteCarDetails } from "../api/api.js";
 import CarForm from "./CarForm.vue";
 import carList from "../assets/CarList.json";
 import Swal from "sweetalert2";
-import * as Vue from "vue"; // in Vue 3
 import axios from "axios";
-import VueAxios from "vue-axios";
 
 export default {
   name: "GalleryCard",
@@ -54,11 +51,6 @@ export default {
   props: {
     carList: Object,
   },
-  // data() {
-  //   return {
-  //     carList: {},
-  //   };
-  // },
   watch: {
     carList: {
       handler(newValue) {

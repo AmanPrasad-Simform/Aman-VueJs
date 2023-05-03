@@ -1,74 +1,63 @@
 <template>
-  <div>
-    <div class="navbar-container">
-      <div class="navbar-logo">
-        <div class="navbar-title">
-          <h1>CarNation</h1>
-          <img src="/favicon-car.png" />
-        </div>
-        <p>- Accelerate your journey with us.</p>
-      </div>
-      <div class="add-button-container">
-        <button
-          type="button"
-          class="add-button"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          @click="addCarData"
-        >
-          ADD
-        </button>
-      </div>
-    </div>
+  <div class="navbar">
+    <h1>{{ carShowRoomName }}</h1>
+    <p>{{ tagLine }}</p>
   </div>
 </template>
 
 <script>
-import CarForm from "./CarForm.vue";
 export default {
   name: "Navbar",
-  components: {
-    CarForm,
-  },
-  methods: {
-    reset() {},
-    addCarData(car) {
-      this.$emit("add-car", car);
-    },
-  },
   data() {
     return {
-      addBtn: true,
+      carShowRoomName: "CarNation",
+      tagLine: "Accelerate your journey with us.",
     };
   },
 };
 </script>
 
 <style scoped>
-.navbar-logo {
-  display: "flex";
-  justify-content: "space-evenly";
+.navbar {
+  background-color: #394867;
+  overflow: hidden;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  z-index: 10;
 }
 
-.add-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.navbar h1 {
+  line-height: 1;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 40px;
+  background: #f1f6f9;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.add-button {
-  border: 1px solid white;
-  padding: 0.8em 1.7em;
-  border-radius: 0.3em;
-  background: transparent;
-  color: white;
+.navbar p {
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: #f1f6f9;
+  font-size: 20px;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-@media (max-width: 500px) {
-  .navbar-container p {
-    display: none;
-  }
-  .add-button {
-    padding: 0.6em 1.3em;
+
+@media (max-width: 768px) {
+  .navbar h1,
+  .navbar p {
+    display: block;
+    text-align: center;
   }
 }
 </style>

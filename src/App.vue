@@ -9,7 +9,7 @@
 <script>
 import GalleryCard from "./components/GalleryCard.vue";
 import CarForm from "./components/CarForm.vue";
-import "./assets/GalleryCard.css";
+import "./assets/style.css";
 
 export default {
   components: { GalleryCard, CarForm },

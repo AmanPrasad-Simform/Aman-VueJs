@@ -3,10 +3,10 @@
     <div class="navbar-container">
       <div class="navbar-logo">
         <div class="navbar-title">
-          <h1>CarNation</h1>
+          <h1>{{ carShowRoomName }}</h1>
           <img src="/favicon-car.png" />
         </div>
-        <p>- Accelerate your journey with us.</p>
+        <p>{{ tagLine }}</p>
       </div>
       <div class="add-button-container">
         <button
@@ -27,6 +27,12 @@
 import CarForm from "./CarForm.vue";
 export default {
   name: "Navbar",
+  data() {
+    return {
+      carShowRoomName: "CarNation",
+      tagLine: "- Accelerate your journey with us.",
+    };
+  },
   components: {
     CarForm,
   },
@@ -39,6 +45,50 @@ export default {
 </script>
 
 <style scoped>
+.navbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-title img {
+  width: 65px;
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #39484a;
+  overflow: hidden;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  z-index: 10;
+}
+.navbar-container h1 {
+  line-height: 1;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 35px;
+  background: #f1f6f9;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar-container p {
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: #f1f6f9;
+  font-size: 20px;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .navbar-logo {
   display: "flex";
   justify-content: "space-evenly";
@@ -63,6 +113,13 @@ export default {
   }
   .add-button {
     padding: 0.6em 1.3em;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-container h1,
+  .navbar-container p {
+    display: block;
+    text-align: center;
   }
 }
 </style>

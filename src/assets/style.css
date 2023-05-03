@@ -1,0 +1,11 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.card-text::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: #f1f6f9;
+}

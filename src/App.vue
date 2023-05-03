@@ -1,14 +1,14 @@
 <template>
-<Navbar />
-<galleryCard/>
+  <Navbar />
+  <GalleryCard />
 </template>
 
 <script>
-import galleryCard from './components/gallery-card.vue';
-import Navbar from './components/Navbar.vue'
-import './assests/gallery-cars.css';
+import GalleryCard from "./components/GalleryCard.vue";
+import Navbar from "./components/Navbar.vue";
+import "./assets/style.css";
 
 export default {
-  components: { galleryCard, Navbar },
-}
+  components: { GalleryCard, Navbar },
+};
 </script>

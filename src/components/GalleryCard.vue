@@ -1,58 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap');
-* {
-  margin: 0px;
-  padding: 0px;
-}
- .card-text::-webkit-scrollbar {
-  display: none;
-}
+<template>
+  <div class="card-container">
+    <div class="card-wrap" v-for="car in carList" :key="car.carName">
+      <div class="card-image">
+        <img :src="car.carImage" />
+      </div>
+      <div class="card-content">
+        <h1 class="card-title">{{ car.carName }}</h1>
+        <p class="card-text">
+          {{ car.carDescription }}
+        </p>
+      </div>
+      <div class="card-button">
+        <button
+          class="card-btn one"
+          @click="getPrice(car.carName, car.carPrice)"
+        >
+          Info
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
 
-body {
-  font-family: 'Raleway';
-  background: #F1F6F9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+<script>
+import carList from "../assets/carList.json";
+export default {
+  name: "GalleryCard",
+  data() {
+    return {
+      carList,
+    };
+  },
+  methods: {
+    getPrice(carName, carPrice) {
+      swal(carName, "$" + carPrice);
+    },
+  },
+};
+</script>
 
-.navbar {
-  background-color: #394867;
-  overflow: hidden;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  text-align: center;
-  z-index: 10;
-}
-
-.navbar h1 {
-  line-height: 1;
-  padding: 0.5rem;
-  font-weight: 600;
-  font-size: 40px;
-  background: #F1F6F9;
-  background-size: cover;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.navbar p {
-  line-height: 1;
-  margin: 0;
-  padding: 0.5rem;
-  font-weight: 600;
-  background: #F1F6F9;
-  font-size: 20px;
-  background-size: cover;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
+<style scoped>
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -65,17 +52,16 @@ body {
 .card-wrap {
   width: 290px;
   border-radius: 20px;
-  border: 1px solid #212A3E;
+  border: 1px solid #212a3e;
   overflow: hidden;
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgba(155, 164, 181, 0.4);
 }
 
 .card-wrap:hover {
   transform: scale(1.08);
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
-  rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   filter: none;
 }
 
@@ -85,12 +71,11 @@ body {
   border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
   display: grid;
   place-items: center;
-
 }
 
 .card-content {
   display: flex;
-  color: #212A3E;
+  color: #212a3e;
   flex-direction: column;
   align-items: center;
   width: 85%;
@@ -104,7 +89,6 @@ body {
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 20px;
-
 }
 
 .card-text {
@@ -138,11 +122,11 @@ body {
   --color: #394867;
   padding: 0.8em 1.7em;
   background-color: transparent;
-  border-radius: .3em;
+  border-radius: 0.3em;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   font-weight: 400;
   font-size: 17px;
   border: 1px solid;
@@ -150,13 +134,12 @@ body {
   text-transform: uppercase;
   color: var(--color);
   z-index: 1;
-  color: #212A3E;
-
+  color: #212a3e;
 }
 
 .card-btn::before,
 .card-btn::after {
-  content: '';
+  content: "";
   display: block;
   width: 30px;
   height: 30px;
@@ -166,7 +149,6 @@ body {
   z-index: -1;
   background-color: var(--color);
   transition: 1s ease;
-
 }
 
 .card-btn::before {
@@ -184,15 +166,7 @@ body {
   height: 410px;
   width: 410px;
 }
-.card-btn:hover{
-  color: #F1F6F9;
-  ;
+.card-btn:hover {
+  color: #f1f6f9;
 }
-@media (max-width: 768px) {
-
-  .navbar h1,
-  .navbar p {
-    display: block;
-    text-align: center;
-  }
-}
+</style>

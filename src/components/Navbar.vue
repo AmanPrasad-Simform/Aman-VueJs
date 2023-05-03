@@ -1,6 +1,9 @@
 <template>
   <div class="navbar">
-    <h1>{{ carShowRoomName }}</h1>
+    <div class="navbar-logo">
+      <h1>{{ carShowRoomName }}</h1>
+      <img src="/favicon-car.png" />
+    </div>
     <p>{{ tagLine }}</p>
   </div>
 </template>
@@ -19,7 +22,7 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: #394867;
+  background-color: #39484a;
   overflow: hidden;
   width: 100%;
   position: sticky;
@@ -27,12 +30,19 @@ export default {
   text-align: center;
   z-index: 10;
 }
-
+.navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-logo img {
+  width: 65px;
+}
 .navbar h1 {
   line-height: 1;
   padding: 0.5rem;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 35px;
   background: #f1f6f9;
   background-size: cover;
   -webkit-background-clip: text;

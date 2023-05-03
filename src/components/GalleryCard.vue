@@ -13,9 +13,11 @@
       <div class="card-button">
         <button
           class="card-btn one"
-          @click="getPrice(car.carName, car.carPrice)"
+          @click="getPrice(car)"
+          :key="car.carName"
+          :disabled="car.carPrice == undefined"
         >
-          Info
+          {{ car.carPrice == undefined ? "Available Soon" : "Info" }}
         </button>
       </div>
     </div>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import carList from "../assets/carList.json";
+import carList from "../assets/CarList.json";
 export default {
   name: "GalleryCard",
   data() {
@@ -32,8 +34,8 @@ export default {
     };
   },
   methods: {
-    getPrice(carName, carPrice) {
-      swal(carName, "$" + carPrice);
+    getPrice(car) {
+      this.$emit("car-price", car);
     },
   },
 };
@@ -111,7 +113,7 @@ export default {
 
 .card-button {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   width: 85%;
   margin: 0 auto;
@@ -134,7 +136,6 @@ export default {
   color: var(--color);
   z-index: 1;
   color: #212a3e;
-  max-width: 150px;
 }
 .card-btn:disabled {
   cursor: not-allowed;
@@ -171,17 +172,5 @@ export default {
 }
 .card-btn:enabled:hover {
   color: #f1f6f9;
-}
-@media (max-width: 768px) {
-  .navbar-container h1,
-  .navbar-container p {
-    display: block;
-    text-align: center;
-  }
-}
-@media (max-width: 500px) {
-  .card-btn {
-    padding: 0.5em 1em;
-  }
 }
 </style>

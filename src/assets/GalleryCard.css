@@ -1,45 +1,67 @@
-<template>
-  <div class="card-container">
-    <div class="card-wrap" v-for="car in carList" :key="car.carName">
-      <div class="card-image">
-        <img :src="car.carImage" />
-      </div>
-      <div class="card-content">
-        <h1 class="card-title">{{ car.carName }}</h1>
-        <p class="card-text">
-          {{ car.carDescription }}
-        </p>
-      </div>
-      <div class="card-button">
-        <button
-          class="card-btn one"
-          @click="getPrice(car.carName, car.carPrice)"
-        >
-          Info
-        </button> 
-      </div>
-    </div>
-  </div>
-</template>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.card-text::-webkit-scrollbar {
+  display: none;
+}
 
-<script>
-import carList from "../assets/carList.json";
-export default {
-  name: "GalleryCard",
-  data() {
-    return {
-      carList,
-    };
-  },
-  methods: {
-    getPrice(carName, carPrice) {
-      swal(carName, "$" + carPrice);
-    },
-  },
-};
-</script>
+body {
+  font-family: "Raleway";
+  background: #f1f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-<style scoped>
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #39484a;
+  overflow: hidden;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  z-index: 10;
+}
+.navbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-title img {
+  width: 65px;
+}
+.navbar-container h1 {
+  line-height: 1;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 35px;
+  background: #f1f6f9;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar-container p {
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: #f1f6f9;
+  font-size: 20px;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -111,15 +133,14 @@ export default {
 
 .card-button {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 85%;
   margin: 0 auto;
   padding-bottom: 10px;
 }
-
 .card-btn {
-  --color: #394867;
+  --color: #39484a;
   padding: 0.8em 1.7em;
   background-color: transparent;
   border-radius: 0.3em;
@@ -135,6 +156,10 @@ export default {
   color: var(--color);
   z-index: 1;
   color: #212a3e;
+  max-width: 150px;
+}
+.card-btn:disabled {
+  cursor: not-allowed;
 }
 
 .card-btn::before,
@@ -161,13 +186,23 @@ export default {
   top: calc(100% + 1em);
 }
 
-.card-btn:hover::before,
-.card-btn:hover::after {
+.card-btn:enabled:hover::before,
+.card-btn:enabled:hover::after {
   height: 410px;
   width: 410px;
 }
-.card-btn:hover {
+.card-btn:enabled:hover {
   color: #f1f6f9;
 }
-</style>
-
+@media (max-width: 768px) {
+  .navbar-container h1,
+  .navbar-container p {
+    display: block;
+    text-align: center;
+  }
+}
+@media (max-width: 500px) {
+  .card-btn {
+    padding: 0.5em 1em;
+  }
+}

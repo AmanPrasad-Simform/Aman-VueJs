@@ -2,6 +2,7 @@
   <div class="navbar">
     <h1>{{ carShowRoomName }}</h1>
     <p>{{ tagLine }}</p>
+
   </div>
 </template>
 

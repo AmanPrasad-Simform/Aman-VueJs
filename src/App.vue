@@ -10,5 +10,6 @@ import "./assets/style.css";
 
 export default {
   components: { GalleryCard, Navbar },
+
 };
 </script>

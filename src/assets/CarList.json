@@ -1,0 +1,116 @@
+[
+    {
+        "carName": "Range Rover Sports",
+        "carDetails": "Land Rover is crafted to reflect bold design with genuine capability & composure at heart. A reflection of modernity. Captivating in its simplicity.",
+        "carURL": "https://www.freeiconspng.com/uploads/land-rover-range-rover-car-png-25.png"
+    },
+    {
+        "carName": "Audi Suv 300",
+        "carPrice": "50000",
+        "carDetails": "The Audi A4 is a 3 cylinder car and has length of 3995mm, width of 1795mm and a wheelbase of 2680mm.",
+        "carURL": "https://www.freeiconspng.com/thumbs/car-png/red-sports-car-png-1.png"
+    },
+    {
+        "carName": "Mahindra Thar",
+        "carPrice": "25000",
+        "carDetails": "The Mahindra Thar is a rugged SUV with an iconic design and excellent off-road capabilities. It comes with a choice of petrol and diesel engines, and offers advanced features like touchscreen infotainment and cruise control.",
+        "carURL": "https://www.pharaohautomotive.com/wp-content/uploads/2022/06/Mahindra-Thar.png"
+    },
+    {
+        "carName": "Honda City",
+        "carDetails": "The Honda City is a premium sedan with a sleek and modern design. It comes with a range of advanced features including a touchscreen infotainment system, automatic climate control, and a sunroof.",
+        "carURL": "https://www.pngmart.com/files/22/Honda-City-PNG-Transparent.png"
+    },
+    {
+        "carName": "Audi A8L",
+        "carPrice": "90000",
+        "carDetails": "The Audi is sporty vehicles, high build quality and progressive design, is a stylish and spacious SUV with a range of advanced features. It comes with a choice of petrol and diesel engines, and offers excellent performance on both city and highway roads.",
+        "carURL": "https://www.freeiconspng.com/uploads/audi-jeep-q3-car-png-7.png"
+    },
+    {
+        "carName": "Toyota Fortuner",
+        "carPrice": "30000",
+        "carDetails": "The Toyota Fortuner is a powerful SUV with a bold and rugged design. It comes with a choice of petrol and diesel engines,and offers features like  touchscreen infotainment system and panoramic sunroof.",
+        "carURL": "https://www.freepnglogos.com/uploads/fortuner-png/fortuner-gxl-automatic-melville-toyota-2.png"
+    },
+    {
+        "carName": "Maruti Suzuki Swift",
+        "carPrice": "8000",
+        "carDetails": "The Maruti Suzuki Swift is a popular hatchback known for its sporty looks and excellent performance. It comes with a 1.2L petrol engine and offers great fuel efficiency, making it a top choice for city driving.",
+        "carURL": "https://marutisuzukiarenaprodcdn.azureedge.net/-/media/images/maruti/marutisuzuki/car/car-profile-shots/swift-launch-2021/fireredmidnightblack.webp"
+    },
+    {
+        "carName": "Maruti Suzuki Alto",
+        "carDetails": "The Maruti Suzuki Alto is a budget-friendly hatchback with a simple yet functional design. It comes with a choice of petrol engines and offers great fuel efficiency, making it a top choice for first-time car buyers.",
+        "carURL": "https://marutisuzukiarenaprodcdn.azureedge.net/-/media/images/maruti/marutisuzuki/car/car-profile-shots/alto-800/alto800_blazing_red/alto800_blazing_red_new.ashx"
+    },
+    {
+        "carName": "Lamborghini",
+        "carPrice": "150000",
+        "carDetails": "Compared to other supercar brands, Lamborghini is almost new in the car industry but has left others behind. The high-end performance, design and comfort of these supercars make them extremely special.",
+        "carURL": "https://www.freeiconspng.com/uploads/lamborghini-car-png-4.png"
+    },
+    {
+        "carName": "Mahindra XUV300",
+        "carPrice": "30000",
+        "carDetails": "The Mahindra XUV300 is a stylish and spacious SUV with a range of advanced features. It comes with a choice of petrol and diesel engines, and offers excellent performance and fuel efficiency.",
+        "carURL": "https://prog-ace-cdn.azureedge.net/-/media/project/mahindra/dotcom/mahindra/dark-theme-mahindra-images/hello-xuv/xuv-300/xuv300_-dark-theme-_-hello-xuv_1920x745px_-desktop.png?rev=d70dcda99ef04ee3a2cc77ed3c9a0966"
+    },
+    {
+        "carName": "Range Rover Sports",
+        "carDetails": "Land Rover is crafted to reflect bold design with genuine capability & composure at heart. A reflection of modernity. Captivating in its simplicity.",
+        "carURL": "https://www.freeiconspng.com/uploads/land-rover-range-rover-car-png-25.png"
+    },
+    {
+        "carName": "Audi Suv 300",
+        "carPrice": "50000",
+        "carDetails": "The Audi A4 is a 3 cylinder car and has length of 3995mm, width of 1795mm and a wheelbase of 2680mm.",
+        "carURL": "https://www.freeiconspng.com/thumbs/car-png/red-sports-car-png-1.png"
+    },
+    {
+        "carName": "Mahindra Thar",
+        "carPrice": "25000",
+        "carDetails": "The Mahindra Thar is a rugged SUV with an iconic design and excellent off-road capabilities. It comes with a choice of petrol and diesel engines, and offers advanced features like touchscreen infotainment and cruise control.",
+        "carURL": "https://www.pharaohautomotive.com/wp-content/uploads/2022/06/Mahindra-Thar.png"
+    },
+    {
+        "carName": "Honda City",
+        "carDetails": "The Honda City is a premium sedan with a sleek and modern design. It comes with a range of advanced features including a touchscreen infotainment system, automatic climate control, and a sunroof.",
+        "carURL": "https://www.pngmart.com/files/22/Honda-City-PNG-Transparent.png"
+    },
+    {
+        "carName": "Audi A8L",
+        "carPrice": "90000",
+        "carDetails": "The Audi is sporty vehicles, high build quality and progressive design, is a stylish and spacious SUV with a range of advanced features. It comes with a choice of petrol and diesel engines, and offers excellent performance on both city and highway roads.",
+        "carURL": "https://www.freeiconspng.com/uploads/audi-jeep-q3-car-png-7.png"
+    },
+    {
+        "carName": "Toyota Fortuner",
+        "carPrice": "30000",
+        "carDetails": "The Toyota Fortuner is a powerful SUV with a bold and rugged design. It comes with a choice of petrol and diesel engines,and offers features like  touchscreen infotainment system and panoramic sunroof.",
+        "carURL": "https://www.freepnglogos.com/uploads/fortuner-png/fortuner-gxl-automatic-melville-toyota-2.png"
+    },
+    {
+        "carName": "Maruti Suzuki Swift",
+        "carPrice": "8000",
+        "carDetails": "The Maruti Suzuki Swift is a popular hatchback known for its sporty looks and excellent performance. It comes with a 1.2L petrol engine and offers great fuel efficiency, making it a top choice for city driving.",
+        "carURL": "https://marutisuzukiarenaprodcdn.azureedge.net/-/media/images/maruti/marutisuzuki/car/car-profile-shots/swift-launch-2021/fireredmidnightblack.webp"
+    },
+    {
+        "carName": "Maruti Suzuki Alto",
+        "carDetails": "The Maruti Suzuki Alto is a budget-friendly hatchback with a simple yet functional design. It comes with a choice of petrol engines and offers great fuel efficiency, making it a top choice for first-time car buyers.",
+        "carURL": "https://marutisuzukiarenaprodcdn.azureedge.net/-/media/images/maruti/marutisuzuki/car/car-profile-shots/alto-800/alto800_blazing_red/alto800_blazing_red_new.ashx"
+    },
+    {
+        "carName": "Lamborghini",
+        "carPrice": "150000",
+        "carDetails": "Compared to other supercar brands, Lamborghini is almost new in the car industry but has left others behind. The high-end performance, design and comfort of these supercars make them extremely special.",
+        "carURL": "https://www.freeiconspng.com/uploads/lamborghini-car-png-4.png"
+    },
+    {
+        "carName": "Mahindra XUV300",
+        "carPrice": "30000",
+        "carDetails": "The Mahindra XUV300 is a stylish and spacious SUV with a range of advanced features. It comes with a choice of petrol and diesel engines, and offers excellent performance and fuel efficiency.",
+        "carURL": "https://prog-ace-cdn.azureedge.net/-/media/project/mahindra/dotcom/mahindra/dark-theme-mahindra-images/hello-xuv/xuv-300/xuv300_-dark-theme-_-hello-xuv_1920x745px_-desktop.png?rev=d70dcda99ef04ee3a2cc77ed3c9a0966"
+    }
+]

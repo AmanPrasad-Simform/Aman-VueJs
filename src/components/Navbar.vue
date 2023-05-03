@@ -1,27 +1,61 @@
 <template>
-  <div class="navbar">
-    <div class="navbar-logo">
-      <h1>{{ carShowRoomName }}</h1>
-      <img src="/favicon-car.png" />
+  <div>
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <div class="navbar-title">
+          <h1>{{ carShowRoomName }}</h1>
+          <img src="/favicon-car.png" />
+        </div>
+        <p>{{ tagLine }}</p>
+      </div>
+      <div class="add-button-container">
+        <button
+          type="button"
+          class="add-button"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          @click="addCarData"
+        >
+          ADD
+        </button>
+      </div>
     </div>
-    <p>{{ tagLine }}</p>
   </div>
 </template>
 
 <script>
+import CarForm from "./CarForm.vue";
 export default {
   name: "Navbar",
   data() {
     return {
       carShowRoomName: "CarNation",
-      tagLine: "Accelerate your journey with us.",
+      tagLine: "- Accelerate your journey with us.",
     };
+  },
+  components: {
+    CarForm,
+  },
+  methods: {
+    addCarData(car) {
+      this.$emit("add-car", car);
+    },
   },
 };
 </script>
 
 <style scoped>
-.navbar {
+.navbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-title img {
+  width: 65px;
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
   background-color: #39484a;
   overflow: hidden;
   width: 100%;
@@ -30,15 +64,7 @@ export default {
   text-align: center;
   z-index: 10;
 }
-.navbar-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.navbar-logo img {
-  width: 65px;
-}
-.navbar h1 {
+.navbar-container h1 {
   line-height: 1;
   padding: 0.5rem;
   font-weight: 600;
@@ -50,7 +76,7 @@ export default {
   -webkit-text-fill-color: transparent;
 }
 
-.navbar p {
+.navbar-container p {
   line-height: 1;
   margin: 0;
   padding: 0.5rem;
@@ -63,9 +89,35 @@ export default {
   -webkit-text-fill-color: transparent;
 }
 
+.navbar-logo {
+  display: "flex";
+  justify-content: "space-evenly";
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-button {
+  border: 1px solid white;
+  padding: 0.8em 1.7em;
+  border-radius: 0.3em;
+  background: transparent;
+  color: white;
+}
+@media (max-width: 500px) {
+  .navbar-container p {
+    display: none;
+  }
+  .add-button {
+    padding: 0.6em 1.3em;
+  }
+}
 @media (max-width: 768px) {
-  .navbar h1,
-  .navbar p {
+  .navbar-container h1,
+  .navbar-container p {
     display: block;
     text-align: center;
   }

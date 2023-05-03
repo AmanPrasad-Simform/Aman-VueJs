@@ -1,33 +1,55 @@
 <template>
-  <div class="card-container">
-    <div class="card-wrap" v-for="car in carList" :key="car.carName">
-      <div class="card-image">
-        <img :src="car.carImage" />
-      </div>
-      <div class="card-content">
-        <h1 class="card-title">{{ car.carName }}</h1>
-        <p class="card-text">
-          {{ car.carDescription }}
-        </p>
-      </div>
-      <div class="card-button">
-        <button
-          class="card-btn one"
-          @click="getPrice(car)"
-          :key="car.carName"
-          :disabled="car.carPrice == undefined"
-        >
-          {{ car.carPrice == undefined ? "Available Soon" : "Info" }}
-        </button>
+  <div>
+    <div class="card-container">
+      <div class="card-wrap" v-for="car in carList" :key="car.carName">
+        <div class="card-image">
+          <img :src="car.carURL" />
+        </div>
+        <div class="card-content">
+          <h1 class="card-title">{{ car.carName }}</h1>
+          <p class="card-text">
+            {{ car.carDetails }}
+          </p>
+        </div>
+        <div class="card-button">
+          <button
+            class="card-btn one"
+            @click="getPrice(car)"
+            :key="car.carName"
+            :disabled="car.carPrice == undefined"
+          >
+            {{ car.carPrice == undefined ? "Coming Soon" : "Info" }}
+          </button>
+          <div>
+            <img
+              src="../assets/editIcon.png"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              @click="editCarData(car)"
+              style="height: 30px"
+            />
+            <img
+              src="../assets/deleteIcon.png"
+              @click="deleteCar"
+              style="height: 40px"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import carList from "../assets/CarList.json";
+import CarForm from "./CarForm.vue";
+import carList from "../assets/carList.json";
+import Swal from "sweetalert2";
+
 export default {
   name: "GalleryCard",
+  components: {
+    CarForm,
+  },
   data() {
     return {
       carList,
@@ -36,6 +58,26 @@ export default {
   methods: {
     getPrice(car) {
       this.$emit("car-price", car);
+    },
+    editCarData(car) {
+      this.$emit("edit-car", {
+        ...car,
+      }); //This creates a new object with the same properties as the car object that is being passed in.
+    },
+    deleteCar() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your car has been deleted.", "success");
+        }
+      });
     },
   },
 };
@@ -52,7 +94,8 @@ export default {
 }
 
 .card-wrap {
-  width: 290px;
+  width: 300px;
+  height: 420px;
   border-radius: 20px;
   border: 1px solid #212a3e;
   overflow: hidden;
@@ -113,7 +156,7 @@ export default {
 
 .card-button {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 85%;
   margin: 0 auto;
@@ -136,6 +179,7 @@ export default {
   color: var(--color);
   z-index: 1;
   color: #212a3e;
+  max-width: 150px;
 }
 .card-btn:disabled {
   cursor: not-allowed;
@@ -172,5 +216,11 @@ export default {
 }
 .card-btn:enabled:hover {
   color: #f1f6f9;
+}
+
+@media (max-width: 500px) {
+  .card-btn {
+    padding: 0.5em 1em;
+  }
 }
 </style>

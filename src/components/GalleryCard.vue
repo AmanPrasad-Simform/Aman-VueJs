@@ -33,7 +33,6 @@
               @click="deleteCar(car.id)"
               class="delete-icon"
             />
-            <img src="../assets/deleteIcon.png" @click="deleteCar(car.id)" />
           </div>
         </div>
       </div>

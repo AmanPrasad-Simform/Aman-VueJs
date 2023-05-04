@@ -32,9 +32,7 @@ export default {
       tagLine: "- Accelerate your journey with us.",
     };
   },
-  components: {
-    CarForm,
-  },
+
   methods: {
     addCarData(car) {
       this.$emit("add-car", car);

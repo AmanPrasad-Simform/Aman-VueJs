@@ -11,11 +11,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5
-            class="modal-title"
-            style="color: #39484a"
-            id="staticBackdropLabel"
-          >
+          <h5 class="modal-title" id="staticBackdropLabel">
             {{
               modalType === "add"
                 ? "Add the Car Details"
@@ -27,6 +23,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            @click="resetCar"
           ></button>
         </div>
         <div class="modal-body">
@@ -91,15 +88,14 @@
             </div>
             <div class="modal-footer">
               <button type="reset" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" data-bs-dismiss="modal">
-                {{ modalType }}
+              <button type="submit">
+                {{ modalType === "add" ? "Submit" : "Update" }}
               </button>
             </div>
           </VForm>
         </div>
       </div>
     </div>
-    <!-- <GalleryCard ref="gallery" /> -->
   </div>
 </template>
 
@@ -133,6 +129,8 @@ export default {
         image: "",
         details: "",
       },
+      swalAddMsg: "Created Data",
+      swalEditMsg: "Edited Data",
     };
   },
   methods: {
@@ -140,28 +138,20 @@ export default {
       this.$el.querySelector("button[type=reset]").click();
     },
     async submitBtn() {
-      const temp = this.modalType;
-      let resp = {};
-      if (temp !== "edit") {
-        try {
-          resp = await postCarDetails(this.car);
-        } catch (e) {
-          alert(e);
-        }
+      if (this.modalType === "add") {
+        await postCarDetails(this.car);
       } else {
-        try {
-          resp = await putCarDetails(this.car);
-        } catch (e) {
-          alert(e);
-        }
+        await putCarDetails(this.car);
       }
       this.$emit("car-created");
-      this.resetCar(); // Reset the car object to its initial state
+      this.resetCar();
       Swal.fire({
-        title: `Car Details added Successfully!`,
+        title: `${
+          this.modalType === "add" ? this.swalAddMsg : this.swalEditMsg
+        }`,
         html: `
       <div>
-        <img src="${this.car.image}" alt="Logo" style="width: 300px;" />
+        <img src="${this.car.image}" alt="Logo" class="swal-img" style="width:300px" />
         <h3>car: ${this.car.name}</h3>
         <p>Price: ${this.car.price}</p>
         <p>Details: ${this.car.details}</p>
@@ -176,6 +166,14 @@ export default {
 </script>
 
 <style scoped>
+.swal-img {
+  width: 300px;
+}
+
+.modal-title {
+  color: #39484a;
+}
+
 .title {
   font-size: 24px;
   font-weight: 600;

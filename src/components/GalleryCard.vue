@@ -26,6 +26,12 @@
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               @click="editCarData(car)"
+              class="edit-icon"
+            />
+            <img
+              src="../assets/deleteIcon.png"
+              @click="deleteCar(car.id)"
+              class="delete-icon"
             />
             <img src="../assets/deleteIcon.png" @click="deleteCar(car.id)" />
           </div>
@@ -37,41 +43,36 @@
 
 <script>
 import { getCarDetails, deleteCarDetails } from "../api/api.js";
-import CarForm from "./CarForm.vue";
-import carList from "../assets/CarList.json";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 export default {
   name: "GalleryCard",
-  components: {
-    CarForm,
+  data() {
+    return {
+      carDetails: {},
+    };
   },
-
   props: {
     carList: Object,
   },
   watch: {
     carList: {
       handler(newValue) {
-        this.carDetails = [...newValue];
+        this.carDetails = { ...newValue };
       },
     },
   },
   methods: {
-    typeDefine() {
-      this.type = "edit";
-    },
     getPrice(car) {
       this.$emit("car-price", car);
     },
     editCarData(car) {
       this.$emit("edit-car", {
         ...car,
-      }); //This creates a new object with the same properties as the car object that is being passed in.
+      });
     },
     deleteCar(id) {
-      console.log(id);
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -82,7 +83,6 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          console.log("Herererer");
           await deleteCarDetails(id);
           this.carDetails = await getCarDetails();
           this.$emit("car-deleted");
@@ -95,6 +95,12 @@ export default {
 </script>
 
 <style scoped>
+.edit-icon {
+  height: 30px;
+}
+.delete-icon {
+  height: 40px;
+}
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -105,8 +111,7 @@ export default {
 }
 
 .card-wrap {
-  width: 300px;
-  height: 420px;
+  width: 290px;
   border-radius: 20px;
   border: 1px solid #212a3e;
   overflow: hidden;
@@ -154,15 +159,10 @@ export default {
   margin-bottom: 20px;
 }
 
-.card-image {
-  height: 145px;
-  margin-top: 10px;
-}
-
 .card-image img {
-  height: 140px;
+  height: 180px;
   width: 290px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .card-button {

@@ -15,18 +15,17 @@
 import { getCarDetails } from "./api/api.js";
 import GalleryCard from "./components/GalleryCard.vue";
 import CarForm from "./components/CarForm.vue";
-import "./assets/style.css";
 
 export default {
   components: { GalleryCard, CarForm },
   async mounted() {
-    this.carList = [...(await getCarDetails())];
+    this.carList = { ...(await getCarDetails()) };
   },
   data() {
     return {
       modalType: "add",
       carData: {},
-      carList: [],
+      carList: {},
     };
   },
   methods: {

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 const getCarDetails = async () => {
     try {
         let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata`)
@@ -8,6 +9,7 @@ const getCarDetails = async () => {
         alert("Error in fetching data...")
     }
 }
+
 const putCarDetails = async (car) => {
     try {
         let responseData = await axios.put(`https://testapi.io/api/dartya/resource/cardata/${car.id}`, {

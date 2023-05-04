@@ -206,7 +206,6 @@ export default {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  /* margin-bottom: 20px; */
   outline: 0;
   width: 100%;
   background-color: transparent;
@@ -256,6 +255,5 @@ export default {
 .error_message {
   color: red;
   position: relative;
-  /* top: -20px; */
 }
 </style>

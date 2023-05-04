@@ -16,7 +16,7 @@
           data-bs-target="#staticBackdrop"
           @click="addCarData"
         >
-          ADD
+          Add Car
         </button>
       </div>
     </div>
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import CarForm from "./CarForm.vue";
 export default {
   name: "Navbar",
   data() {
@@ -33,9 +32,7 @@ export default {
       tagLine: "- Accelerate your journey with us.",
     };
   },
-  components: {
-    CarForm,
-  },
+
   methods: {
     addCarData(car) {
       this.$emit("add-car", car);
@@ -45,14 +42,6 @@ export default {
 </script>
 
 <style scoped>
-.navbar-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.navbar-title img {
-  width: 65px;
-}
 .navbar-container {
   display: flex;
   justify-content: space-around;
@@ -63,6 +52,14 @@ export default {
   top: 0;
   text-align: center;
   z-index: 10;
+}
+.navbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-title img {
+  width: 65px;
 }
 .navbar-container h1 {
   line-height: 1;

@@ -1,24 +1,24 @@
 <template>
   <div>
     <div class="card-container">
-      <div class="card-wrap" v-for="car in carList" :key="car.carName">
+      <div class="card-wrap" v-for="car in carDetails" :key="car.name">
         <div class="card-image">
-          <img :src="car.carURL" />
+          <img :src="car.image" />
         </div>
         <div class="card-content">
-          <h1 class="card-title">{{ car.carName }}</h1>
+          <h1 class="card-title">{{ car.name }}</h1>
           <p class="card-text">
-            {{ car.carDetails }}
+            {{ car.details }}
           </p>
         </div>
         <div class="card-button">
           <button
             class="card-btn one"
             @click="getPrice(car)"
-            :key="car.carName"
-            :disabled="car.carPrice == undefined"
+            :key="car.name"
+            :disabled="car.price == undefined"
           >
-            {{ car.carPrice == undefined ? "Coming Soon" : "Info" }}
+            {{ car.price == undefined ? "Available Soon" : "Info" }}
           </button>
           <div>
             <img
@@ -26,12 +26,12 @@
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               @click="editCarData(car)"
-              style="height: 30px"
+              class="edit-icon"
             />
             <img
               src="../assets/deleteIcon.png"
-              @click="deleteCar"
-              style="height: 40px"
+              @click="deleteCar(car.id)"
+              class="delete-icon"
             />
           </div>
         </div>
@@ -41,19 +41,26 @@
 </template>
 
 <script>
-import CarForm from "./CarForm.vue";
-import carList from "../assets/carList.json";
+import { getCarDetails, deleteCarDetails } from "../api/api.js";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default {
   name: "GalleryCard",
-  components: {
-    CarForm,
-  },
   data() {
     return {
-      carList,
+      carDetails: {},
     };
+  },
+  props: {
+    carList: Object,
+  },
+  watch: {
+    carList: {
+      handler(newValue) {
+        this.carDetails = { ...newValue };
+      },
+    },
   },
   methods: {
     getPrice(car) {
@@ -62,9 +69,9 @@ export default {
     editCarData(car) {
       this.$emit("edit-car", {
         ...car,
-      }); //This creates a new object with the same properties as the car object that is being passed in.
+      });
     },
-    deleteCar() {
+    deleteCar(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -73,8 +80,11 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
+          await deleteCarDetails(id);
+          this.carDetails = await getCarDetails();
+          this.$emit("car-deleted");
           Swal.fire("Deleted!", "Your car has been deleted.", "success");
         }
       });
@@ -84,6 +94,12 @@ export default {
 </script>
 
 <style scoped>
+.edit-icon {
+  height: 30px;
+}
+.delete-icon {
+  height: 40px;
+}
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -94,8 +110,7 @@ export default {
 }
 
 .card-wrap {
-  width: 300px;
-  height: 420px;
+  width: 290px;
   border-radius: 20px;
   border: 1px solid #212a3e;
   overflow: hidden;
@@ -143,15 +158,10 @@ export default {
   margin-bottom: 20px;
 }
 
-.card-image {
-  height: 145px;
-  margin-top: 10px;
-}
-
 .card-image img {
-  height: 140px;
+  height: 180px;
   width: 290px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .card-button {

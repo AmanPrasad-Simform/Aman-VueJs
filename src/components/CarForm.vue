@@ -11,11 +11,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5
-            class="modal-title"
-            style="color: #39484a"
-            id="staticBackdropLabel"
-          >
+          <h5 class="modal-title" id="staticBackdropLabel">
             {{
               modalType === "add"
                 ? "Add the Car Details"
@@ -27,71 +23,72 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            @click="resetCar"
           ></button>
         </div>
         <div class="modal-body">
-          <VForm class="form" :validation-schema="schema" @submit="createCar">
+          <VForm class="form" :validation-schema="schema" @submit="submitBtn">
             <div class="group">
               <VField
-                name="carName"
+                name="name"
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.carName"
+                v-model="car.name"
               />
-              <label for="carName"> Car Name </label>
+              <label for="name"> Car Name </label>
 
-              <ErrorMessage name="carName" class="error_message" />
+              <ErrorMessage name="name" class="error_message" />
             </div>
             <div class="group">
               <VField
-                name="carPrice"
+                name="price"
                 placeholder=" "
                 type="number"
                 class="input"
-                v-model="car.carPrice"
+                v-model="car.price"
               />
-              <label for="carPrice">Price</label>
-              <ErrorMessage name="carPrice" class="error_message" />
+              <label for="price">Price</label>
+              <ErrorMessage name="price" class="error_message" />
             </div>
 
             <div class="group">
               <VField
-                name="carURL"
+                name="image"
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.carURL"
+                v-model="car.image"
               />
 
-              <label for="carURL">Image URL</label>
-              <ErrorMessage name="carURL" class="error_message" />
+              <label for="image">Image URL</label>
+              <ErrorMessage name="image" class="error_message" />
             </div>
             <div class="group">
-              <VField
-                name="carDetails"
+              <vField
+                name="details"
                 :bails="false"
                 v-slot="{ field, errors }"
-                v-model="car.carDetails"
+                v-model="car.details"
               >
                 <textarea
                   type="text"
                   placeholder=" "
                   id="comment"
                   class="textarea"
-                  name="carDetails"
+                  name="details"
                   rows="3"
                   v-bind="field"
                 />
                 <div class="error_message" v-for="err in errors" :key="err">
                   {{ err }}
                 </div>
-              </VField>
-              <label for="carDetails">Car Details</label>
+              </vField>
+              <label for="details">Car Details</label>
             </div>
             <div class="modal-footer">
               <button type="reset" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" data-bs-dismiss="modal">
+              <button type="submit">
                 {{ modalType === "add" ? "Submit" : "Update" }}
               </button>
             </div>
@@ -103,6 +100,7 @@
 </template>
 
 <script>
+import { postCarDetails, putCarDetails } from "../api/api.js";
 import Swal from "sweetalert2";
 export default {
   name: "CarForm",
@@ -110,40 +108,53 @@ export default {
     modalType: String,
     carData: Object,
   },
-  computed: {
-    car: function () {
-      return {
-        carName: this.carData.carName || "",
-        carPrice: this.carData.carPrice || "",
-        carURL: this.carData.carURL || "",
-        carDetails: this.carData.carDetails || "",
-      };
+  watch: {
+    carData: {
+      handler(newVal) {
+        this.car = newVal;
+      },
     },
   },
   data() {
     return {
       schema: {
-        carName: "required|min:5|alphaSpaces",
-        carPrice: "required|integer",
-        carURL: "required|URL",
-        carDetails: "required|min:3|max:120",
+        name: "required|min:5|alphaSpaces",
+        price: "required|integer",
+        image: "required|URL",
+        details: "required|min:30|max:120",
       },
+      car: {
+        name: "",
+        price: Number,
+        image: "",
+        details: "",
+      },
+      swalAddMsg: "Created Data",
+      swalEditMsg: "Edited Data",
     };
   },
   methods: {
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
-    createCar() {
-      this.resetCar(); // Reset the car object to its initial state
+    async submitBtn() {
+      if (this.modalType === "add") {
+        await postCarDetails(this.car);
+      } else {
+        await putCarDetails(this.car);
+      }
+      this.$emit("car-created");
+      this.resetCar();
       Swal.fire({
-        title: `Car Details added Successfully!`,
+        title: `${
+          this.modalType === "add" ? this.swalAddMsg : this.swalEditMsg
+        }`,
         html: `
       <div>
-        <img src="${this.car.carURL}" alt="Logo" style="width: 300px;" />
-        <h3>car: ${this.car.carName}</h3>
-        <p>Price: ${this.car.carPrice}</p>
-        <p>Details: ${this.car.carDetails}</p>
+        <img src="${this.car.image}" alt="Logo" class="swal-img" style="width:300px" />
+        <h3>car: ${this.car.name}</h3>
+        <p>Price: ${this.car.price}</p>
+        <p>Details: ${this.car.details}</p>
       </div>
   `,
         showCloseButton: false,
@@ -155,11 +166,20 @@ export default {
 </script>
 
 <style scoped>
+.swal-img {
+  width: 300px;
+}
+
+.modal-title {
+  color: #39484a;
+}
+
 .title {
   font-size: 24px;
   font-weight: 600;
   text-align: center;
 }
+
 .form {
   margin-top: 20px;
   display: flex;

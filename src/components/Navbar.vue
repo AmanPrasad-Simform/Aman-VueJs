@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="navbar-container">
+  <nav class="navbar navbar-container navbar-expand-md">
+    <div class="container">
       <div class="navbar-logo">
         <div class="navbar-title">
           <h1>{{ carShowRoomName }}</h1>
@@ -8,19 +8,46 @@
         </div>
         <p>{{ tagLine }}</p>
       </div>
-      <div class="add-button-container">
-        <button
-          type="button"
-          class="add-button"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          @click="addCarData"
-        >
-          Add Car
-        </button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        @click="showNavbar = !showNavbar"
+        :aria-expanded="showNavbar ? 'true' : 'false'"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        :class="{ show: showNavbar }"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
+          <router-link
+            :to="{ name: 'home' }"
+            class="nav-item add-button"
+            @click="showNavbar = false"
+          >
+            Home
+          </router-link>
+          <router-link
+            :to="{ name: 'login' }"
+            class="nav-item add-button"
+            @click="showNavbar = false"
+          >
+            Login
+          </router-link>
+          <router-link
+            :to="{ name: 'registration' }"
+            class="nav-item add-button"
+            @click="showNavbar = false"
+          >
+            Register
+          </router-link>
+        </ul>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -30,13 +57,8 @@ export default {
     return {
       carShowRoomName: "CarNation",
       tagLine: "- Accelerate your journey with us.",
+      showNavbar: false,
     };
-  },
-
-  methods: {
-    addCarData(car) {
-      this.$emit("add-car", car);
-    },
   },
 };
 </script>
@@ -53,14 +75,17 @@ export default {
   text-align: center;
   z-index: 10;
 }
+
 .navbar-title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .navbar-title img {
   width: 65px;
 }
+
 .navbar-container h1 {
   line-height: 1;
   padding: 0.5rem;
@@ -89,6 +114,11 @@ export default {
 .navbar-logo {
   display: "flex";
   justify-content: "space-evenly";
+  min-width: 250px;
+}
+
+#navbarNav {
+  flex-direction: row-reverse;
 }
 
 .add-button-container {
@@ -98,25 +128,22 @@ export default {
 }
 
 .add-button {
-  border: 1px solid white;
-  padding: 0.8em 1.7em;
-  border-radius: 0.3em;
   background: transparent;
   color: white;
+  font-size: 25px;
+  margin: 0 10px;
+  text-decoration: none;
 }
-@media (max-width: 500px) {
-  .navbar-container p {
+
+@media (max-width: 768px) {
+  .navbar-logo p {
     display: none;
   }
-  .add-button {
-    padding: 0.6em 1.3em;
-  }
 }
-@media (max-width: 768px) {
-  .navbar-container h1,
-  .navbar-container p {
-    display: block;
-    text-align: center;
+
+@media screen and (max-width: 991px) {
+  .add-button {
+    font-size: 22px;
   }
 }
 </style>

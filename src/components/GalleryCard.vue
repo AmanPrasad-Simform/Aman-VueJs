@@ -1,5 +1,16 @@
 <template>
-  <div>
+  <div class="gallery-container">
+    <div class="add-button-container">
+      <button
+        type="button"
+        class="add-button"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        @click="addCarData"
+      >
+        Add Car
+      </button>
+    </div>
     <div class="card-container">
       <div class="card-wrap" v-for="car in carDetails" :key="car.name">
         <div class="card-image">
@@ -63,13 +74,16 @@ export default {
     },
   },
   methods: {
-    getPrice(car) {
-      this.$emit("car-price", car);
+    addCarData(car) {
+      this.$emit("add-car", car);
     },
     editCarData(car) {
       this.$emit("edit-car", {
         ...car,
       });
+    },
+    getPrice(car) {
+      this.$emit("car-price", car);
     },
     deleteCar(id) {
       Swal.fire({
@@ -94,6 +108,24 @@ export default {
 </script>
 
 <style scoped>
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+}
+.add-button-container {
+  display: flex;
+  margin: 10px 50px;
+  flex-direction: row-reverse;
+}
+
+.add-button {
+  border: 1px solid white;
+  padding: 0.8em 1.7em;
+  border-radius: 0.3em;
+  background: #39484a;
+  color: white;
+}
+
 .edit-icon {
   height: 30px;
 }
@@ -228,9 +260,11 @@ export default {
   color: #f1f6f9;
 }
 
-@media (max-width: 500px) {
-  .card-btn {
-    padding: 0.5em 1em;
+@media screen and (max-width: 709px) {
+  .add-button-container {
+    display: flex;
+    margin: 10px 0px;
+    justify-content: center;
   }
 }
 </style>

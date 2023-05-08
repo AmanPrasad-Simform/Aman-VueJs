@@ -197,7 +197,7 @@ export default {
   position: absolute;
   top: -10px;
   left: 10px;
-  background-color: #fff;
+  background-color: #f1f6f9;
   transition: all 0.3s ease;
 }
 
@@ -226,7 +226,7 @@ export default {
 .form .group .textarea:focus + label {
   top: -10px;
   left: 10px;
-  background-color: #fff;
+  background-color: #f1f6f9;
   color: #3366cc;
   font-weight: 600;
   font-size: 14px;

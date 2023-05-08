@@ -1,60 +1,95 @@
 <template>
-  <div class="card">
-    <span class="title">Leave a Comment</span>
-    <form class="form">
+  <div class="login-form">
+    <h1 class="title-header">Login</h1>
+    <VForm class="form" :validation-schema="schema" @submit="loginBtn">
       <div class="group">
-        <input placeholder="‎" type="text" required="" />
-        <label for="name">Name</label>
-      </div>
-      <div class="group">
-        <input
-          placeholder="‎"
-          type="email"
-          id="email"
+        <VField
           name="email"
-          required=""
+          placeholder=" "
+          type="email"
+          class="input"
+          v-model="loginDetails.email"
         />
-        <label for="email">Email</label>
+        <label for="email"> Email </label>
+        <ErrorMessage name="email" class="error_message" />
       </div>
       <div class="group">
-        <textarea
-          placeholder="‎"
-          id="comment"
-          name="comment"
-          rows="5"
-          required=""
-        ></textarea>
-        <label for="comment">Comment</label>
+        <VField
+          name="password"
+          placeholder=" "
+          type="password"
+          class="input"
+          v-model="loginDetails.password"
+        />
+        <label for="password">Password</label>
+        <ErrorMessage name="password" class="error_message" />
       </div>
-      <button type="submit">Submit</button>
-    </form>
+      <div class="form-btn">
+        <button type="reset">Cancel</button>
+        <button type="submit">Submit</button>
+      </div>
+    </VForm>
   </div>
 </template>
-<script></script>
+
+<script>
+import axios from "axios";
+export default {
+  name: "loginPage",
+
+  data() {
+    return {
+      schema: {
+        email: "required|email",
+        password: "required|min:8|max:12|regex:^(?=.*\\d)(?=.*[^\\w\\d\\s]).+$",
+      },
+      loginDetails: {
+        email: "",
+        password: "",
+        // https://testapi.io/api/dartya//login
+      },
+    };
+  },
+  methods: {
+    loginBtn() {
+      console.log(this.loginDetails.email);
+      // axios.post("https://testapi.io/api/dartya//login", {
+      //   email: this.loginDetails.email,
+      //   password: this.loginDetails.password,
+      // });
+      axios
+        .get("https://testapi.io/api/dartya/resource/users")
+        .then((response) => {
+          console.log(response.data.data);
+        });
+    },
+  },
+};
+</script>
+
 <style scoped>
-.card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 350px;
+.login-form {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+  margin: 50px;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
+.title-header {
+  color: #39484a;
 }
 
 .form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  width: 400px;
 }
 
 .group {
   position: relative;
+  margin-bottom: 20px;
 }
 
 .form .group label {
@@ -63,52 +98,49 @@
   position: absolute;
   top: -10px;
   left: 10px;
-  background-color: #fff;
+  background-color: #f1f6f9;
   transition: all 0.3s ease;
 }
 
-.form .group input,
-.form .group textarea {
+.form .group .input {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
   outline: 0;
   width: 100%;
   background-color: transparent;
 }
 
-.form .group input:placeholder-shown + label,
-.form .group textarea:placeholder-shown + label {
+.form .group .input:placeholder-shown + label {
   top: 10px;
   background-color: transparent;
 }
 
-.form .group input:focus,
-.form .group textarea:focus {
-  border-color: #3366cc;
+.form .group input:focus {
+  border-color: #39484a;
 }
 
-.form .group input:focus + label,
-.form .group textarea:focus + label {
+.form .group .input:focus + label {
   top: -10px;
   left: 10px;
-  background-color: #fff;
-  color: #3366cc;
+  background-color: #f1f6f9;
+  color: #39484a;
   font-weight: 600;
   font-size: 14px;
 }
 
-.form .group textarea {
-  resize: none;
-  height: 100px;
+.form-btn {
+  display: flex;
+  gap: 10;
+  justify-content: center;
 }
 
 .form button {
-  background-color: #3366cc;
+  background-color: #39484a;
+  margin: 5px;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3em;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
@@ -116,6 +148,17 @@
 }
 
 .form button:hover {
-  background-color: #27408b;
+  background-color: #849199;
+}
+
+.error_message {
+  color: red;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .form {
+    width: 340px;
+  }
 }
 </style>

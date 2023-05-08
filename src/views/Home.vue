@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <!-- <Loading v-if="isloading" />
-    <GalleryCard
-      v-else -->
+  <div class="loading-container">
+    <Loading v-if="isloading" class="loader" />
     <GalleryCard
       @add-car="openAddForm"
       @car-price="showPrice"
@@ -36,15 +34,12 @@ export default {
   },
   async mounted() {
     this.isloading = true;
-    console.log(this.isloading);
-    this.carList = {
-      ...(await getCarDetails()),
-    };
+    this.carList = { ...(await getCarDetails()) };
     this.isloading = false;
   },
   methods: {
     async getCar() {
-      this.carList = [...(await getCarDetails())];
+      this.carList = { ...(await getCarDetails()) };
     },
     showPrice(car) {
       swal(car.name, "$" + car.price);
@@ -59,3 +54,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.loader {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

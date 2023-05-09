@@ -23,14 +23,20 @@
           </p>
         </div>
         <div class="card-button">
-          <button
-            class="card-btn one"
-            @click="getPrice(car)"
-            :key="car.name"
-            :disabled="car.price == undefined"
+          <router-link
+            :to="{
+              name: 'carDetail',
+              params: { id: `${car.id}` },
+            }"
           >
-            {{ car.price == undefined ? "Available Soon" : "Info" }}
-          </button>
+            <button
+              class="card-btn one"
+              :key="car.name"
+              :disabled="car.price == undefined"
+            >
+              {{ car.price == undefined ? "Available Soon" : "Info" }}
+            </button>
+          </router-link>
           <div>
             <img
               src="../assets/editIcon.png"
@@ -41,7 +47,7 @@
             />
             <img
               src="../assets/deleteIcon.png"
-              @click="deleteCar(car.id)"
+              @click="deleteCar(car.id, car.name)"
               class="delete-icon"
             />
           </div>
@@ -82,10 +88,10 @@ export default {
         ...car,
       });
     },
-    getPrice(car) {
+    async getPrice(car) {
       this.$emit("car-price", car);
     },
-    deleteCar(id) {
+    deleteCar(id, name) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -99,7 +105,11 @@ export default {
           await deleteCarDetails(id);
           this.carDetails = await getCarDetails();
           this.$emit("car-deleted");
-          Swal.fire("Deleted!", "Your car has been deleted.", "success");
+          Swal.fire(
+            "Deleted!",
+            `Your Car named ${name} has been deleted.`,
+            "success"
+          );
         }
       });
     },
@@ -142,7 +152,7 @@ export default {
 }
 
 .card-wrap {
-  width: 290px;
+  width: 300px;
   border-radius: 20px;
   border: 1px solid #212a3e;
   overflow: hidden;
@@ -191,8 +201,8 @@ export default {
 }
 
 .card-image img {
-  height: 180px;
-  width: 290px;
+  height: 200px;
+  width: 300px;
   object-fit: cover;
 }
 
@@ -265,6 +275,9 @@ export default {
     display: flex;
     margin: 10px 0px;
     justify-content: center;
+  }
+  .card-container {
+    margin: 20px 37px;
   }
 }
 </style>

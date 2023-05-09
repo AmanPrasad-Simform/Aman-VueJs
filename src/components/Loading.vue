@@ -23,7 +23,7 @@
   width: var(--dim);
   height: var(--dim);
   position: relative;
-  animation: spin988 2s linear infinite;
+  animation: spiner 2s linear infinite;
 }
 
 .loader .circle {
@@ -56,7 +56,7 @@
   right: 0;
 }
 
-@keyframes spin988 {
+@keyframes spiner {
   0% {
     transform: scale(1) rotate(0);
   }

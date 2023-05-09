@@ -46,22 +46,17 @@ export default {
       loginDetails: {
         email: "",
         password: "",
-        // https://testapi.io/api/dartya//login
       },
     };
   },
   methods: {
     loginBtn() {
       console.log(this.loginDetails.email);
-      // axios.post("https://testapi.io/api/dartya//login", {
-      //   email: this.loginDetails.email,
-      //   password: this.loginDetails.password,
-      // });
-      axios
-        .get("https://testapi.io/api/dartya/resource/users")
-        .then((response) => {
-          console.log(response.data.data);
-        });
+      console.log(this.loginDetails.password);
+      axios.post("https://testapi.io/api/dartya//login", {
+        email: this.loginDetails.email,
+        password: this.loginDetails.password,
+      });
     },
   },
 };

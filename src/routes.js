@@ -1,24 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "./views/Home.vue";
-import RegistrationForm from "./views/RegistrationForm.vue";
-import LoginForm from "./views/LoginForm.vue";
 
 const routes = [
     {
         name: "home",
         path: "/",
-        component: Home,
-        // alias: ["/home"]
+        component: () => import("./views/Home.vue"),
     },
     {
         name: "login",
         path: "/login",
-        component: LoginForm,
+        component: () => import("./views/LoginForm.vue"),
     },
     {
-        name: "registration",
-        path: "/registration",
-        component: RegistrationForm,
+        name: "register",
+        path: "/register",
+        component: () => import("./views/RegisterForm.vue"),
+    },
+    {
+        name: "carDetail",
+        path: "/carDetail/:id",
+        component: () => import("./views/CarDetail.vue"),
     },
     {
         name: "error",

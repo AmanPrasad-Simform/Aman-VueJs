@@ -1,10 +1,17 @@
 import axios from "axios"
 
-
 const getCarDetails = async () => {
     try {
         let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata`)
         return responseData.data.data
+    } catch (e) {
+        alert("Error in fetching data...")
+    }
+}
+const getCarDetailById = async (id) => {
+    try {
+        let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+        return responseData.data
     } catch (e) {
         alert("Error in fetching data...")
     }
@@ -39,4 +46,4 @@ const deleteCarDetails = async (id) => {
     }
 }
 
-export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails }
+export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails, getCarDetailById }

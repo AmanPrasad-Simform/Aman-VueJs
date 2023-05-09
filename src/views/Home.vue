@@ -1,6 +1,6 @@
 <template>
   <div class="loading-container">
-    <Loading v-if="isloading" class="loader" />
+    <Loading class="loader" v-if="isloading" />
     <GalleryCard
       @add-car="openAddForm"
       @car-price="showPrice"
@@ -56,15 +56,14 @@ export default {
 </script>
 
 <style scoped>
+.loading-container {
+  position: relative;
+  height: 30vh;
+}
 .loader {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

@@ -38,7 +38,7 @@
             Login
           </router-link>
           <router-link
-            :to="{ name: 'registration' }"
+            :to="{ name: 'register' }"
             class="nav-item add-button"
             @click="showNavbar = false"
           >
@@ -135,7 +135,7 @@ export default {
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar-logo p {
     display: none;
   }

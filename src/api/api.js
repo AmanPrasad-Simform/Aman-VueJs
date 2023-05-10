@@ -46,4 +46,28 @@ const deleteCarDetails = async (id) => {
     }
 }
 
-export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails, getCarDetailById }
+const postLoginDetails = async (loginDetails) => {
+    try {
+        let responseData = await axios.post("https://testapi.io/api/dartya//login", {
+            ...loginDetails
+        })
+        return responseData
+    }
+    catch (e) {
+        alert("Error in adding Login details...")
+    }
+}
+
+const postRegisterDetails = async (registerDetails) => {
+    try {
+        let responseData = await axios.post("https://testapi.io/api/dartya/resource/users", {
+            ...registerDetails
+        })
+        return responseData
+    }
+    catch (e) {
+        alert("Error in adding Registration details...")
+    }
+}
+
+export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails, getCarDetailById, postLoginDetails, postRegisterDetails }

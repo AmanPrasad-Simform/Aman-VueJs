@@ -29,13 +29,7 @@
               params: { id: `${car.id}` },
             }"
           >
-            <button
-              class="card-btn one"
-              :key="car.name"
-              :disabled="car.price == undefined"
-            >
-              {{ car.price == undefined ? "Available Soon" : "Info" }}
-            </button>
+            <button class="card-btn">Info</button>
           </router-link>
           <div>
             <img
@@ -60,7 +54,6 @@
 <script>
 import { getCarDetails, deleteCarDetails } from "../api/api.js";
 import Swal from "sweetalert2";
-import axios from "axios";
 
 export default {
   name: "GalleryCard",
@@ -88,16 +81,13 @@ export default {
         ...car,
       });
     },
-    async getPrice(car) {
-      this.$emit("car-price", car);
-    },
     deleteCar(id, name) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#39484a",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
@@ -107,7 +97,7 @@ export default {
           this.$emit("car-deleted");
           Swal.fire(
             "Deleted!",
-            `Your Car named ${name} has been deleted.`,
+            `Your Car ${name} has been deleted.`,
             "success"
           );
         }
@@ -153,8 +143,8 @@ export default {
 
 .card-wrap {
   width: 300px;
-  border-radius: 20px;
-  border: 1px solid #212a3e;
+  border-radius: 10px;
+  border: 1px solid #39484a;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -233,9 +223,6 @@ export default {
   color: #212a3e;
   max-width: 150px;
 }
-.card-btn:disabled {
-  cursor: not-allowed;
-}
 
 .card-btn::before,
 .card-btn::after {
@@ -261,23 +248,20 @@ export default {
   top: calc(100% + 1em);
 }
 
-.card-btn:enabled:hover::before,
-.card-btn:enabled:hover::after {
+.card-btn:hover {
+  color: #f1f6f9;
+}
+.card-btn:hover::before,
+.card-btn:hover::after {
   height: 410px;
   width: 410px;
 }
-.card-btn:enabled:hover {
-  color: #f1f6f9;
-}
 
-@media screen and (max-width: 709px) {
+@media screen and (max-width: 729px) {
   .add-button-container {
     display: flex;
     margin: 10px 0px;
     justify-content: center;
-  }
-  .card-container {
-    margin: 20px 37px;
   }
 }
 </style>

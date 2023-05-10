@@ -122,6 +122,7 @@
 </template>
 
 <script>
+import { postRegisterDetails } from "../api/api.js";
 export default {
   name: "registerPage",
   data() {
@@ -178,18 +179,16 @@ export default {
       const calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
       this.registerDetails.age = calculatedAge;
     },
-    registerBtn() {
-      console.log(this.registerDetails);
-      this.axios.post("https://testapi.io/api/dartya/resource/users", {
-        ...this.registerDetails,
-      });
-      this.axios
-        .get("https://testapi.io/api/dartya/resource/users")
-        .then((response) => {
-          console.log(response.data.data);
+    async registerBtn() {
+      let response = await postRegisterDetails(this.registerDetails);
+      if (response.status == 201) {
+        this.$router.push({
+          name: "login",
         });
-      // this.$el.querySelector("button[type=reset]").click();
-      // router.push({ name: "login" });
+        this.$el.querySelector("button[type=reset]").click();
+      } else {
+        return;
+      }
     },
   },
 };

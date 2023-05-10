@@ -152,7 +152,7 @@ export default {
         html: `
       <div>
         <img src="${this.car.image}" alt="Logo" class="swal-img" style="width:300px" />
-        <h3>car: ${this.car.name}</h3>
+        <h3>Car: ${this.car.name}</h3>
         <p>Price: ${this.car.price}</p>
         <p>Details: ${this.car.details}</p>
       </div>

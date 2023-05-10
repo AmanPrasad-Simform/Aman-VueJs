@@ -2,10 +2,14 @@
   <nav class="navbar navbar-container navbar-expand-md">
     <div class="container">
       <div class="navbar-logo">
-        <div class="navbar-title">
+        <router-link
+          :to="{ name: 'home' }"
+          class="navbar-title"
+          @click="showNavbar = false"
+        >
           <h1>{{ carShowRoomName }}</h1>
           <img src="/favicon-car.png" />
-        </div>
+        </router-link>
         <p>{{ tagLine }}</p>
       </div>
       <button
@@ -25,21 +29,21 @@
         <ul class="navbar-nav">
           <router-link
             :to="{ name: 'home' }"
-            class="nav-item add-button"
+            class="nav-item nav-button"
             @click="showNavbar = false"
           >
             Home
           </router-link>
           <router-link
             :to="{ name: 'login' }"
-            class="nav-item add-button"
+            class="nav-item nav-button"
             @click="showNavbar = false"
           >
             Login
           </router-link>
           <router-link
             :to="{ name: 'register' }"
-            class="nav-item add-button"
+            class="nav-item nav-button"
             @click="showNavbar = false"
           >
             Register
@@ -64,6 +68,11 @@ export default {
 </script>
 
 <style scoped>
+.navbar-nav .link-active-class {
+  color: white;
+  font-weight: 600;
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-around;
@@ -80,6 +89,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .navbar-title img {
@@ -121,15 +131,15 @@ export default {
   flex-direction: row-reverse;
 }
 
-.add-button-container {
+.nav-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.add-button {
+.nav-button {
   background: transparent;
-  color: white;
+  color: #f1f6f9;
   font-size: 25px;
   margin: 0 10px;
   text-decoration: none;
@@ -142,7 +152,7 @@ export default {
 }
 
 @media screen and (max-width: 991px) {
-  .add-button {
+  .nav-button {
     font-size: 22px;
   }
 }

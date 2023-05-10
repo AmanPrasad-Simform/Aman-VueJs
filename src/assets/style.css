@@ -6,10 +6,7 @@
 .card-text::-webkit-scrollbar {
   display: none;
 }
-::selection {
-  background-color: #39484a;
-  color: #ffffff;
-}
+
 body {
   background: #f1f6f9;
 }

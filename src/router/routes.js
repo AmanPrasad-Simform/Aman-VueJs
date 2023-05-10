@@ -4,22 +4,22 @@ const routes = [
     {
         name: "home",
         path: "/",
-        component: () => import("./views/Home.vue"),
+        component: () => import("../views/Home.vue"),
     },
     {
         name: "login",
         path: "/login",
-        component: () => import("./views/LoginForm.vue"),
+        component: () => import("../views/LoginForm.vue"),
     },
     {
         name: "register",
         path: "/register",
-        component: () => import("./views/RegisterForm.vue"),
+        component: () => import("../views/RegisterForm.vue"),
     },
     {
         name: "carDetail",
-        path: "/carDetail/:id",
-        component: () => import("./views/CarDetail.vue"),
+        path: "/details/:id",
+        component: () => import("../views/CarDetail.vue"),
     },
     {
         name: "error",
@@ -31,6 +31,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
+    linkActiveClass: "link-active-class"
 });
 
 export default router;

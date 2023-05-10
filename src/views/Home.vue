@@ -3,7 +3,6 @@
     <Loading class="loader" v-if="isloading" />
     <GalleryCard
       @add-car="openAddForm"
-      @car-price="showPrice"
       @edit-car="openEditForm"
       :carList="carList"
       @car-deleted="getCar"
@@ -40,9 +39,6 @@ export default {
   methods: {
     async getCar() {
       this.carList = { ...(await getCarDetails()) };
-    },
-    showPrice(car) {
-      swal(car.name, "$" + car.price);
     },
     openEditForm(car) {
       this.modalType = "edit";

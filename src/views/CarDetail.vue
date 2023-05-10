@@ -8,11 +8,8 @@
     </div>
     <div class="car-details">
       <h1>Name: {{ carDetail.name }}</h1>
-      <h3>
-        <b>{{ price }}</b
-        >{{ carDetail.price }}
-      </h3>
-      <p><b>Description:</b> {{ carDetail.details }}</p>
+      <h3><b>Price: $</b>{{ carDetail.price }}</h3>
+      <p><b>Description: </b> {{ carDetail.details }}</p>
       <router-link
         :to="{
           name: 'home',
@@ -27,14 +24,13 @@
 
 <script>
 import Loading from "../components/Loading.vue";
-import { getCarDetailById } from "../api/api";
+import { getCarDetailById } from "../api/api.js";
 export default {
   name: "CarDetail",
   data() {
     return {
       id: this.$route.params.id,
       carDetail: {},
-      price: "Price: $",
       isLoading: true,
     };
   },

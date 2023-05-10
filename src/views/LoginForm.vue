@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { postLoginDetails } from "../api/api.js";
 export default {
   name: "loginPage",
 
@@ -50,13 +50,16 @@ export default {
     };
   },
   methods: {
-    loginBtn() {
-      console.log(this.loginDetails.email);
-      console.log(this.loginDetails.password);
-      axios.post("https://testapi.io/api/dartya//login", {
-        email: this.loginDetails.email,
-        password: this.loginDetails.password,
-      });
+    async loginBtn() {
+      let response = await postLoginDetails(this.loginDetails);
+      if (response.status == 200) {
+        this.$el.querySelector("button[type=reset]").click();
+        this.$router.push({
+          name: "home",
+        });
+      } else {
+        return;
+      }
     },
   },
 };

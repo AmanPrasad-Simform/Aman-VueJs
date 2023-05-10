@@ -7,7 +7,7 @@ import VeeValidation from "./plugin/validation.js"
 import { Modal } from 'bootstrap'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import router from "./routes"
+import router from "./router/routes"
 
 let vm = createApp(App)
 vm.use(router)

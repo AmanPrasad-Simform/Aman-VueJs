@@ -87,7 +87,7 @@ export default {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#39484a",
+        confirmButtonColor: "#28a745",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
@@ -96,8 +96,8 @@ export default {
           this.carDetails = await getCarDetails();
           this.$emit("car-deleted");
           Swal.fire(
-            "Deleted!",
-            `Your Car ${name} has been deleted.`,
+            `Deleted!${name}`,
+            `Your Car has been deleted.`,
             "success"
           );
         }

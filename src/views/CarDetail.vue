@@ -84,6 +84,7 @@ p {
 
 .car-image-container img {
   max-width: 100%;
+  min-width: 625px;
   height: auto;
   margin-bottom: 1rem;
 }
@@ -112,5 +113,14 @@ p {
   .car-image-container {
     margin-top: 4rem;
   }
+  .car-image-container img {
+  min-width: 275px;
+}
+}
+
+@media (max-width: 767px) {
+  .car-image-container img {
+  margin-top: 0;
+}
 }
 </style>

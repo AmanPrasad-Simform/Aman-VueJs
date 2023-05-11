@@ -27,7 +27,11 @@
           ></button>
         </div>
         <div class="modal-body">
-          <VForm class="form" :validation-schema="schema" @submit="submitBtn">
+          <VForm
+            class="form"
+            :validation-schema="schema"
+            @submit="handleSubmit"
+          >
             <div class="group">
               <VField
                 name="name"
@@ -136,6 +140,14 @@ export default {
   methods: {
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
+    },
+
+    handleSubmit() {
+      // using setTimeout just to avoid multiple submit calls
+      clearTimeout(this.timer);
+      this.timer = setTimeout(async () => {
+        await this.submitBtn();
+      }, 1000);
     },
     async submitBtn() {
       if (this.modalType === "add") {

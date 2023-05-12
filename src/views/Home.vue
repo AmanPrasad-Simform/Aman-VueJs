@@ -7,7 +7,9 @@
       :carList="carList"
       @car-deleted="getCar"
     />
+    <transition name="shake">
     <CarForm :modalType="modalType" :carData="carData" @car-created="getCar" />
+    </transition>
   </div>
 </template>
 
@@ -61,5 +63,17 @@ export default {
   top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.shake-enter-active{
+  animation: jiggle 2s ease  ;
+}
+
+@keyframes jiggle {
+  0% {transform: translateX(-10px);}
+  25% {transform: translateX(10px);}
+  50% {transform: translateX(-5px);}
+  75% {transform: translateX(5px);}
+  100% {transform: translateX(0px);}
 }
 </style>

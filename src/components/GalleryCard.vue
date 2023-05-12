@@ -11,8 +11,13 @@
         Add Car
       </button>
     </div>
-    <div class="card-container">
-      <div class="card-wrap" v-for="car in carDetails" :key="car.name">
+    <transition-group name="fade" tag="div" appear class="card-container">
+      <div
+        class="card-wrap"
+        v-for="(car, index) in carDetails"
+        :key="car.name"
+        :style="{ transitionDelay: `${0.1 * index}s` }"
+      >
         <div class="card-image">
           <img :src="car.image" />
         </div>
@@ -47,7 +52,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -68,7 +73,9 @@ export default {
   watch: {
     carList: {
       handler(newValue) {
-        this.carDetails = { ...newValue };
+        this.carDetails = {
+          ...newValue,
+        };
       },
     },
   },
@@ -95,11 +102,7 @@ export default {
           await deleteCarDetails(id);
           this.carDetails = await getCarDetails();
           this.$emit("car-deleted");
-          Swal.fire(
-            `Deleted!${name}`,
-            `Your Car has been deleted.`,
-            "success"
-          );
+          Swal.fire(`Deleted!${name}`, `Your Car has been deleted.`, "success");
         }
       });
     },
@@ -108,10 +111,71 @@ export default {
 </script>
 
 <style scoped>
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-100px);
+}
+
+.fade-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.fade-enter-active {
+  transition: all 1s ease;
+}
+
+.fade-leave-from {
+  opacity: 0;
+  transform: scale(1);
+}
+
+.fade-leave-to {
+  opacity: 1;
+  transform: scale(0);
+}
+
+.fade-leave-active {
+  transition: all 1s ease;
+  position: absolute;
+}
+
+.fade-move {
+  transition: all 0.3s ease;
+}
+
+.shake-enter-active {
+  animation: jiggle 0.5s ease;
+}
+
+@keyframes jiggle {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  25% {
+    transform: translateX(10px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
 .gallery-container {
   display: flex;
+  position: relative;
   flex-direction: column;
 }
+
 .add-button-container {
   display: flex;
   margin: 10px 50px;
@@ -129,9 +193,11 @@ export default {
 .edit-icon {
   height: 30px;
 }
+
 .delete-icon {
   height: 40px;
 }
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -204,6 +270,7 @@ export default {
   margin: 0 auto;
   padding-bottom: 10px;
 }
+
 .card-btn {
   --color: #39484a;
   padding: 0.8em 1.7em;
@@ -251,6 +318,7 @@ export default {
 .card-btn:hover {
   color: #f1f6f9;
 }
+
 .card-btn:hover::before,
 .card-btn:hover::after {
   height: 410px;

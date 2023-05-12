@@ -27,7 +27,11 @@
           ></button>
         </div>
         <div class="modal-body">
-          <VForm class="form" :validation-schema="schema" @submit="submitBtn">
+          <VForm
+            class="form"
+            :validation-schema="schema"
+            @submit="handleSubmit"
+          >
             <div class="group">
               <VField
                 name="name"
@@ -137,6 +141,14 @@ export default {
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
+
+    handleSubmit() {
+      // using setTimeout just to avoid multiple submit calls
+      clearTimeout(this.timer);
+      this.timer = setTimeout(async () => {
+        await this.submitBtn();
+      }, 1000);
+    },
     async submitBtn() {
       if (this.modalType === "add") {
         await postCarDetails(this.car);
@@ -152,7 +164,7 @@ export default {
         html: `
       <div>
         <img src="${this.car.image}" alt="Logo" class="swal-img" style="width:300px" />
-        <h3>car: ${this.car.name}</h3>
+        <h3>Car: ${this.car.name}</h3>
         <p>Price: ${this.car.price}</p>
         <p>Details: ${this.car.details}</p>
       </div>
@@ -197,7 +209,7 @@ export default {
   position: absolute;
   top: -10px;
   left: 10px;
-  background-color: #fff;
+  background-color: #f1f6f9;
   transition: all 0.3s ease;
 }
 
@@ -226,7 +238,7 @@ export default {
 .form .group .textarea:focus + label {
   top: -10px;
   left: 10px;
-  background-color: #fff;
+  background-color: #f1f6f9;
   color: #3366cc;
   font-weight: 600;
   font-size: 14px;

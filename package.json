@@ -13,7 +13,9 @@
     "bootstrap": "^5.2.3",
     "sweetalert2": "^11.7.3",
     "vee-validate": "^4.8.6",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

@@ -1,5 +1,16 @@
 <template>
-  <div>
+  <div class="gallery-container">
+    <div class="add-button-container">
+      <button
+        type="button"
+        class="add-button"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        @click="addCarData"
+      >
+        Add Car
+      </button>
+    </div>
     <div class="card-container">
       <div class="card-wrap" v-for="car in carDetails" :key="car.name">
         <div class="card-image">
@@ -12,14 +23,14 @@
           </p>
         </div>
         <div class="card-button">
-          <button
-            class="card-btn one"
-            @click="getPrice(car)"
-            :key="car.name"
-            :disabled="car.price == undefined"
+          <router-link
+            :to="{
+              name: 'carDetail',
+              params: { id: `${car.id}` },
+            }"
           >
-            {{ car.price == undefined ? "Available Soon" : "Info" }}
-          </button>
+            <button class="card-btn">Info</button>
+          </router-link>
           <div>
             <img
               src="../assets/editIcon.png"
@@ -30,7 +41,7 @@
             />
             <img
               src="../assets/deleteIcon.png"
-              @click="deleteCar(car.id)"
+              @click="deleteCar(car.id, car.name)"
               class="delete-icon"
             />
           </div>
@@ -43,7 +54,6 @@
 <script>
 import { getCarDetails, deleteCarDetails } from "../api/api.js";
 import Swal from "sweetalert2";
-import axios from "axios";
 
 export default {
   name: "GalleryCard",
@@ -63,21 +73,21 @@ export default {
     },
   },
   methods: {
-    getPrice(car) {
-      this.$emit("car-price", car);
+    addCarData(car) {
+      this.$emit("add-car", car);
     },
     editCarData(car) {
       this.$emit("edit-car", {
         ...car,
       });
     },
-    deleteCar(id) {
+    deleteCar(id, name) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#28a745",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
@@ -85,7 +95,11 @@ export default {
           await deleteCarDetails(id);
           this.carDetails = await getCarDetails();
           this.$emit("car-deleted");
-          Swal.fire("Deleted!", "Your car has been deleted.", "success");
+          Swal.fire(
+            `Deleted!${name}`,
+            `Your Car has been deleted.`,
+            "success"
+          );
         }
       });
     },
@@ -94,6 +108,24 @@ export default {
 </script>
 
 <style scoped>
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+}
+.add-button-container {
+  display: flex;
+  margin: 10px 50px;
+  flex-direction: row-reverse;
+}
+
+.add-button {
+  border: 1px solid white;
+  padding: 0.8em 1.7em;
+  border-radius: 0.3em;
+  background: #39484a;
+  color: white;
+}
+
 .edit-icon {
   height: 30px;
 }
@@ -110,9 +142,9 @@ export default {
 }
 
 .card-wrap {
-  width: 290px;
-  border-radius: 20px;
-  border: 1px solid #212a3e;
+  width: 300px;
+  border-radius: 10px;
+  border: 1px solid #39484a;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -159,8 +191,8 @@ export default {
 }
 
 .card-image img {
-  height: 180px;
-  width: 290px;
+  height: 200px;
+  width: 300px;
   object-fit: cover;
 }
 
@@ -191,9 +223,6 @@ export default {
   color: #212a3e;
   max-width: 150px;
 }
-.card-btn:disabled {
-  cursor: not-allowed;
-}
 
 .card-btn::before,
 .card-btn::after {
@@ -219,18 +248,20 @@ export default {
   top: calc(100% + 1em);
 }
 
-.card-btn:enabled:hover::before,
-.card-btn:enabled:hover::after {
+.card-btn:hover {
+  color: #f1f6f9;
+}
+.card-btn:hover::before,
+.card-btn:hover::after {
   height: 410px;
   width: 410px;
 }
-.card-btn:enabled:hover {
-  color: #f1f6f9;
-}
 
-@media (max-width: 500px) {
-  .card-btn {
-    padding: 0.5em 1em;
+@media screen and (max-width: 729px) {
+  .add-button-container {
+    display: flex;
+    margin: 10px 0px;
+    justify-content: center;
   }
 }
 </style>

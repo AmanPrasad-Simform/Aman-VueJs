@@ -33,12 +33,16 @@ export default {
   },
   async mounted() {
     this.isloading = true;
-    this.carList = { ...(await getCarDetails()) };
+    this.carList = {
+      ...(await getCarDetails()),
+    };
     this.isloading = false;
   },
   methods: {
     async getCar() {
-      this.carList = { ...(await getCarDetails()) };
+      this.carList = {
+        ...(await getCarDetails()),
+      };
     },
     openEditForm(car) {
       this.modalType = "edit";
@@ -56,11 +60,11 @@ export default {
   position: relative;
   height: 30vh;
 }
+
 .loader {
   position: absolute;
   top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 </style>

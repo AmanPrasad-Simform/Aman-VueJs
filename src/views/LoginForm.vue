@@ -66,7 +66,6 @@ export default {
 </script>
 
 <style scoped>
-
 .login-form {
   display: flex;
   justify-content: center;

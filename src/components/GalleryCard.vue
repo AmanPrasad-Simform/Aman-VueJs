@@ -112,14 +112,16 @@ export default {
 
 <style scoped>
 .fade-enter-from,
-.fade-leave-to  {
+.fade-leave-to {
   opacity: 0;
   transform: translateY(100px);
 }
+
 .fade-move,
 .fade-enter-active {
   transition: all 1s ease;
 }
+
 .fade-leave-active {
   transition: all 1s ease;
   position: absolute;

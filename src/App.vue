@@ -1,32 +1,25 @@
 <template>
 <div>
     <Navbar />
-    <!-- <transition name="fade"> -->
-        <router-view></router-view>
-    <!-- </transition> -->
+    <transition name="fade" mode="out-in">
+        <router-view :key="$route.fullPath"></router-view>
+    </transition>
 </div>
 </template>
 
 <script></script>
-<style scoped>
-.fade-enter-from{
-opacity: 0.5;
-}
-.fade-enter-to{
-opacity: 1;
-}
-.fade-enter-active{
-    transform:translateY(-50,-50);
-}
-.fade-leave-from{
-opacity: 1;
 
+<style scoped>
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+    transform: translateX(-10rem);
 }
-.fade-leave-to{
-opacity: 0.5;
-}
-.fade-leave-active{
-      transform:translateY(-50,-50);
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.5s ease-in-out;
 }
 
 </style>

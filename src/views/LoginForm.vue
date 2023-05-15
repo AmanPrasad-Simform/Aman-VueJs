@@ -26,9 +26,7 @@
       </div>
       <div class="form-btn">
         <button type="reset">Cancel</button>
-      <Transition name="shake">
         <button type="submit">Submit</button>
-      </Transition>
       </div>
     </VForm>
   </div>
@@ -68,23 +66,7 @@ export default {
 </script>
 
 <style scoped>
-.shake-enter-from{
-  opacity: 0.3;
-}
-.shake-enter-to{
-  opacity: 1;
-}
-.shake-enter-active {
-  transition: all 1s ease;
-}
 
-@keyframes shakeAnimation {
-  0% { transform: translateX(-10px); }
-  25% { transform: translateX(10px); }
-  50% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-  100% { transform: translateX(0); }
-}
 .login-form {
   display: flex;
   justify-content: center;

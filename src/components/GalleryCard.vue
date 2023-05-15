@@ -11,7 +11,7 @@
         Add Car
       </button>
     </div>
-    <transition-group name="fade" tag="div" appear class="card-container">
+    <transition-group name="fade" tag="div" class="card-container">
       <div
         class="card-wrap"
         v-for="(car, index) in carDetails"
@@ -111,63 +111,18 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-from {
+.fade-enter-from,
+.fade-leave-to  {
   opacity: 0;
-  transform: translateY(-100px);
+  transform: translateY(100px);
 }
-
-.fade-enter-to {
-  opacity: 1;
-  transform: translateY(0px);
-}
-
+.fade-move,
 .fade-enter-active {
   transition: all 1s ease;
 }
-
-.fade-leave-from {
-  opacity: 0;
-  transform: scale(1);
-}
-
-.fade-leave-to {
-  opacity: 1;
-  transform: scale(0);
-}
-
 .fade-leave-active {
   transition: all 1s ease;
   position: absolute;
-}
-
-.fade-move {
-  transition: all 0.3s ease;
-}
-
-.shake-enter-active {
-  animation: jiggle 0.5s ease;
-}
-
-@keyframes jiggle {
-  0% {
-    transform: translateX(-10px);
-  }
-
-  25% {
-    transform: translateX(10px);
-  }
-
-  50% {
-    transform: translateX(-5px);
-  }
-
-  75% {
-    transform: translateX(5px);
-  }
-
-  100% {
-    transform: translateX(0px);
-  }
 }
 
 .gallery-container {

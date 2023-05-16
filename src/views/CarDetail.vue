@@ -113,14 +113,15 @@ p {
   .car-image-container {
     margin-top: 4rem;
   }
+
   .car-image-container img {
-  min-width: 275px;
-}
+    min-width: 275px;
+  }
 }
 
 @media (max-width: 767px) {
   .car-image-container img {
-  margin-top: 0;
-}
+    margin-top: 0;
+  }
 }
 </style>

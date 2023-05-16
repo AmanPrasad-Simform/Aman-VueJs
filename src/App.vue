@@ -1,8 +1,25 @@
 <template>
   <div>
     <Navbar />
-    <router-view></router-view>
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
   </div>
 </template>
 
 <script></script>
+
+<style scoped>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(-10rem);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+</style>

@@ -104,7 +104,8 @@
 </template>
 
 <script>
-import { postCarDetails, putCarDetails } from "../api/api.js";
+import { mapActions } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 import Swal from "sweetalert2";
 export default {
   name: "CarForm",
@@ -138,6 +139,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useGlobalStore, ["postCarDetails", "putCarDetails"]),
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
@@ -151,9 +153,9 @@ export default {
     },
     async submitBtn() {
       if (this.modalType === "add") {
-        await postCarDetails(this.car);
+        await this.postCarDetails(this.car);
       } else {
-        await putCarDetails(this.car);
+        await this.putCarDetails(this.car);
       }
       this.$emit("car-created");
       this.resetCar();

@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery-container">
+  <section class="gallery-container">
     <div class="add-button-container">
       <button
         type="button"
@@ -53,11 +53,13 @@
         </div>
       </div>
     </transition-group>
-  </div>
+  </section>
 </template>
 
 <script>
-import { getCarDetails, deleteCarDetails } from "../api/api.js";
+import { mapActions } from "pinia";
+import useGlobalStore from "../stores/globalStore";
+
 import Swal from "sweetalert2";
 
 export default {
@@ -80,6 +82,7 @@ export default {
     },
   },
   methods: {
+        ...mapActions(useGlobalStore, ["getCarDetails", "deleteCarDetails"]),
     addCarData(car) {
       this.$emit("add-car", car);
     },
@@ -99,8 +102,8 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await deleteCarDetails(id);
-          this.carDetails = await getCarDetails();
+          await this.deleteCarDetails(id);
+          this.carDetails = await this.getCarDetails();
           this.$emit("car-deleted");
           Swal.fire(`Deleted!${name}`, `Your Car has been deleted.`, "success");
         }

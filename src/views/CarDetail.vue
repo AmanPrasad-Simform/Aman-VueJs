@@ -24,7 +24,8 @@
 
 <script>
 import Loading from "../components/Loading.vue";
-import { getCarDetailById } from "../api/api.js";
+import { mapActions } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 export default {
   name: "CarDetail",
   data() {
@@ -39,9 +40,12 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    const carDetailbyId = await getCarDetailById(this.id);
+    const carDetailbyId = await this.getCarDetailById(this.id);
     this.isLoading = false;
     this.carDetail = carDetailbyId;
+  },
+  methods: {
+    ...mapActions(useGlobalStore,["getCarDetailById"]),
   },
 };
 </script>

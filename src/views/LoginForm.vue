@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form">
+  <section class="login-form">
     <h1 class="title-header">Login</h1>
     <VForm class="form" :validation-schema="schema" @submit="loginBtn">
       <div class="group">
@@ -29,14 +29,14 @@
         <button type="submit">Submit</button>
       </div>
     </VForm>
-  </div>
+  </section>
 </template>
 
 <script>
-import { postLoginDetails } from "../api/api.js";
+import { mapActions } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 export default {
   name: "loginPage",
-
   data() {
     return {
       schema: {
@@ -50,8 +50,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useGlobalStore, ["postLoginDetails"]),
     async loginBtn() {
-      let response = await postLoginDetails(this.loginDetails);
+      let response = await this.postLoginDetails(this.loginDetails);
       if (response.status == 200) {
         this.$el.querySelector("button[type=reset]").click();
         this.$router.push({

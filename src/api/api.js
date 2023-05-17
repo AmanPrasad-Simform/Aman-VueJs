@@ -70,4 +70,4 @@ const postRegisterDetails = async (registerDetails) => {
     }
 }
 
-export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails, getCarDetailById, postLoginDetails, postRegisterDetails }
+// export { getCarDetails, postCarDetails, putCarDetails, deleteCarDetails, getCarDetailById, postLoginDetails, postRegisterDetails }

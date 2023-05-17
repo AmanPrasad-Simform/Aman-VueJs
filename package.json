@@ -11,6 +11,7 @@
     "@popperjs/core": "^2.11.7",
     "@vee-validate/rules": "^4.8.6",
     "bootstrap": "^5.2.3",
+    "pinia": "^2.0.36",
     "sweetalert2": "^11.7.3",
     "vee-validate": "^4.8.6",
     "vue": "^3.2.47",
@@ -18,7 +19,7 @@
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.62.1",
     "vite": "^4.1.4"
   }

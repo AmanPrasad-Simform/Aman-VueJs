@@ -72,7 +72,9 @@ export default {
   color: white;
   font-weight: 600;
 }
-
+.navbar{
+  padding: 0px;
+}
 .navbar-container {
   display: flex;
   justify-content: space-around;
@@ -93,12 +95,12 @@ export default {
 }
 
 .navbar-title img {
-  width: 65px;
+  width: 50px;
 }
 
 .navbar-container h1 {
   line-height: 1;
-  padding: 0.5rem;
+  padding: 0px 5px;
   font-weight: 600;
   font-size: 35px;
   background: #f1f6f9;
@@ -111,7 +113,7 @@ export default {
 .navbar-container p {
   line-height: 1;
   margin: 0;
-  padding: 0.5rem;
+  padding: 5px;
   font-weight: 600;
   background: #f1f6f9;
   font-size: 20px;

@@ -19,6 +19,10 @@ const routes = [
         component: () => import("./components/registration.vue")
     },
     {
+        path: "/pinia",
+        component: () => import("./components/PiniaTask.vue")
+    },
+    {
         name: "error",
         path: "/:catchAll(.*)",
         redirect: { name: "home" },

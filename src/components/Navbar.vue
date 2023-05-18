@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       carShowRoomName: "CarNation",
-      tagLine: "- Accelerate your journey with us.",
+      tagLine: "-Accelerate your journey with us.",
       showNavbar: false,
     };
   },
@@ -89,7 +89,6 @@ export default {
 
 .navbar-title {
   display: flex;
-  justify-content: center;
   align-items: center;
   text-decoration: none;
 }

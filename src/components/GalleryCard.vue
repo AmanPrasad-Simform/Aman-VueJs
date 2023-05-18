@@ -14,7 +14,7 @@
     <transition-group name="fade" tag="div" class="card-container">
       <div
         class="card-wrap"
-        v-for="(car, index) in carDetails"
+        v-for="(car, index) in carList"
         :key="car.name"
         :style="{ transitionDelay: `${0.1 * index}s` }"
       >
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState, mapState } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 
 import Swal from "sweetalert2";
@@ -65,31 +65,22 @@ import Swal from "sweetalert2";
 export default {
   name: "GalleryCard",
   data() {
-    return {
-      carDetails: {},
-    };
+    return {};
   },
-  props: {
-    carList: Object,
-  },
-  watch: {
-    carList: {
-      handler(newValue) {
-        this.carDetails = {
-          ...newValue,
-        };
-      },
-    },
+  computed: {
+    ...mapState(useGlobalStore, {
+      carList: "getCarDetail",
+    }),
+    ...mapWritableState(useGlobalStore, ["carDataByID"]),
   },
   methods: {
-        ...mapActions(useGlobalStore, ["getCarDetails", "deleteCarDetails"]),
+    ...mapActions(useGlobalStore, ["getCarDetails", "deleteCarDetails"]),
     addCarData(car) {
       this.$emit("add-car", car);
     },
     editCarData(car) {
-      this.$emit("edit-car", {
-        ...car,
-      });
+      this.$emit("edit-car");
+      this.carDataByID = { ...car };
     },
     deleteCar(id, name) {
       Swal.fire({
@@ -102,10 +93,15 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await this.deleteCarDetails(id);
-          this.carDetails = await this.getCarDetails();
-          this.$emit("car-deleted");
-          Swal.fire(`Deleted!${name}`, `Your Car has been deleted.`, "success");
+          const response = await this.deleteCarDetails(id);
+          if (response.status === 204) {
+            this.getCarDetails();
+            Swal.fire(
+              `Deleted ${name}!`,
+              `Your Car has been deleted.`,
+              "success"
+            );
+          }
         }
       });
     },

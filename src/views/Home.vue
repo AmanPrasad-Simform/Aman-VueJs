@@ -1,16 +1,8 @@
 <template>
   <section class="loading-container">
     <Loading class="loader" v-if="isloading" />
-    <GalleryCard
-      @add-car="openAddForm"
-      @edit-car="openEditForm"
-      :carList="carList"
-    />
-    <CarForm
-      :modalType="modalType"
-      :carData="carData"
-      @car-created="getCar"
-    />
+    <GalleryCard @add-car="openAddForm" @edit-car="openEditForm" />
+    <CarForm :modalType="modalType" :carDataByID="carDataByID" />
   </section>
 </template>
 
@@ -18,7 +10,7 @@
 import GalleryCard from "../components/GalleryCard.vue";
 import CarForm from "../components/CarForm.vue";
 import Loading from "../components/Loading.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 export default {
   components: {
@@ -29,28 +21,24 @@ export default {
   data() {
     return {
       modalType: "add",
-      carData: {},
-      carList: {},
-      isloading: true,
+      carDataByID: {},
     };
   },
-  computed: {},
-  mounted() {
-    this.isloading = true;
-    this.getCar();
-    this.isloading = false;
+  async mounted() {
+    await this.getCarAPI();
   },
-
+  computed: {
+    ...mapState(useGlobalStore, {
+      isloading: "getIsLoading",
+    }),
+  },
   methods: {
     ...mapActions(useGlobalStore, {
       getCarAPI: "getCarDetails",
     }),
-    async getCar() {
-      this.carList = await this.getCarAPI();
-    },
     openEditForm(car) {
       this.modalType = "edit";
-      this.carData = car;
+      this.carDataByID = car;
     },
     openAddForm() {
       this.modalType = "add";

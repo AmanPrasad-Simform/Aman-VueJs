@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-container" v-if="isLoading">
+  <div class="loading-container" v-if="isloading">
     <Loading class="loader" />
   </div>
   <div v-else class="car-details-container">
@@ -24,7 +24,7 @@
 
 <script>
 import Loading from "../components/Loading.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 export default {
   name: "CarDetail",
@@ -32,17 +32,19 @@ export default {
     return {
       id: this.$route.params.id,
       carDetail: {},
-      isLoading: true,
     };
   },
   components: {
     Loading,
   },
   async mounted() {
-    this.isLoading = true;
     const carDetailbyId = await this.getCarDetailById(this.id);
-    this.isLoading = false;
     this.carDetail = carDetailbyId;
+  },
+  computed:{
+    ...mapState(useGlobalStore,{
+      isloading:"getIsLoading"
+    })
   },
   methods: {
     ...mapActions(useGlobalStore,["getCarDetailById"]),

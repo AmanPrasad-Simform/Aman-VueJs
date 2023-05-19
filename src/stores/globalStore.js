@@ -5,21 +5,21 @@ const useGlobalStore = defineStore("global", {
     state: () => {
         return {
             carList: {},
-            carDataByID: {
-                name: "",
-                price: Number,
-                image: "",
-                details: "",
-            },
-            isloading:false,
+            carDataToBeEdited: {},
+            carDataById: {},
+            isloading: false,
+            modalType: "add",
         }
     },
-    getters:{
-        getCarDetail(){
+    getters: {
+        getCarDetail() {
             return this.carList
         },
-        getIsLoading(){
+        getIsLoading() {
             return this.isloading
+        },
+        getCarDataById() {
+            return this.carDataById
         }
     },
     actions: {
@@ -35,10 +35,11 @@ const useGlobalStore = defineStore("global", {
                 alert("Error in fetching data...")
             }
         },
-        async getCarDetailById(id){
+        async getCarDetailById(id) {
             this.isloading = true;
             try {
                 let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+                this.carDataById = responseData.data
                 this.isloading = false;
                 return responseData.data
             } catch (e) {
@@ -51,7 +52,6 @@ const useGlobalStore = defineStore("global", {
                 let responseData = await axios.put(`https://testapi.io/api/dartya/resource/cardata/${car.id}`, {
                     ...car
                 })
-                console.log(responseData, "status")
                 if (responseData.status == 200) {
                     this.getCarDetails()
                 }
@@ -82,7 +82,7 @@ const useGlobalStore = defineStore("global", {
             }
         },
 
-        postLoginDetails: async (loginDetails) => {
+        async postLoginDetails(loginDetails) {
             try {
                 let responseData = await axios.post("https://testapi.io/api/dartya//login", {
                     ...loginDetails
@@ -94,7 +94,7 @@ const useGlobalStore = defineStore("global", {
             }
         },
 
-        postRegisterDetails: async (registerDetails) => {
+        async postRegisterDetails(registerDetails) {
             try {
                 let responseData = await axios.post("https://testapi.io/api/dartya/resource/users", {
                     ...registerDetails

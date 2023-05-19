@@ -38,7 +38,7 @@
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="carDataByID.name"
+                v-model="carDataToBeEdited.name"
               />
               <label for="name"> Car Name </label>
 
@@ -50,7 +50,7 @@
                 placeholder=" "
                 type="number"
                 class="input"
-                v-model="carDataByID.price"
+                v-model="carDataToBeEdited.price"
               />
               <label for="price">Price</label>
               <ErrorMessage name="price" class="error_message" />
@@ -62,7 +62,7 @@
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="carDataByID.image"
+                v-model="carDataToBeEdited.image"
               />
 
               <label for="image">Image URL</label>
@@ -73,7 +73,7 @@
                 name="details"
                 :bails="false"
                 v-slot="{ field, errors }"
-                v-model="carDataByID.details"
+                v-model="carDataToBeEdited.details"
               >
                 <textarea
                   type="text"
@@ -109,9 +109,6 @@ import useGlobalStore from "../stores/globalStore";
 import Swal from "sweetalert2";
 export default {
   name: "CarForm",
-  props: {
-    modalType: String,
-  },
   data() {
     return {
       schema: {
@@ -126,9 +123,9 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, {
-      carList: "getCarDetail"
+      modalType: "modalType",
     }),
-    ...mapWritableState(useGlobalStore, ["carDataByID"]),
+    ...mapWritableState(useGlobalStore, ["carDataToBeEdited"]),
   },
   methods: {
     ...mapActions(useGlobalStore, [
@@ -148,9 +145,9 @@ export default {
     },
     async submitBtn() {
       if (this.modalType === "add") {
-        await this.postCarDetails(this.carDataByID);
+        await this.postCarDetails(this.carDataToBeEdited);
       } else {
-        await this.putCarDetails(this.carDataByID);
+        await this.putCarDetails(this.carDataToBeEdited);
       }
       this.resetCar();
       Swal.fire({
@@ -159,10 +156,10 @@ export default {
         }`,
         html: `
       <div>
-        <img src="${this.carDataByID.image}" alt="Logo" class="swal-img" style="width:300px" />
-        <h3>Car: ${this.carDataByID.name}</h3>
-        <p>Price: ${this.carDataByID.price}</p>
-        <p>Details: ${this.carDataByID.details}</p>
+        <img src="${this.carDataToBeEdited.image}" alt="CarImage" class="swal-img" style="width:300px" />
+        <h3>Car: ${this.carDataToBeEdited.name}</h3>
+        <p>Price: ${this.carDataToBeEdited.price}</p>
+        <p>Details: ${this.carDataToBeEdited.details}</p>
       </div>
   `,
         showCloseButton: false,

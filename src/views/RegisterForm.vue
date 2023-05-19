@@ -155,15 +155,7 @@ export default {
           }
         },
       },
-      registerDetails: {
-        name: "",
-        email: "",
-        password: "",
-        role: "",
-        gender: "",
-        dob: "",
-        age: "",
-      },
+      registerDetails: {},
     };
   },
   computed: {

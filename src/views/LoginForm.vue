@@ -43,10 +43,7 @@ export default {
         email: "required|email",
         password: "required|min:8|max:12|regex:^(?=.*\\d)(?=.*[^\\w\\d\\s]).+$",
       },
-      loginDetails: {
-        email: "",
-        password: "",
-      },
+      loginDetails: {},
     };
   },
   methods: {

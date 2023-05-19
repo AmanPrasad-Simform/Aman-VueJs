@@ -4,12 +4,12 @@
   </div>
   <div v-else class="car-details-container">
     <div class="car-image-container">
-      <img :src="carDetail.image" />
+      <img :src="carDataById.image" />
     </div>
     <div class="car-details">
-      <h1>Name: {{ carDetail.name }}</h1>
-      <h3><b>Price: $</b>{{ carDetail.price }}</h3>
-      <p><b>Description: </b> {{ carDetail.details }}</p>
+      <h1>Name: {{ carDataById.name }}</h1>
+      <h3><b>Price: $</b>{{ carDataById.price }}</h3>
+      <p><b>Description: </b> {{ carDataById.details }}</p>
       <router-link
         :to="{
           name: 'home',
@@ -31,23 +31,22 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      carDetail: {},
     };
   },
   components: {
     Loading,
   },
   async mounted() {
-    const carDetailbyId = await this.getCarDetailById(this.id);
-    this.carDetail = carDetailbyId;
+    await this.getCarDetailById(this.id);
   },
-  computed:{
-    ...mapState(useGlobalStore,{
-      isloading:"getIsLoading"
-    })
+  computed: {
+    ...mapState(useGlobalStore, {
+      isloading: "getIsLoading",
+      carDataById: "getCarDataById",
+    }),
   },
   methods: {
-    ...mapActions(useGlobalStore,["getCarDetailById"]),
+    ...mapActions(useGlobalStore, ["getCarDetailById"]),
   },
 };
 </script>

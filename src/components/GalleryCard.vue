@@ -19,7 +19,7 @@
         :style="{ transitionDelay: `${0.1 * index}s` }"
       >
         <div class="card-image">
-          <img :src="car.image" />
+          <img :src="car.image" alt="CarImage" />
         </div>
         <div class="card-content">
           <h1 class="card-title">{{ car.name }}</h1>
@@ -64,23 +64,21 @@ import Swal from "sweetalert2";
 
 export default {
   name: "GalleryCard",
-  data() {
-    return {};
-  },
+
   computed: {
     ...mapState(useGlobalStore, {
       carList: "getCarDetail",
     }),
-    ...mapWritableState(useGlobalStore, ["carDataByID"]),
+    ...mapWritableState(useGlobalStore, ["carDataToBeEdited", "modalType"]),
   },
   methods: {
     ...mapActions(useGlobalStore, ["getCarDetails", "deleteCarDetails"]),
-    addCarData(car) {
-      this.$emit("add-car", car);
+    addCarData() {
+      this.modalType = "add";
     },
     editCarData(car) {
-      this.$emit("edit-car");
-      this.carDataByID = { ...car };
+      this.modalType = "edit";
+      this.carDataToBeEdited = { ...car };
     },
     deleteCar(id, name) {
       Swal.fire({

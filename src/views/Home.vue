@@ -1,8 +1,8 @@
 <template>
   <section class="loading-container">
     <Loading class="loader" v-if="isloading" />
-    <GalleryCard @add-car="openAddForm" @edit-car="openEditForm" />
-    <CarForm :modalType="modalType" :carDataByID="carDataByID" />
+    <GalleryCard />
+    <CarForm />
   </section>
 </template>
 
@@ -18,12 +18,6 @@ export default {
     GalleryCard,
     CarForm,
   },
-  data() {
-    return {
-      modalType: "add",
-      carDataByID: {},
-    };
-  },
   async mounted() {
     await this.getCarAPI();
   },
@@ -36,13 +30,6 @@ export default {
     ...mapActions(useGlobalStore, {
       getCarAPI: "getCarDetails",
     }),
-    openEditForm(car) {
-      this.modalType = "edit";
-      this.carDataByID = car;
-    },
-    openAddForm() {
-      this.modalType = "add";
-    },
   },
 };
 </script>

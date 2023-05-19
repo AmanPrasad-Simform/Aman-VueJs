@@ -72,7 +72,7 @@ export default {
   color: white;
   font-weight: 600;
 }
-.navbar{
+.navbar {
   padding: 0px;
 }
 .navbar-container {

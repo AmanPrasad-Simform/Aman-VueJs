@@ -1,8 +1,8 @@
 <template>
-  <div class="loading-container" v-if="isloading">
+  <section class="loading-container" v-if="isloading">
     <Loading class="loader" />
-  </div>
-  <div v-else class="car-details-container">
+  </section>
+  <section v-else class="car-details-container">
     <div class="car-image-container">
       <img :src="carDataById.image" />
     </div>
@@ -19,7 +19,7 @@
         Back
       </router-link>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

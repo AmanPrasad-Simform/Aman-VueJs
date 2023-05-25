@@ -27,27 +27,38 @@
         id="navbarNav"
       >
         <ul class="navbar-nav">
-          <router-link
-            :to="{ name: 'home' }"
-            class="nav-item nav-button"
-            @click="showNavbar = false"
-          >
-            Home
-          </router-link>
-          <router-link
-            :to="{ name: 'login' }"
-            class="nav-item nav-button"
-            @click="showNavbar = false"
-          >
-            Login
-          </router-link>
-          <router-link
-            :to="{ name: 'register' }"
-            class="nav-item nav-button"
-            @click="showNavbar = false"
-          >
-            Register
-          </router-link>
+          <template v-if="isLoggedIn">
+            <router-link
+              :to="{ name: 'home' }"
+              class="nav-item nav-button"
+              @click="showNavbar = false"
+            >
+              Home
+            </router-link>
+            <router-link
+              :to="{ name: 'login' }"
+              class="nav-item nav-button"
+              @click="logout"
+            >
+              Logout
+            </router-link>
+          </template>
+          <template v-else>
+            <router-link
+              :to="{ name: 'login' }"
+              class="nav-item nav-button"
+              @click="showNavbar = false"
+            >
+              Login
+            </router-link>
+            <router-link
+              :to="{ name: 'register' }"
+              class="nav-item nav-button"
+              @click="showNavbar = false"
+            >
+              Register
+            </router-link>
+          </template>
         </ul>
       </div>
     </div>
@@ -55,6 +66,8 @@
 </template>
 
 <script>
+import { mapWritableState } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 export default {
   name: "Navbar",
   data() {
@@ -64,13 +77,25 @@ export default {
       showNavbar: false,
     };
   },
+  computed: {
+    ...mapWritableState(useGlobalStore, ["isLoggedIn"]),
+  },
+  methods: {
+    logout() {
+      this.showNavbar = false;
+      this.isLoggedIn = false;
+      sessionStorage.setItem("isLoggedIn", false);
+      sessionStorage.removeItem("isToken", false);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .navbar-nav .link-active-class {
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  opacity: 1;
 }
 .navbar {
   padding: 0px;
@@ -143,6 +168,7 @@ export default {
   color: #f1f6f9;
   font-size: 25px;
   margin: 0 10px;
+  opacity: 0.8;
   text-decoration: none;
 }
 

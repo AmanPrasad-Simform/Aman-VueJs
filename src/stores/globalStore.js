@@ -9,6 +9,8 @@ const useGlobalStore = defineStore("global", {
             carDataById: {},
             isloading: false,
             modalType: "add",
+            userDetails: {},
+            isLoggedIn: JSON.parse(sessionStorage.getItem("isLoggedIn"))
         }
     },
     getters: {
@@ -20,7 +22,8 @@ const useGlobalStore = defineStore("global", {
         },
         getCarDataById() {
             return this.carDataById
-        }
+        },
+
     },
     actions: {
         async getCarDetails() {
@@ -45,6 +48,7 @@ const useGlobalStore = defineStore("global", {
             } catch (e) {
                 this.isloading = false;
                 alert("Error in fetching data...")
+                window.history.back()
             }
         },
         async putCarDetails(car) {
@@ -79,6 +83,16 @@ const useGlobalStore = defineStore("global", {
                 return responseData
             } catch (e) {
                 alert("Error in deleting the data...")
+            }
+        },
+
+        async getUserDetails() {
+            try {
+                let responseData = await axios.get("https://testapi.io/api/dartya/resource/users")
+                this.userDetails = responseData.data.data
+            }
+            catch (e) {
+                alert("Error in adding Login details...")
             }
         },
 

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 export default {
   name: "loginPage",
@@ -41,20 +41,38 @@ export default {
     return {
       schema: {
         email: "required|email",
-        password: "required|min:8|max:12|regex:^(?=.*\\d)(?=.*[^\\w\\d\\s]).+$",
+        password: "required",
       },
       loginDetails: {},
     };
   },
+  computed: {
+    ...mapState(useGlobalStore, ["userDetails"]),
+    ...mapWritableState(useGlobalStore, ["isLoggedIn"]),
+  },
   methods: {
-    ...mapActions(useGlobalStore, ["postLoginDetails"]),
+    ...mapActions(useGlobalStore, ["postLoginDetails", "getUserDetails"]),
     async loginBtn() {
+      await this.getUserDetails();
       let response = await this.postLoginDetails(this.loginDetails);
       if (response.status == 200) {
+        let users = this.userDetails.find(
+          (user) =>
+            this.loginDetails.email == user.email &&
+            this.loginDetails.password == user.password
+        );
+        if (users) {
+          this.isLoggedIn = true;
+          const tokenID = users.id;
+          sessionStorage.setItem("isLoggedIn", true);
+          sessionStorage.setItem("isToken", tokenID);
+          this.$router.push({
+            name: "home",
+          });
+        } else {
+          alert("Invalid Credentials");
+        }
         this.$el.querySelector("button[type=reset]").click();
-        this.$router.push({
-          name: "home",
-        });
       } else {
         return;
       }

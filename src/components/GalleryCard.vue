@@ -1,6 +1,6 @@
 <template>
   <section class="gallery-container">
-    <div class="add-button-container">
+    <section class="add-button-container">
       <button
         type="button"
         class="add-button"
@@ -10,8 +10,12 @@
       >
         Add Car
       </button>
-    </div>
-    <transition-group name="fade" tag="div" class="card-container">
+    </section>
+    <section v-if="carList == ''" class="no-car-found">
+      <h1>{{ emptyMessage }}</h1>
+      <img src="../assets/no-cars-found.png" />
+    </section>
+    <transition-group name="fade" tag="section" class="card-container">
       <div
         class="card-wrap"
         v-for="(car, index) in carList"
@@ -64,7 +68,11 @@ import Swal from "sweetalert2";
 
 export default {
   name: "GalleryCard",
-
+  data() {
+    return {
+      emptyMessage: "No cars found!",
+    };
+  },
   computed: {
     ...mapState(useGlobalStore, {
       carList: "getCarDetail",
@@ -279,11 +287,36 @@ export default {
   width: 410px;
 }
 
+.no-car-found h1 {
+  text-align: center;
+  color: #39484a;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.no-car-found img {
+  width: 700px;
+  display: flex;
+  margin: auto;
+}
 @media screen and (max-width: 729px) {
   .add-button-container {
     display: flex;
     margin: 10px 0px;
     justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .no-car-found img {
+    width: 400px;
+  }
+}
+
+@media (max-width: 450px) {
+  .no-car-found img {
+    width: 300px;
   }
 }
 </style>

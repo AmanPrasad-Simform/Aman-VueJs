@@ -2,14 +2,12 @@
 
 CarNation is an application that allows users to access information about car models, features, pricing, and availability.
 
-[Demo](https://carnation-06.netlify.app)
+[Demo](https://carnation-08.netlify.app)
 ## Screenshots
 
 ![App Screenshot](src/assets/README.screenshots/sc1.png)
 ![App Screenshot](src/assets/README.screenshots/sc2.png)
 ![App Screenshot](src/assets/README.screenshots/sc3.png)
-![App Screenshot](src/assets/README.screenshots/sc4.png)
-![App Screenshot](src/assets/README.screenshots/sc5.png)
 
 # vue-project
 

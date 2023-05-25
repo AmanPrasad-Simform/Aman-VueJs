@@ -52,7 +52,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    (!to.meta.title) ? (document.title = carShowRoomName) : (document.title = to.meta.title)
     const isLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"))
     const isToken = JSON.parse(sessionStorage.getItem("isToken"))
     if (to.meta.requiresAuth && !isLoggedIn && !isToken) {
@@ -65,4 +64,9 @@ router.beforeEach((to, from, next) => {
         next() // Continue navigation 
     }
 })
+
+router.afterEach((to) => {
+    (!to.meta.title) ? (document.title = carShowRoomName) : (document.title = to.meta.title)
+})
+
 export default router;

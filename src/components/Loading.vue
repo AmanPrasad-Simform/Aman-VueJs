@@ -1,10 +1,10 @@
 <template>
-  <div class="loader">
+  <section class="loader">
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

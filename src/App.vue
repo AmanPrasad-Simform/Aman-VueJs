@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <section>
     <Navbar />
     <RouterView v-slot="{ Component }">
       <Transition name="fade" mode="out-in">
         <component :is="Component" />
       </Transition>
     </RouterView>
-  </div>
+  </section>
 </template>
 
 <script></script>

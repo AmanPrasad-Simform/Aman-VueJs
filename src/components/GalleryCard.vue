@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery-container">
+  <section class="gallery-container">
     <div class="add-button-container">
       <button
         type="button"
@@ -14,12 +14,12 @@
     <transition-group name="fade" tag="div" class="card-container">
       <div
         class="card-wrap"
-        v-for="(car, index) in carDetails"
+        v-for="(car, index) in carList"
         :key="car.name"
         :style="{ transitionDelay: `${0.1 * index}s` }"
       >
         <div class="card-image">
-          <img :src="car.image" />
+          <img :src="car.image" alt="CarImage" />
         </div>
         <div class="card-content">
           <h1 class="card-title">{{ car.name }}</h1>
@@ -53,40 +53,32 @@
         </div>
       </div>
     </transition-group>
-  </div>
+  </section>
 </template>
 
 <script>
-import { getCarDetails, deleteCarDetails } from "../api/api.js";
+import { mapActions, mapWritableState, mapState } from "pinia";
+import useGlobalStore from "../stores/globalStore";
+
 import Swal from "sweetalert2";
 
 export default {
   name: "GalleryCard",
-  data() {
-    return {
-      carDetails: {},
-    };
-  },
-  props: {
-    carList: Object,
-  },
-  watch: {
-    carList: {
-      handler(newValue) {
-        this.carDetails = {
-          ...newValue,
-        };
-      },
-    },
+
+  computed: {
+    ...mapState(useGlobalStore, {
+      carList: "getCarDetail",
+    }),
+    ...mapWritableState(useGlobalStore, ["carDataToBeEdited", "modalType"]),
   },
   methods: {
-    addCarData(car) {
-      this.$emit("add-car", car);
+    ...mapActions(useGlobalStore, ["getCarDetails", "deleteCarDetails"]),
+    addCarData() {
+      this.modalType = "add";
     },
     editCarData(car) {
-      this.$emit("edit-car", {
-        ...car,
-      });
+      this.modalType = "edit";
+      this.carDataToBeEdited = { ...car };
     },
     deleteCar(id, name) {
       Swal.fire({
@@ -99,10 +91,15 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await deleteCarDetails(id);
-          this.carDetails = await getCarDetails();
-          this.$emit("car-deleted");
-          Swal.fire(`Deleted!${name}`, `Your Car has been deleted.`, "success");
+          const response = await this.deleteCarDetails(id);
+          if (response.status === 204) {
+            this.getCarDetails();
+            Swal.fire(
+              `Deleted ${name}!`,
+              `Your Car has been deleted.`,
+              "success"
+            );
+          }
         }
       });
     },

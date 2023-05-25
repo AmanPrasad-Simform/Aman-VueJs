@@ -1,15 +1,15 @@
 <template>
-  <div class="loading-container" v-if="isLoading">
+  <div class="loading-container" v-if="isloading">
     <Loading class="loader" />
   </div>
   <div v-else class="car-details-container">
     <div class="car-image-container">
-      <img :src="carDetail.image" />
+      <img :src="carDataById.image" />
     </div>
     <div class="car-details">
-      <h1>Name: {{ carDetail.name }}</h1>
-      <h3><b>Price: $</b>{{ carDetail.price }}</h3>
-      <p><b>Description: </b> {{ carDetail.details }}</p>
+      <h1>Name: {{ carDataById.name }}</h1>
+      <h3><b>Price: $</b>{{ carDataById.price }}</h3>
+      <p><b>Description: </b> {{ carDataById.details }}</p>
       <router-link
         :to="{
           name: 'home',
@@ -24,24 +24,29 @@
 
 <script>
 import Loading from "../components/Loading.vue";
-import { getCarDetailById } from "../api/api.js";
+import { mapActions, mapState } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 export default {
   name: "CarDetail",
   data() {
     return {
       id: this.$route.params.id,
-      carDetail: {},
-      isLoading: true,
     };
   },
   components: {
     Loading,
   },
   async mounted() {
-    this.isLoading = true;
-    const carDetailbyId = await getCarDetailById(this.id);
-    this.isLoading = false;
-    this.carDetail = carDetailbyId;
+    await this.getCarDetailById(this.id);
+  },
+  computed: {
+    ...mapState(useGlobalStore, {
+      isloading: "getIsLoading",
+      carDataById: "getCarDataById",
+    }),
+  },
+  methods: {
+    ...mapActions(useGlobalStore, ["getCarDetailById"]),
   },
 };
 </script>

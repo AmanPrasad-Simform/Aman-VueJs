@@ -38,7 +38,7 @@
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.name"
+                v-model="carDataToBeEdited.name"
               />
               <label for="name"> Car Name </label>
 
@@ -50,7 +50,7 @@
                 placeholder=" "
                 type="number"
                 class="input"
-                v-model="car.price"
+                v-model="carDataToBeEdited.price"
               />
               <label for="price">Price</label>
               <ErrorMessage name="price" class="error_message" />
@@ -62,7 +62,7 @@
                 placeholder=" "
                 type="text"
                 class="input"
-                v-model="car.image"
+                v-model="carDataToBeEdited.image"
               />
 
               <label for="image">Image URL</label>
@@ -73,7 +73,7 @@
                 name="details"
                 :bails="false"
                 v-slot="{ field, errors }"
-                v-model="car.details"
+                v-model="carDataToBeEdited.details"
               >
                 <textarea
                   type="text"
@@ -104,21 +104,11 @@
 </template>
 
 <script>
-import { postCarDetails, putCarDetails } from "../api/api.js";
+import { mapActions, mapState, mapWritableState } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 import Swal from "sweetalert2";
 export default {
   name: "CarForm",
-  props: {
-    modalType: String,
-    carData: Object,
-  },
-  watch: {
-    carData: {
-      handler(newVal) {
-        this.car = newVal;
-      },
-    },
-  },
   data() {
     return {
       schema: {
@@ -127,21 +117,25 @@ export default {
         image: "required|URL",
         details: "required|min:30|max:120",
       },
-      car: {
-        name: "",
-        price: Number,
-        image: "",
-        details: "",
-      },
       swalAddMsg: "Created Data",
       swalEditMsg: "Edited Data",
     };
   },
+  computed: {
+    ...mapState(useGlobalStore, {
+      modalType: "modalType",
+    }),
+    ...mapWritableState(useGlobalStore, ["carDataToBeEdited"]),
+  },
   methods: {
+    ...mapActions(useGlobalStore, [
+      "getCarDetails",
+      "postCarDetails",
+      "putCarDetails",
+    ]),
     resetCar() {
       this.$el.querySelector("button[type=reset]").click();
     },
-
     handleSubmit() {
       // using setTimeout just to avoid multiple submit calls
       clearTimeout(this.timer);
@@ -151,11 +145,10 @@ export default {
     },
     async submitBtn() {
       if (this.modalType === "add") {
-        await postCarDetails(this.car);
+        await this.postCarDetails(this.carDataToBeEdited);
       } else {
-        await putCarDetails(this.car);
+        await this.putCarDetails(this.carDataToBeEdited);
       }
-      this.$emit("car-created");
       this.resetCar();
       Swal.fire({
         title: `${
@@ -163,10 +156,10 @@ export default {
         }`,
         html: `
       <div>
-        <img src="${this.car.image}" alt="Logo" class="swal-img" style="width:300px" />
-        <h3>Car: ${this.car.name}</h3>
-        <p>Price: ${this.car.price}</p>
-        <p>Details: ${this.car.details}</p>
+        <img src="${this.carDataToBeEdited.image}" alt="CarImage" class="swal-img" style="width:300px" />
+        <h3>Car: ${this.carDataToBeEdited.name}</h3>
+        <p>Price: ${this.carDataToBeEdited.price}</p>
+        <p>Details: ${this.carDataToBeEdited.details}</p>
       </div>
   `,
         showCloseButton: false,

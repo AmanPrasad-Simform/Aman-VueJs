@@ -1,5 +1,5 @@
 <template>
-  <div class="register-form">
+  <section class="register-form">
     <h1 class="title-header">Register</h1>
     <VForm class="form" :validation-schema="schema" @submit="registerBtn">
       <div class="group">
@@ -118,11 +118,12 @@
         <button type="submit">Submit</button>
       </div>
     </VForm>
-  </div>
+  </section>
 </template>
 
 <script>
-import { postRegisterDetails } from "../api/api.js";
+import { mapActions } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 export default {
   name: "registerPage",
   data() {
@@ -154,15 +155,7 @@ export default {
           }
         },
       },
-      registerDetails: {
-        name: "",
-        email: "",
-        password: "",
-        role: "",
-        gender: "",
-        dob: "",
-        age: "",
-      },
+      registerDetails: {},
     };
   },
   computed: {
@@ -172,6 +165,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useGlobalStore, ["postRegisterDetails"]),
     calculateAge() {
       const dob = new Date(this.registerDetails.dob);
       const ageInMilliseconds = Date.now() - dob.getTime();
@@ -180,7 +174,7 @@ export default {
       this.registerDetails.age = calculatedAge;
     },
     async registerBtn() {
-      let response = await postRegisterDetails(this.registerDetails);
+      let response = await this.postRegisterDetails(this.registerDetails);
       if (response.status == 201) {
         this.$router.push({
           name: "login",

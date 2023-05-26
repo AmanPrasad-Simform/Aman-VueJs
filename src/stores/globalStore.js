@@ -29,7 +29,7 @@ const useGlobalStore = defineStore("global", {
         async getCarDetails() {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata`)
+                let responseData = await axios.get(`${import.meta.env.VITE_CAR_API}`)
                 this.carList = responseData.data.data
                 this.isloading = false;
                 return responseData.data.data
@@ -41,7 +41,7 @@ const useGlobalStore = defineStore("global", {
         async getCarDetailById(id) {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+                let responseData = await axios.get(`${import.meta.env.VITE_CAR_API}/${id}`)
                 this.carDataById = responseData.data
                 this.isloading = false;
                 return responseData.data
@@ -53,7 +53,7 @@ const useGlobalStore = defineStore("global", {
         },
         async putCarDetails(car) {
             try {
-                let responseData = await axios.put(`https://testapi.io/api/dartya/resource/cardata/${car.id}`, {
+                let responseData = await axios.put(`${import.meta.env.VITE_CAR_API}/${car.id}`, {
                     ...car
                 })
                 if (responseData.status == 200) {
@@ -66,7 +66,7 @@ const useGlobalStore = defineStore("global", {
         },
         async postCarDetails(car) {
             try {
-                let responseData = await axios.post(`https://testapi.io/api/dartya/resource/cardata`, {
+                let responseData = await axios.post(`${import.meta.env.VITE_CAR_API}`, {
                     ...car
                 })
                 if (responseData.status == 201) {
@@ -79,7 +79,7 @@ const useGlobalStore = defineStore("global", {
         },
         async deleteCarDetails(id) {
             try {
-                let responseData = await axios.delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+                let responseData = await axios.delete(`${import.meta.env.VITE_CAR_API}/${id}`)
                 return responseData
             } catch (e) {
                 alert("Error in deleting the data...")
@@ -88,7 +88,7 @@ const useGlobalStore = defineStore("global", {
 
         async getUserDetails() {
             try {
-                let responseData = await axios.get("https://testapi.io/api/dartya/resource/users")
+                let responseData = await axios.get(`${import.meta.env.VITE_USER_API}`)
                 this.userDetails = responseData.data.data
             }
             catch (e) {
@@ -110,7 +110,7 @@ const useGlobalStore = defineStore("global", {
 
         async postRegisterDetails(registerDetails) {
             try {
-                let responseData = await axios.post("https://testapi.io/api/dartya/resource/users", {
+                let responseData = await axios.post(`${import.meta.env.VITE_USER_API}`, {
                     ...registerDetails
                 })
                 return responseData

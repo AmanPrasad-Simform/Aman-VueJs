@@ -29,7 +29,7 @@ const useGlobalStore = defineStore("global", {
         async getCarDetails() {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_CAR_API}`)
+                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/cardata`)
                 this.carList = responseData.data.data
                 this.isloading = false;
                 return responseData.data.data
@@ -41,7 +41,7 @@ const useGlobalStore = defineStore("global", {
         async getCarDetailById(id) {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_CAR_API}/${id}`)
+                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`)
                 this.carDataById = responseData.data
                 this.isloading = false;
                 return responseData.data
@@ -53,7 +53,7 @@ const useGlobalStore = defineStore("global", {
         },
         async putCarDetails(car) {
             try {
-                let responseData = await axios.put(`${import.meta.env.VITE_CAR_API}/${car.id}`, {
+                let responseData = await axios.put(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${car.id}`, {
                     ...car
                 })
                 if (responseData.status == 200) {
@@ -66,20 +66,20 @@ const useGlobalStore = defineStore("global", {
         },
         async postCarDetails(car) {
             try {
-                let responseData = await axios.post(`${import.meta.env.VITE_CAR_API}`, {
+                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}/resource/cardata`, {
                     ...car
                 })
                 if (responseData.status == 201) {
                     this.getCarDetails()
                 }
-                return responseData.data.data
+                return responseData
             } catch (e) {
                 alert("Error in adding data...")
             }
         },
         async deleteCarDetails(id) {
             try {
-                let responseData = await axios.delete(`${import.meta.env.VITE_CAR_API}/${id}`)
+                let responseData = await axios.delete(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`)
                 return responseData
             } catch (e) {
                 alert("Error in deleting the data...")
@@ -88,7 +88,7 @@ const useGlobalStore = defineStore("global", {
 
         async getUserDetails() {
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_USER_API}`)
+                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/users`)
                 this.userDetails = responseData.data.data
             }
             catch (e) {
@@ -98,7 +98,7 @@ const useGlobalStore = defineStore("global", {
 
         async postLoginDetails(loginDetails) {
             try {
-                let responseData = await axios.post("https://testapi.io/api/dartya//login", {
+                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}//login`, {
                     ...loginDetails
                 })
                 return responseData
@@ -110,7 +110,7 @@ const useGlobalStore = defineStore("global", {
 
         async postRegisterDetails(registerDetails) {
             try {
-                let responseData = await axios.post(`${import.meta.env.VITE_USER_API}`, {
+                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}/resource/users`, {
                     ...registerDetails
                 })
                 return responseData

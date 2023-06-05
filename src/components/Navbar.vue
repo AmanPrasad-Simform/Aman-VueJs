@@ -65,30 +65,23 @@
   </nav>
 </template>
 
-<script>
-import { mapWritableState } from "pinia";
+<script setup>
+import {ref} from "vue"
+import { storeToRefs } from "pinia";
 import useGlobalStore from "../stores/globalStore";
-export default {
-  name: "Navbar",
-  data() {
-    return {
-      carShowRoomName: "CarNation",
-      tagLine: "-Accelerate your journey with us.",
-      showNavbar: false,
-    };
-  },
-  computed: {
-    ...mapWritableState(useGlobalStore, ["isLoggedIn"]),
-  },
-  methods: {
-    logout() {
-      this.showNavbar = false;
-      this.isLoggedIn = false;
-      sessionStorage.setItem("isLoggedIn", false);
-      sessionStorage.removeItem("isToken", false);
-    },
-  },
-};
+const name = "Navbar";
+const carShowRoomName = "CarNation";
+const tagLine = "-Accelerate your journey with us.";
+const showNavbar = ref(false);
+const store = useGlobalStore();
+const { isLoggedIn } = storeToRefs(store);
+
+function logout() {
+  showNavbar.value = false;
+  isLoggedIn.value = false;
+  sessionStorage.setItem("isLoggedIn", false);
+  sessionStorage.removeItem("isToken", false);
+}
 </script>
 
 <style scoped>

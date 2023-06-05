@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios"
+import axios from "axios";
 
 const useGlobalStore = defineStore("global", {
     state: () => {
@@ -10,115 +10,133 @@ const useGlobalStore = defineStore("global", {
             isloading: false,
             modalType: "add",
             userDetails: {},
-            isLoggedIn: JSON.parse(sessionStorage.getItem("isLoggedIn"))
-        }
+            isLoggedIn: JSON.parse(sessionStorage.getItem("isLoggedIn")),
+        };
     },
     getters: {
         getCarDetail() {
-            return this.carList
+            return this.carList;
         },
         getIsLoading() {
-            return this.isloading
+            return this.isloading;
         },
         getCarDataById() {
-            return this.carDataById
+            return this.carDataById;
         },
-
     },
     actions: {
         async getCarDetails() {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/cardata`)
-                this.carList = responseData.data.data
+                let responseData = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/resource/cardata`
+                );
+                this.carList = responseData.data.data;
                 this.isloading = false;
-                return responseData.data.data
+                return responseData.data.data;
             } catch (e) {
                 this.isloading = false;
-                alert("Error in fetching data...")
+                alert("Error in fetching data...");
             }
         },
         async getCarDetailById(id) {
             this.isloading = true;
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`)
-                this.carDataById = responseData.data
+                let responseData = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
+                );
+                this.carDataById = responseData.data;
                 this.isloading = false;
-                return responseData.data
+                return responseData.data;
             } catch (e) {
                 this.isloading = false;
-                alert("Error in fetching data...")
-                window.history.back()
+                alert("Error in fetching data...");
+                window.history.back();
             }
         },
         async putCarDetails(car) {
             try {
-                let responseData = await axios.put(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${car.id}`, {
-                    ...car
-                })
+                let responseData = await axios.put(
+                    `${import.meta.env.VITE_BASE_URL}/resource/cardata/${
+                        car.id
+                    }`,
+                    {
+                        ...car,
+                    }
+                );
                 if (responseData.status == 200) {
-                    this.getCarDetails()
+                    this.getCarDetails();
                 }
-                return responseData.data.data
+                return responseData.data.data;
             } catch (e) {
-                alert("Error in updating data...")
+                alert("Error in updating data...");
             }
         },
         async postCarDetails(car) {
             try {
-                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}/resource/cardata`, {
-                    ...car
-                })
+                let responseData = await axios.post(
+                    `${import.meta.env.VITE_BASE_URL}/resource/cardata`,
+                    {
+                        ...car,
+                    }
+                );
                 if (responseData.status == 201) {
-                    this.getCarDetails()
+                    this.getCarDetails();
                 }
-                return responseData
+                return responseData;
             } catch (e) {
-                alert("Error in adding data...")
+                alert("Error in adding data...");
             }
         },
         async deleteCarDetails(id) {
             try {
-                let responseData = await axios.delete(`${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`)
-                return responseData
+                let responseData = await axios.delete(
+                    `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
+                );
+                return responseData;
             } catch (e) {
-                alert("Error in deleting the data...")
+                alert("Error in deleting the data...");
             }
         },
 
         async getUserDetails() {
             try {
-                let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/users`)
-                this.userDetails = responseData.data.data
-            }
-            catch (e) {
-                alert("Error in adding Login details...")
+                let responseData = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/resource/users`
+                );
+                this.userDetails = responseData.data.data;
+            } catch (e) {
+                alert("Error in adding Login details...");
             }
         },
 
         async postLoginDetails(loginDetails) {
             try {
-                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}//login`, {
-                    ...loginDetails
-                })
-                return responseData
-            }
-            catch (e) {
-                alert("Error in adding Login details...")
+                let responseData = await axios.post(
+                    `${import.meta.env.VITE_BASE_URL}//login`,
+                    {
+                        ...loginDetails,
+                    }
+                );
+                return responseData;
+            } catch (e) {
+                alert("Error in adding Login details...");
             }
         },
 
         async postRegisterDetails(registerDetails) {
             try {
-                let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}/resource/users`, {
-                    ...registerDetails
-                })
-                return responseData
+                let responseData = await axios.post(
+                    `${import.meta.env.VITE_BASE_URL}/resource/users`,
+                    {
+                        ...registerDetails,
+                    }
+                );
+                return responseData;
+            } catch (e) {
+                alert("Error in adding Registration details...");
             }
-            catch (e) {
-                alert("Error in adding Registration details...")
-            }
-        }
-    }
-})
-export default useGlobalStore
+        },
+    },
+});
+export default useGlobalStore;

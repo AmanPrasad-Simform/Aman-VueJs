@@ -6,32 +6,20 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import {onMounted} from "vue"
+import { storeToRefs } from "pinia";
+import useGlobalStore from "../stores/globalStore";
 import GalleryCard from "../components/GalleryCard.vue";
 import CarForm from "../components/CarForm.vue";
 import Loading from "../components/Loading.vue";
-import { mapActions, mapState } from "pinia";
-import useGlobalStore from "../stores/globalStore";
-export default {
-  components: {
-    Loading,
-    GalleryCard,
-    CarForm,
-  },
-  async mounted() {
-    await this.getCarAPI();
-  },
-  computed: {
-    ...mapState(useGlobalStore, {
-      isloading: "getIsLoading",
-    }),
-  },
-  methods: {
-    ...mapActions(useGlobalStore, {
-      getCarAPI: "getCarDetails",
-    }),
-  },
-};
+const store = useGlobalStore();
+const { getIsLoading: isloading } = storeToRefs(store);
+const { getCarDetails: getCarAPI } = store;
+
+onMounted(async () => {
+  await getCarAPI();
+});
 </script>
 
 <style scoped>

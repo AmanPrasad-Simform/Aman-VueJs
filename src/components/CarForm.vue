@@ -91,7 +91,9 @@
               <label for="details">Car Details</label>
             </div>
             <div class="modal-footer">
-              <button type="reset" data-bs-dismiss="modal">Cancel</button>
+              <button type="reset" ref="resetButton" data-bs-dismiss="modal">
+                Cancel
+              </button>
               <button type="submit">
                 {{ modalType === "add" ? "Submit" : "Update" }}
               </button>
@@ -103,71 +105,60 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapState, mapWritableState } from "pinia";
+<script setup>
+import { ref } from "vue";
+import { storeToRefs } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 import Swal from "sweetalert2";
-export default {
-  name: "CarForm",
-  data() {
-    return {
-      schema: {
-        name: "required|min:5|alphaSpaces",
-        price: "required|integer",
-        image: "required|URL",
-        details: "required|min:30|max:120",
-      },
-      swalAddMsg: "Created Data",
-      swalEditMsg: "Edited Data",
-    };
-  },
-  computed: {
-    ...mapState(useGlobalStore, {
-      modalType: "modalType",
-    }),
-    ...mapWritableState(useGlobalStore, ["carDataToBeEdited"]),
-  },
-  methods: {
-    ...mapActions(useGlobalStore, [
-      "getCarDetails",
-      "postCarDetails",
-      "putCarDetails",
-    ]),
-    resetCar() {
-      this.$el.querySelector("button[type=reset]").click();
-    },
-    handleSubmit() {
-      // using setTimeout just to avoid multiple submit calls
-      clearTimeout(this.timer);
-      this.timer = setTimeout(async () => {
-        await this.submitBtn();
-      }, 1000);
-    },
-    async submitBtn() {
-      if (this.modalType === "add") {
-        await this.postCarDetails(this.carDataToBeEdited);
-      } else {
-        await this.putCarDetails(this.carDataToBeEdited);
-      }
-      this.resetCar();
-      Swal.fire({
-        title: `${
-          this.modalType === "add" ? this.swalAddMsg : this.swalEditMsg
-        }`,
-        html: `
+
+const name = "CarForm";
+const schema = {
+  name: "required|min:5|alphaSpaces",
+  price: "required|integer",
+  image: "required|URL",
+  details: "required|min:30|max:120",
+};
+const swalAddMsg = "Created Data";
+const swalEditMsg = "Edited Data";
+
+const store = useGlobalStore();
+const { modalType, carDataToBeEdited } = storeToRefs(store);
+const { getCarDetails, postCarDetails, putCarDetails } = store;
+
+const timer = ref(null);
+const resetButton = ref(null);
+function resetCar() {
+  resetButton.value.click();
+}
+
+function handleSubmit() {
+  // using setTimeout just to avoid multiple submit calls
+  clearTimeout(timer.value);
+  timer.value = setTimeout(async () => {
+    await submitBtn();
+  }, 1000);
+}
+async function submitBtn() {
+  if (modalType.value === "add") {
+    await postCarDetails(carDataToBeEdited.value);
+  } else {
+    await putCarDetails(carDataToBeEdited.value);
+  }
+  resetCar();
+  Swal.fire({
+    title: `${modalType.value === "add" ? swalAddMsg : swalEditMsg}`,
+    html: `
       <div>
-        <img src="${this.carDataToBeEdited.image}" alt="CarImage" class="swal-img" style="width:300px" />
-        <h3>Car: ${this.carDataToBeEdited.name}</h3>
-        <p>Price: ${this.carDataToBeEdited.price}</p>
-        <p>Details: ${this.carDataToBeEdited.details}</p>
+        <img src="${carDataToBeEdited.value.image}" alt="CarImage" class="swal-img" style="width:300px" />
+        <h3>Car: ${carDataToBeEdited.value.name}</h3>
+        <p>Price: ${carDataToBeEdited.value.price}</p>
+        <p>Details: ${carDataToBeEdited.value.details}</p>
       </div>
   `,
-        showCloseButton: false,
-        showConfirmButton: true,
-      });
-    },
-  },
-};
+    showCloseButton: false,
+    showConfirmButton: true,
+  });
+}
 </script>
 
 <style scoped>

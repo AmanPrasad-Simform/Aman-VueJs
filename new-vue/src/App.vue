@@ -1,6 +1,6 @@
 <template>
   <!-- <navbarComp /> -->
-  <PiniaTask />
+  <compositionTask />
   <!-- <router-view /> -->
   <!-- <watcherComp />
   <child :aqge="age" @age-count="age++" />
@@ -14,13 +14,13 @@
 // import watcherComp from "./components/watcher-comp.vue";
 // import comp1Com from "./components/comp1.vue";
 // import comp2Com from "./components/comp2.vue";
-import PiniaTask from "./components/PiniaTask.vue"
-
+// import PiniaTask from "./components/PiniaTask.vue"
+import compositionTask from "./components/compositionTask.vue";
 export default {
   name: "App",
   components: {
     // navbarComp,
-    PiniaTask,
+    compositionTask,
     // child,
     // watcherComp,
     // comp1Com,

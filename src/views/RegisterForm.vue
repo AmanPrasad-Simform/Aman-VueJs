@@ -10,7 +10,7 @@
                     class="input"
                     v-model="registerDetails.name"
                 />
-                <label for="name"> Name </label>
+                <label for="name"> Name* </label>
                 <ErrorMessage name="name" class="error_message" />
             </div>
             <div class="group">
@@ -21,7 +21,7 @@
                     class="input"
                     v-model="registerDetails.email"
                 />
-                <label for="email"> Email </label>
+                <label for="email"> Email* </label>
                 <ErrorMessage name="email" class="error_message" />
             </div>
             <div class="group">
@@ -32,7 +32,7 @@
                     class="input"
                     v-model="registerDetails.password"
                 />
-                <label for="password">Password</label>
+                <label for="password">Password*</label>
                 <ErrorMessage name="password" class="error_message" />
             </div>
             <div class="group">
@@ -42,7 +42,7 @@
                     type="password"
                     class="input"
                 />
-                <label for="confirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Confirm Password*</label>
                 <ErrorMessage name="confirmPassword" class="error_message" />
             </div>
             <div class="group">
@@ -62,11 +62,11 @@
                         {{ err }}
                     </div>
                 </VField>
-                <label for="role">Role</label>
+                <label for="role">Role*</label>
             </div>
             <div class="form-group">
                 <div>
-                    <label for="gender" class="genderLabel">Gender: </label>
+                    <label for="gender" class="genderLabel">Gender:* </label>
                     <label class="radioLabel">
                         <VField
                             type="radio"
@@ -98,7 +98,7 @@
                     :max="maxDate"
                     @change="calculateAge"
                 />
-                <label for="date">DOB</label>
+                <label for="date">DOB*</label>
                 <ErrorMessage name="dob" class="error_message" />
             </div>
             <div class="group">

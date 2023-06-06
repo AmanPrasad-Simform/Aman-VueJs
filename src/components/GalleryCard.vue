@@ -93,7 +93,6 @@ function deleteCar(id, carName) {
         if (result.isConfirmed) {
             const response = await deleteCarDetails(id);
             if (response.status === 204) {
-                getCarDetails();
                 Swal.fire(
                     `Deleted ${carName}!`,
                     `Your Car has been deleted.`,
@@ -166,7 +165,7 @@ function deleteCar(id, carName) {
     overflow: hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    background-color: rgba(155, 164, 181, 0.4);
+    background: #f1f6f9;
 }
 
 .card-wrap:hover {

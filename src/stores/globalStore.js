@@ -67,7 +67,7 @@ const useGlobalStore = defineStore("global", {
                 if (responseData.status == 200) {
                     this.getCarDetails();
                 }
-                return responseData.data.data;
+                return responseData;
             } catch (e) {
                 alert("Error in updating data...");
             }
@@ -93,6 +93,7 @@ const useGlobalStore = defineStore("global", {
                 let responseData = await axios.delete(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
                 );
+                this.getCarDetails();
                 return responseData;
             } catch (e) {
                 alert("Error in deleting the data...");

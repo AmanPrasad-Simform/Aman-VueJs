@@ -10,7 +10,7 @@
                     class="input"
                     v-model="loginDetails.email"
                 />
-                <label for="email"> Email </label>
+                <label for="email"> Email* </label>
                 <ErrorMessage name="email" class="error_message" />
             </div>
             <div class="group">
@@ -21,7 +21,7 @@
                     class="input"
                     v-model="loginDetails.password"
                 />
-                <label for="password">Password</label>
+                <label for="password">Password*</label>
                 <ErrorMessage name="password" class="error_message" />
             </div>
             <div class="form-btn">

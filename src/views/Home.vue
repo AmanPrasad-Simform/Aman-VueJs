@@ -2,7 +2,9 @@
     <section class="loading-container">
         <Loading class="loader" v-if="isloading" />
         <GalleryCard />
-        <CarForm />
+        <teleport to="#modalOverlay">
+            <CarForm />
+        </teleport>
     </section>
 </template>
 

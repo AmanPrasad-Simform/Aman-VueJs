@@ -1,10 +1,8 @@
 <template>
     <section class="loading-container">
         <Loading class="loader" v-if="isloading" />
+        <CarForm />
         <GalleryCard />
-        <teleport to="#modalOverlay">
-            <CarForm />
-        </teleport>
     </section>
 </template>
 

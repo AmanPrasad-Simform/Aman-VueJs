@@ -34,6 +34,7 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import useGlobalStore from "../stores/globalStore";
 const router = useRouter();
@@ -44,6 +45,7 @@ const schema = {
 const loginDetails = reactive({});
 const store = useGlobalStore();
 const resetBtn = ref(null);
+const { loggedUser } = storeToRefs(store);
 function resetButton() {
     resetBtn.value.click();
 }
@@ -57,6 +59,7 @@ async function loginBtn() {
                 loginDetails.password == user.password
         );
         if (users) {
+            loggedUser.value = users.name;
             store.isLoggedIn = true;
             const tokenID = users.id;
             sessionStorage.setItem("isLoggedIn", true);

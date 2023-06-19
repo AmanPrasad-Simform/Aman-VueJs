@@ -11,6 +11,8 @@ const useGlobalStore = defineStore("global", {
             modalType: "add",
             userDetails: {},
             isLoggedIn: JSON.parse(sessionStorage.getItem("isLoggedIn")),
+            openModal: false,
+            loggedUser: "",
         };
     },
     getters: {
@@ -106,8 +108,9 @@ const useGlobalStore = defineStore("global", {
                     `${import.meta.env.VITE_BASE_URL}/resource/users`
                 );
                 this.userDetails = responseData.data.data;
+                return responseData.data.data;
             } catch (e) {
-                alert("Error in adding Login details...");
+                alert("Error in getting User Details...");
             }
         },
 

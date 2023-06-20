@@ -39,11 +39,11 @@ const routes = [
         component: () => import("../views/CarDetail.vue"),
     },
     {
-        name: "userDetail",
+        name: "users",
         path: "/users",
         meta: {
             title: `Users|${carShowRoomName}`,
-            requiresAuth: true,
+            requiresAdmin: true,
         },
         component: () => import("../views/UserDetail.vue"),
     },
@@ -63,9 +63,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const isLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"));
     const isToken = JSON.parse(sessionStorage.getItem("isToken"));
+    const isAdmin = localStorage.getItem("isAdmin");
+    const admin = isAdmin == "admin";
+    console.log(!isAdmin, "{{{{{{");
     if (to.meta.requiresAuth && !isLoggedIn && !isToken) {
         next("/login"); // Redirect to login page if not logged in
     } else if (to.meta.guest && isLoggedIn && isToken) {
+        next("/");
+    } else if (to.meta.requiresAdmin && !admin) {
         next("/");
     } else {
         next(); // Continue navigation

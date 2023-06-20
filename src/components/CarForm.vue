@@ -105,7 +105,9 @@
                                                 >Car Details*</label
                                             >
                                         </div>
-                                        <p>*indicates required field</p>
+                                        <p class="text-body-2">
+                                            *indicates required field
+                                        </p>
                                         <div class="modal-footer">
                                             <button type="submit">
                                                 {{
@@ -226,7 +228,7 @@ async function submitBtn() {
     flex-direction: column;
 }
 
-.group {
+.group:not(:last-child) {
     position: relative;
     margin-bottom: 20px;
 }

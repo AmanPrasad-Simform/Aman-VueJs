@@ -127,7 +127,7 @@ function deleteCar(id, carName) {
 
 .add-button-container {
     display: flex;
-    margin: 10px 50px;
+    margin: 0 50px;
     flex-direction: row-reverse;
 }
 

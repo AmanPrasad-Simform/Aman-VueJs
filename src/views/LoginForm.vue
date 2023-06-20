@@ -1,6 +1,6 @@
 <template>
     <section class="login-form">
-        <h1 class="title-header">Login</h1>
+        <h1 class="title-header text-h4">Login</h1>
         <VForm class="form" :validation-schema="schema" @submit="loginBtn">
             <div class="group">
                 <VField
@@ -45,7 +45,6 @@ const schema = {
 const loginDetails = reactive({});
 const store = useGlobalStore();
 const resetBtn = ref(null);
-const { loggedUser } = storeToRefs(store);
 function resetButton() {
     resetBtn.value.click();
 }
@@ -59,7 +58,14 @@ async function loginBtn() {
                 loginDetails.password == user.password
         );
         if (users) {
-            loggedUser.value = users.name;
+            const loggedUser = users;
+            localStorage.setItem("isAdmin", loggedUser.role);
+            localStorage.setItem(
+                "loggedUser",
+                loggedUser.name.toUpperCase().split(" ")[0]
+            );
+            store.isAdmin = loggedUser.role;
+            store.user = loggedUser.name.toUpperCase().split(" ")[0];
             store.isLoggedIn = true;
             const tokenID = users.id;
             sessionStorage.setItem("isLoggedIn", true);

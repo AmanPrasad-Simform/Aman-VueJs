@@ -7,8 +7,8 @@
             <img :src="carDataById.image" />
         </div>
         <div class="car-details">
-            <h1>Name: {{ carDataById.name }}</h1>
-            <h3><b>Price: $</b>{{ carDataById.price }}</h3>
+            <p><b>Name: </b>{{ carDataById.name }}</p>
+            <p><b>Price: </b>${{ carDataById.price }}</p>
             <p><b>Description: </b> {{ carDataById.details }}</p>
             <router-link
                 :to="{
@@ -51,9 +51,9 @@ onMounted(async () => {
 }
 
 p {
-    font-size: 20px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
-
 .loading-container {
     position: relative;
     height: 30vh;
@@ -85,9 +85,9 @@ p {
 }
 
 .car-details {
-    font-size: 1rem;
-    max-width: 50rem;
-    padding: 1rem;
+    font-size: 16px;
+    max-width: 800px;
+    padding: 16px;
 }
 
 @media (min-width: 992px) {

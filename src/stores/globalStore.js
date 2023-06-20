@@ -11,6 +11,8 @@ const useGlobalStore = defineStore("global", {
             modalType: "add",
             userDetails: {},
             isLoggedIn: JSON.parse(sessionStorage.getItem("isLoggedIn")),
+            user: localStorage.getItem("loggedUser"),
+            isAdmin: localStorage.getItem("isAdmin"),
             openModal: false,
             loggedUser: "",
         };

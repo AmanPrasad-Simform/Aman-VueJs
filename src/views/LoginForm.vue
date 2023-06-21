@@ -1,6 +1,6 @@
 <template>
     <section class="login-form">
-        <h1 class="title-header text-h4">Login</h1>
+        <h1 class="title-header text-h4">{{ $t("login.login") }}</h1>
         <VForm class="form" :validation-schema="schema" @submit="loginBtn">
             <div class="group">
                 <VField

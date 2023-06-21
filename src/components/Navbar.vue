@@ -7,81 +7,114 @@
                     class="navbar-title"
                     @click="showNavbar = false"
                 >
-                    <h1>{{ carShowRoomName }}</h1>
+                    <h1>{{ $t("navbar.carShowRoomName") }}</h1>
                     <img src="/favicon-car.png" />
                 </router-link>
-                <p>{{ tagLine }}</p>
+                <p>{{ $t("navbar.tagLine") }}</p>
             </div>
-
-            <!-- Menu button -->
-            <div
-                id="hamburger_menu"
-                class="hamburger_container"
-                :class="{ open: drawer }"
-                @click.stop="drawer = !drawer"
-                v-if="isMobile"
-            >
-                <span class="hamburger_stick"></span>
-                <span class="hamburger_stick"></span>
-                <span class="hamburger_stick"></span>
-            </div>
-
-            <!-- userLogo -->
-            <div class="d-flex" id="navbarNav" v-if="!isMobile">
-                <div class="user_detail" v-if="isLoggedIn">
-                    <img
-                        class="user_logo"
-                        src="../assets/icon-user.png"
-                        alt="userlogo"
-                    />
-                    <h4>{{ user }}</h4>
+            <div class="d-flex">
+                <div
+                    class="d-flex align-center"
+                    id="navbarNav"
+                    v-if="!isMobile"
+                >
+                    <div class="user_detail" v-if="isLoggedIn">
+                        <img
+                            class="user_logo"
+                            src="../assets/icon-user.png"
+                            alt="userlogo"
+                        />
+                        <h4>{{ user }}</h4>
+                    </div>
+                    <ul class="d-flex navbar-nav flex-row">
+                        <li v-if="isLoggedIn">
+                            <router-link
+                                :to="{ name: 'home' }"
+                                class="nav-button"
+                            >
+                                {{ $t("navbar.home") }}
+                            </router-link>
+                        </li>
+                        <li v-if="isLoggedIn && isAdmin == 'admin'">
+                            <router-link
+                                :to="{ name: 'users' }"
+                                class="nav-button"
+                            >
+                                {{ $t("navbar.users") }}
+                            </router-link>
+                        </li>
+                        <li v-if="isLoggedIn">
+                            <router-link
+                                :to="{ name: 'login' }"
+                                class="nav-button"
+                                @click="logout"
+                            >
+                                {{ $t("navbar.logout") }}
+                            </router-link>
+                        </li>
+                        <li v-if="!isLoggedIn">
+                            <router-link
+                                :to="{ name: 'login' }"
+                                class="nav-button"
+                            >
+                                {{ $t("navbar.login") }}
+                            </router-link>
+                        </li>
+                        <li v-if="!isLoggedIn">
+                            <router-link
+                                :to="{ name: 'register' }"
+                                class="nav-button"
+                            >
+                                {{ $t("navbar.register") }}
+                            </router-link>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="d-flex navbar-nav flex-row">
-                    <li v-if="isLoggedIn">
-                        <router-link :to="{ name: 'home' }" class="nav-button">
-                            Home
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn && isAdmin == 'admin'">
-                        <router-link :to="{ name: 'users' }" class="nav-button">
-                            Users
-                        </router-link>
-                    </li>
-                    <li v-if="isLoggedIn">
-                        <router-link
-                            :to="{ name: 'login' }"
-                            class="nav-button"
-                            @click="logout"
-                        >
-                            Logout
-                        </router-link>
-                    </li>
-                    <li v-if="!isLoggedIn">
-                        <router-link :to="{ name: 'login' }" class="nav-button">
-                            Login
-                        </router-link>
-                    </li>
-                    <li v-if="!isLoggedIn">
-                        <router-link
-                            :to="{ name: 'register' }"
-                            class="nav-button"
-                        >
-                            Register
-                        </router-link>
-                    </li>
-                </ul>
+                <div class="i18n">
+                    <div
+                        color="#39484a"
+                        class="i18n-btn d-flex align-center"
+                        v-bind="props"
+                    >
+                        <img
+                            class="i18n-logo"
+                            src="../assets/i18n-icon.png"
+                            alt="userlogo"
+                        />
+                        <select v-model="$i18n.locale" class="select-lang">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                        </select>
+                    </div>
+                    <!-- Menu button -->
+                    <div
+                        id="hamburger_menu"
+                        class="hamburger_container"
+                        :class="{ open: drawer }"
+                        @click.stop="drawer = !drawer"
+                        v-if="isMobile"
+                    >
+                        <span class="hamburger_stick"></span>
+                        <span class="hamburger_stick"></span>
+                        <span class="hamburger_stick"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
-    <v-overlay
-        v-model="drawer"
-        location-strategy="connected"
-        scroll-strategy="block"
-    ></v-overlay>
     <!-- For smaller screen size -->
     <v-card v-if="isMobile">
         <v-layout>
             <v-navigation-drawer v-model="drawer" class="navigation-drawer">
+                <div class="cross-button">
+                    <button @click="toggleMenu">
+                        <img
+                            class="cross-logo"
+                            src="../assets/cross-icon.png"
+                            alt="userlogo"
+                        />
+                    </button>
+                </div>
                 <div class="mobile-user-detail mt-8">
                     <img
                         class="user_logo"
@@ -100,7 +133,7 @@
                             @click="toggleMenu"
                             class="nav-button"
                         >
-                            Home
+                            {{ $t("navbar.home") }}
                         </router-link>
                     </li>
                     <li v-if="isLoggedIn && isAdmin == 'admin'">
@@ -109,7 +142,7 @@
                             @click="toggleMenu"
                             class="nav-button"
                         >
-                            Users
+                            {{ $t("navbar.users") }}
                         </router-link>
                     </li>
                     <li v-if="isLoggedIn">
@@ -118,7 +151,7 @@
                             class="nav-button"
                             @click="logout"
                         >
-                            Logout
+                            {{ $t("navbar.logout") }}
                         </router-link>
                     </li>
                     <li v-if="!isLoggedIn">
@@ -127,7 +160,7 @@
                             class="nav-button"
                             @click="toggleMenu"
                         >
-                            Login
+                            {{ $t("navbar.login") }}
                         </router-link>
                     </li>
                     <li v-if="!isLoggedIn">
@@ -136,7 +169,7 @@
                             class="nav-button"
                             @click="toggleMenu"
                         >
-                            Register
+                            {{ $t("navbar.register") }}
                         </router-link>
                     </li>
                 </div>
@@ -150,20 +183,20 @@ import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import useGlobalStore from "../stores/globalStore";
 import { useDisplay } from "vuetify";
+import { useI18n } from "vue-i18n";
 
 const { width } = useDisplay();
-const isMobile = ref(width.value < 730 ? true : false);
+const isMobile = ref(width.value < 760 ? true : false);
 const drawer = ref(false);
 const mini = ref(true);
 
 watch(width, () => {
-    isMobile.value = width.value < 730 ? true : false;
+    isMobile.value = width.value < 760 ? true : false;
 });
 function toggleMenu() {
     drawer.value = !drawer.value;
 }
-const carShowRoomName = "CarNation";
-const tagLine = "-Accelerate your journey with us.";
+
 const showNavbar = ref(false);
 const store = useGlobalStore();
 const { isLoggedIn, user, isAdmin } = storeToRefs(store);
@@ -193,7 +226,7 @@ function logout() {
     width: 50px;
 }
 
-h1 {
+.navbar-logo h1 {
     line-height: 1;
     padding: 0px 5px;
     font-weight: 600;
@@ -205,7 +238,7 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
-p {
+.navbar-logo p {
     line-height: 1;
     margin: 0;
     padding: 5px;
@@ -221,7 +254,6 @@ p {
 .navbar-logo {
     display: "flex";
     justify-content: "space-evenly";
-    min-width: 250px;
 }
 .navbar {
     width: 100%;
@@ -241,7 +273,7 @@ p {
 .nav-button {
     background: transparent;
     color: white;
-    font-size: 25px;
+    font-size: 23px;
     margin: 0 10px;
     opacity: 0.8;
     text-decoration: none;
@@ -260,7 +292,7 @@ h4 {
 }
 
 .user_logo {
-    width: 40px;
+    width: 35px;
 }
 .mobile-user-detail {
     display: flex;
@@ -294,13 +326,35 @@ h4 {
     background: #6b7a83;
     max-width: fit-content;
 }
-
-/* Hamburger -- Menu button */
+.i18n {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+.i18n > span {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: underline;
+}
+.i18n-logo {
+    width: 30px;
+}
+.i18n-btn {
+    color: white;
+    margin: 10px;
+}
+.select-lang {
+    color: white;
+    outline: none;
+}
+option {
+    background: #39484a;
+}
 .hamburger_container {
     display: none;
     width: 36px;
     height: 36px;
-    position: absolute;
     right: 25px;
 }
 
@@ -366,8 +420,12 @@ a {
     width: 185px;
     margin: 20px auto;
 }
-
-@media screen and (max-width: 730px) {
+.cross-button {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px;
+}
+@media screen and (max-width: 760px) {
     header {
         padding-block: 10px;
     }
@@ -385,10 +443,20 @@ a {
 }
 @media screen and (max-width: 991px) {
     .nav-button {
-        font-size: 22px;
+        font-size: 20px;
+        margin: 0 5px;
+    }
+    .navbar-logo h1 {
+        font-size: 30px;
+    }
+    .navbar-logo p {
+        font-size: 18px;
+    }
+    .user_detail {
+        margin: 0 10px;
     }
 }
-@media (max-width: 730px) {
+@media (max-width: 759px) {
     .user_detail {
         margin: 0px 20px;
         padding: 0 25px;

@@ -13,8 +13,8 @@
                                     >
                                         {{
                                             modalType == "add"
-                                                ? "Add the Car Details"
-                                                : "Edit the Car Details"
+                                                ? $t("add-car-details")
+                                                : $t("edit-car-details")
                                         }}
                                     </h2>
                                 </div>
@@ -106,7 +106,9 @@
                                             >
                                         </div>
                                         <p class="text-body-2">
-                                            *indicates required field
+                                            {{
+                                                $t("*indicates-required-field")
+                                            }}
                                         </p>
                                         <div class="modal-footer">
                                             <button type="submit">

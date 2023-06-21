@@ -105,6 +105,7 @@ const useGlobalStore = defineStore("global", {
         },
 
         async getUserDetails() {
+            this.isloading = true;
             try {
                 let responseData = await axios.get(
                     `${import.meta.env.VITE_BASE_URL}/resource/users`
@@ -113,6 +114,8 @@ const useGlobalStore = defineStore("global", {
                 return responseData.data.data;
             } catch (e) {
                 alert("Error in getting User Details...");
+            } finally {
+                this.isloading = false;
             }
         },
 

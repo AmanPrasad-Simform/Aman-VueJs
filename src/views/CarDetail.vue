@@ -16,7 +16,7 @@
                 }"
                 class="back-button"
             >
-                Back
+                {{ $t("back") }}
             </router-link>
         </div>
     </section>

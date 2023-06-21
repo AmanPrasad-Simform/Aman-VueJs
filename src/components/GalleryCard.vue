@@ -2,7 +2,7 @@
     <section class="gallery-container">
         <section class="add-button-container">
             <button type="button" class="add-button" @click="addCarData">
-                Add Car
+                {{ $t("add-car") }}
             </button>
         </section>
         <section v-if="carList == ''" class="no-car-found">
@@ -33,7 +33,9 @@
                                 params: { id: `${car.id}` },
                             }"
                         >
-                            <button class="card-btn">Info</button>
+                            <button class="card-btn">
+                                {{ $t("info") }}
+                            </button>
                         </router-link>
                         <div>
                             <img
@@ -43,7 +45,7 @@
                             />
                             <img
                                 src="../assets/deleteIcon.png"
-                                @click="swalDeleteCar(car.id, car.name)"
+                                @click="deleteCar(car.id, car.name)"
                                 class="delete-icon"
                             />
                         </div>
@@ -103,6 +105,9 @@ function deleteCar(id, carName) {
 </script>
 
 <style scoped>
+* {
+    word-break: break-all;
+}
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;

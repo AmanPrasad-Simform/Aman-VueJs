@@ -52,34 +52,11 @@ async function loginBtn() {
     await store.getUserDetails();
     let response = await store.postLoginDetails(loginDetails);
     if (response.status == 200) {
-        let users = store.userDetails.find(
-            (user) =>
-                loginDetails.email == user.email &&
-                loginDetails.password == user.password
-        );
-        if (users) {
-            const loggedUser = users;
-            localStorage.setItem("isAdmin", loggedUser.role);
-            localStorage.setItem(
-                "loggedUser",
-                loggedUser.name.toUpperCase().split(" ")[0]
-            );
-            store.isAdmin = loggedUser.role;
-            store.user = loggedUser.name.toUpperCase().split(" ")[0];
-            store.isLoggedIn = true;
-            const tokenID = users.id;
-            sessionStorage.setItem("isLoggedIn", true);
-            sessionStorage.setItem("isToken", tokenID);
-            router.push({
-                name: "home",
-            });
-        } else {
-            alert("Invalid Credentials");
-        }
-        resetButton();
-    } else {
-        return;
-    }
+        store.isLoggedIn = true;
+        router.push({
+            name: "home",
+        });
+    } else return;
 }
 </script>
 

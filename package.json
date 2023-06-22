@@ -8,10 +8,11 @@
         "build:stage": "vite build --mode staging",
         "build:prod": "vite build --mode production",
         "preview": "vite preview",
-        "test:unit": "vitest --environment jsdom"
+        "test:unit": "vitest --environment jsdom --ui"
     },
     "dependencies": {
         "@vee-validate/rules": "^4.8.6",
+        "@vue/test-utils": "^2.4.0",
         "pinia": "^2.0.36",
         "sweetalert2": "^11.7.3",
         "vee-validate": "^4.8.6",
@@ -23,6 +24,7 @@
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.2.3",
+        "@vitest/ui": "^0.32.2",
         "jsdom": "^22.1.0",
         "sass": "^1.62.1",
         "vite": "^4.1.4",

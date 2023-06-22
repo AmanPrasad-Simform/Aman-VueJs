@@ -7,10 +7,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h2
-                                        class="modal-title"
-                                        id="staticBackdropLabel"
-                                    >
+                                    <h2 class="modal-title">
                                         {{
                                             modalType == "add"
                                                 ? $t("add-car-details")
@@ -111,7 +108,7 @@
                                             }}
                                         </p>
                                         <div class="modal-footer">
-                                            <button type="submit">
+                                            <button type="submit" class="aman">
                                                 {{
                                                     modalType == "add"
                                                         ? "Submit"

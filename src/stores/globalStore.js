@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-
 const useGlobalStore = defineStore("global", {
     state: () => {
         return {
@@ -36,11 +35,11 @@ const useGlobalStore = defineStore("global", {
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata`
                 );
                 this.carList = responseData.data.data;
-                this.isloading = false;
                 return responseData.data.data;
             } catch (e) {
-                this.isloading = false;
                 alert("Error in fetching data...");
+            } finally {
+                this.isloading = false;
             }
         },
         async getCarDetailById(id) {
@@ -50,15 +49,16 @@ const useGlobalStore = defineStore("global", {
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
                 );
                 this.carDataById = responseData.data;
-                this.isloading = false;
                 return responseData.data;
             } catch (e) {
-                this.isloading = false;
                 alert("Error in fetching data...");
                 window.history.back();
+            } finally {
+                this.isloading = false;
             }
         },
         async putCarDetails(car) {
+            this.isloading = true;
             try {
                 let responseData = await axios.put(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${
@@ -74,9 +74,12 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in updating data...");
+            } finally {
+                this.isloading = false;
             }
         },
         async postCarDetails(car) {
+            this.isloading = true;
             try {
                 let responseData = await axios.post(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata`,
@@ -90,9 +93,13 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in adding data...");
+            } finally {
+                this.isloading = false;
             }
         },
         async deleteCarDetails(id) {
+            this.isloading = true;
+
             try {
                 let responseData = await axios.delete(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
@@ -101,6 +108,8 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in deleting the data...");
+            } finally {
+                this.isloading = false;
             }
         },
 
@@ -120,6 +129,8 @@ const useGlobalStore = defineStore("global", {
         },
 
         async postLoginDetails(loginDetails) {
+            console.log(loginDetails, "======");
+            this.isloading = true;
             try {
                 let responseData = await axios.post(
                     `${import.meta.env.VITE_BASE_URL}//login`,
@@ -127,13 +138,42 @@ const useGlobalStore = defineStore("global", {
                         ...loginDetails,
                     }
                 );
+                if (responseData.status == 200) {
+                    console.log(responseData.status);
+                    let users = this.userDetails.find(
+                        (user) =>
+                            loginDetails.email == user.email &&
+                            loginDetails.password == user.password
+                    );
+                    this.isLoggedIn = true;
+                    if (users) {
+                        const loggedUser = users;
+                        localStorage.setItem("isAdmin", loggedUser.role);
+                        localStorage.setItem(
+                            "loggedUser",
+                            loggedUser.name.toUpperCase().split(" ")[0]
+                        );
+                        this.isAdmin = loggedUser.role;
+                        this.user = loggedUser.name.toUpperCase().split(" ")[0];
+                        const tokenID = users.id;
+                        sessionStorage.setItem("isLoggedIn", true);
+                        sessionStorage.setItem("isToken", tokenID);
+                    } else {
+                        alert("Invalid Credentials");
+                    }
+                } else {
+                    return;
+                }
                 return responseData;
             } catch (e) {
                 alert("Error in adding Login details...");
+            } finally {
+                this.isloading = false;
             }
         },
 
         async postRegisterDetails(registerDetails) {
+            this.isloading = true;
             try {
                 let responseData = await axios.post(
                     `${import.meta.env.VITE_BASE_URL}/resource/users`,
@@ -144,6 +184,8 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in adding Registration details...");
+            } finally {
+                this.isloading = false;
             }
         },
     },

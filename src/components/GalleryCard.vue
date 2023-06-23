@@ -132,7 +132,7 @@ function deleteCar(id, carName) {
 
 .add-button-container {
     display: flex;
-    margin: 0 50px;
+    margin: 0 150px;
     flex-direction: row-reverse;
 }
 
@@ -168,14 +168,13 @@ function deleteCar(id, carName) {
     overflow: hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    background: #f1f6f9;
+    background: #cfd8dc;
 }
 
 .card-wrap:hover {
     transform: scale(1.08);
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    filter: none;
 }
 
 .card-header {
@@ -188,7 +187,7 @@ function deleteCar(id, carName) {
 
 .card-content {
     display: flex;
-    color: #212a3e;
+    color: #39484a;
     flex-direction: column;
     align-items: center;
     width: 85%;
@@ -285,6 +284,7 @@ function deleteCar(id, carName) {
     color: #39484a;
     position: absolute;
     top: 25%;
+    font-size: 28px;
     left: 50%;
     transform: translate(-50%, -50%);
 }

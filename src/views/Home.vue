@@ -1,8 +1,12 @@
 <template>
-    <section class="loading-container">
-        <Loading class="loader" v-if="isloading" />
-        <CarForm />
-        <GalleryCard />
+    <section>
+        <div class="loading-container" v-if="isloading">
+            <Loading class="loader" />
+        </div>
+        <div v-else>
+            <CarForm />
+            <GalleryCard />
+        </div>
     </section>
 </template>
 

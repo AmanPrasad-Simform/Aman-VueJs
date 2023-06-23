@@ -3,6 +3,7 @@
         <v-table class="v-table">
             <thead>
                 <tr>
+                    <th class="text-left">No.</th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Email</th>
                     <th class="text-left">Role</th>
@@ -12,11 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.name }}</td>
+                <tr v-for="(user, index) in users" :key="user.id">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ user.name.toUpperCase() }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.gender }}</td>
+                    <td>{{ user.role.toLowerCase() }}</td>
+                    <td>{{ user.gender.toLowerCase() }}</td>
                     <td>{{ user.dob }}</td>
                     <td>{{ user.age }}</td>
                 </tr>
@@ -38,6 +40,10 @@ const { userDetails: users } = storeToRefs(store);
 <style scoped>
 th {
     font-size: 20px;
+    background: #90a4ae;
+}
+tr:nth-child(even) {
+    background: #cfd8dc;
 }
 .table-container {
     overflow-x: scroll;

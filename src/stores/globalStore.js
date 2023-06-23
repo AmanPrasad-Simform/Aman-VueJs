@@ -58,7 +58,6 @@ const useGlobalStore = defineStore("global", {
             }
         },
         async putCarDetails(car) {
-            this.isloading = true;
             try {
                 let responseData = await axios.put(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${
@@ -74,12 +73,9 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in updating data...");
-            } finally {
-                this.isloading = false;
             }
         },
         async postCarDetails(car) {
-            this.isloading = true;
             try {
                 let responseData = await axios.post(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata`,
@@ -93,23 +89,18 @@ const useGlobalStore = defineStore("global", {
                 return responseData;
             } catch (e) {
                 alert("Error in adding data...");
-            } finally {
-                this.isloading = false;
             }
         },
         async deleteCarDetails(id) {
-            this.isloading = true;
-
             try {
                 let responseData = await axios.delete(
                     `${import.meta.env.VITE_BASE_URL}/resource/cardata/${id}`
                 );
                 this.getCarDetails();
+
                 return responseData;
             } catch (e) {
                 alert("Error in deleting the data...");
-            } finally {
-                this.isloading = false;
             }
         },
 

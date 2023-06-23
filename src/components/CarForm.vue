@@ -117,7 +117,6 @@
                                             </button>
                                             <button
                                                 type="reset"
-                                                ref="resetButton"
                                                 @click="dialog = false"
                                             >
                                                 Cancel
@@ -159,11 +158,10 @@ const timer = ref(null);
 const resetButton = ref(null);
 
 function resetCar() {
-    resetButton.value.click();
+    dialog.value = false;
 }
 
 function handleSubmit() {
-    // using setTimeout just to avoid multiple submit calls
     clearTimeout(timer.value);
     timer.value = setTimeout(async () => {
         await submitBtn();
@@ -193,6 +191,7 @@ async function submitBtn() {
 
     if (responseData.status == 200 || responseData.status == 201) {
         swalAlert();
+        carDataToBeEdited.value = {};
     }
 }
 </script>

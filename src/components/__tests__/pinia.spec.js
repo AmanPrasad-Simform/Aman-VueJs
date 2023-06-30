@@ -1,5 +1,5 @@
-import { createPinia, setActivePinia } from "pinia";
-import { beforeEach, describe, expect, test } from "vitest";
+import { createPinia } from "pinia";
+import { describe, expect, test } from "vitest";
 import useGlobalStore from "@/stores/globalStore.js";
 describe("stores", () => {
     const store = useGlobalStore(createPinia());

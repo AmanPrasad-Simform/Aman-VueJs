@@ -120,7 +120,6 @@ const useGlobalStore = defineStore("global", {
         },
 
         async postLoginDetails(loginDetails) {
-            console.log(loginDetails, "======");
             this.isloading = true;
             try {
                 let responseData = await axios.post(
@@ -129,15 +128,15 @@ const useGlobalStore = defineStore("global", {
                         ...loginDetails,
                     }
                 );
+                await this.getUserDetails();
                 if (responseData.status == 200) {
-                    console.log(responseData.status);
                     let users = this.userDetails.find(
                         (user) =>
                             loginDetails.email == user.email &&
                             loginDetails.password == user.password
                     );
-                    this.isLoggedIn = true;
                     if (users) {
+                        this.isLoggedIn = true;
                         const loggedUser = users;
                         localStorage.setItem("isAdmin", loggedUser.role);
                         localStorage.setItem(

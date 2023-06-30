@@ -65,7 +65,6 @@ router.beforeEach((to, from, next) => {
     const isToken = JSON.parse(sessionStorage.getItem("isToken"));
     const isAdmin = localStorage.getItem("isAdmin");
     const admin = isAdmin == "admin";
-    console.log(!isAdmin, "{{{{{{");
     if (to.meta.requiresAuth && !isLoggedIn && !isToken) {
         next("/login"); // Redirect to login page if not logged in
     } else if (to.meta.guest && isLoggedIn && isToken) {

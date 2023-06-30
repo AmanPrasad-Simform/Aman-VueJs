@@ -1,7 +1,7 @@
 import { createPinia } from "pinia";
 import { describe, expect, test } from "vitest";
 import useGlobalStore from "@/stores/globalStore.js";
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import CarForm from "@/components/CarForm.vue";
 import validation from "@/plugin/validation.js";
 import i18n from "@/plugin/i18n.js";

@@ -1,25 +1,26 @@
 <template>
-    <section class="loading-container" v-if="isloading">
+    <div v-if="isloading" class="loading-container">
         <Loading class="loader" />
-    </section>
-    <section v-else class="car-details-container">
-        <div class="car-image-container">
-            <img :src="carDataById.image" />
+    </div>
+    <div v-else class="container">
+        <div class="car-details-container">
+            <div class="car-image-container">
+                <img :src="carDataById.image" />
+            </div>
+            <div class="car-details">
+                <h1>Name: {{ carDataById.name }}</h1>
+                <h3><b>Price: $</b>{{ carDataById.price }}</h3>
+                <p><b>Description: </b> {{ carDataById.details }}</p>
+                <router-link
+                    :to="{
+                        name: 'home',
+                    }"
+                >
+                    <button class="back-button">Back</button>
+                </router-link>
+            </div>
         </div>
-        <div class="car-details">
-            <h1>Name: {{ carDataById.name }}</h1>
-            <h3><b>Price: $</b>{{ carDataById.price }}</h3>
-            <p><b>Description: </b> {{ carDataById.details }}</p>
-            <router-link
-                :to="{
-                    name: 'home',
-                }"
-                class="back-button"
-            >
-                Back
-            </router-link>
-        </div>
-    </section>
+    </div>
 </template>
 
 <script setup>
@@ -29,7 +30,6 @@ import { useRoute } from "vue-router";
 import Loading from "../components/Loading.vue";
 import useGlobalStore from "../stores/globalStore";
 
-const name = "CarDetail";
 const store = useGlobalStore();
 const { getIsLoading: isloading, getCarDataById: carDataById } =
     storeToRefs(store);
@@ -42,6 +42,14 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.container {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    width: min(80vw, 1200px);
+    margin: 5rem auto;
+    color: #39484a;
+}
 .back-button {
     padding: 0.8em 1.7em;
     border-radius: 0.3rem;
@@ -49,9 +57,14 @@ onMounted(async () => {
     color: white;
     text-decoration: none;
 }
-
+a {
+    width: fit-content;
+    text-decoration: none;
+    color: white;
+}
 p {
     font-size: 20px;
+    word-wrap: break-word;
 }
 
 .loading-container {
@@ -68,55 +81,59 @@ p {
 
 .car-details-container {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    height: 80vh;
+    height: 35rem;
     border-radius: 10px;
     padding: 1rem;
-    background: #f1f6f9;
+    background: #cfd8dc;
+    width: 100%;
 }
 
 .car-image-container img {
-    max-width: 100%;
-    min-width: 625px;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 .car-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 1rem;
     max-width: 50rem;
     padding: 1rem;
+    width: 50%;
+    margin: 10px;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 1020px) {
     .car-details-container {
-        flex-direction: row;
+        flex-direction: column;
     }
-
     .car-image-container {
-        flex-basis: 50%;
+        height: 50%;
     }
-
+    .car-details-container {
+        height: 75vh;
+    }
     .car-details {
-        flex-basis: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 1rem;
+        max-width: 50rem;
+        padding: 1rem;
+        width: 100%;
+        margin: 0;
     }
 }
-
-@media (max-width: 992px) {
-    .car-image-container {
-        margin-top: 4rem;
+@media (max-width: 600px) {
+    .container {
+        margin: 3rem auto;
+        width: 90%;
     }
-
-    .car-image-container img {
-        min-width: 275px;
-    }
-}
-
-@media (max-width: 767px) {
-    .car-image-container img {
-        margin-top: 0;
+    p {
+        font-size: 18px;
     }
 }
 </style>

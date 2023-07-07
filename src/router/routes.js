@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-const carShowRoomName = "CarNation"
+const carShowRoomName = "CarNation";
 const routes = [
     {
         name: "home",
@@ -7,7 +7,7 @@ const routes = [
         alias: "/",
         meta: {
             title: `Home|${carShowRoomName}`,
-            requiresAuth: true
+            requiresAuth: true,
         },
         component: () => import("../views/Home.vue"),
     },
@@ -16,7 +16,7 @@ const routes = [
         path: "/login",
         meta: {
             title: `Login|${carShowRoomName}`,
-            guest: true
+            guest: true,
         },
         component: () => import("../views/LoginForm.vue"),
     },
@@ -25,7 +25,7 @@ const routes = [
         path: "/register",
         meta: {
             title: `Register|${carShowRoomName}`,
-            guest: true
+            guest: true,
         },
         component: () => import("../views/RegisterForm.vue"),
     },
@@ -34,39 +34,52 @@ const routes = [
         path: "/details/:id",
         meta: {
             title: `Details|${carShowRoomName}`,
-            requiresAuth: true
+            requiresAuth: true,
         },
         component: () => import("../views/CarDetail.vue"),
     },
     {
+        name: "users",
+        path: "/users",
+        meta: {
+            title: `Users|${carShowRoomName}`,
+            requiresAdmin: true,
+        },
+        component: () => import("../views/UserDetail.vue"),
+    },
+    {
         name: "error",
         path: "/:catchAll(.*)",
-        component: () => import("../views/404.vue")
+        component: () => import("../views/404.vue"),
     },
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
-    linkActiveClass: "link-active-class"
+    linkActiveClass: "link-active-class",
 });
 
 router.beforeEach((to, from, next) => {
-    const isLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"))
-    const isToken = JSON.parse(sessionStorage.getItem("isToken"))
+    const isLoggedIn = JSON.parse(sessionStorage.getItem("isLoggedIn"));
+    const isToken = JSON.parse(sessionStorage.getItem("isToken"));
+    const isAdmin = localStorage.getItem("isAdmin");
+    const admin = isAdmin == "admin";
     if (to.meta.requiresAuth && !isLoggedIn && !isToken) {
-        next('/login') // Redirect to login page if not logged in
+        next("/login"); // Redirect to login page if not logged in
+    } else if (to.meta.guest && isLoggedIn && isToken) {
+        next("/");
+    } else if (to.meta.requiresAdmin && !admin) {
+        next("/");
+    } else {
+        next(); // Continue navigation
     }
-    else if (to.meta.guest && isLoggedIn && isToken) {
-        next('/')
-    }
-    else {
-        next() // Continue navigation 
-    }
-})
+});
 
 router.afterEach((to) => {
-    (!to.meta.title) ? (document.title = carShowRoomName) : (document.title = to.meta.title)
-})
+    !to.meta.title
+        ? (document.title = carShowRoomName)
+        : (document.title = to.meta.title);
+});
 
 export default router;

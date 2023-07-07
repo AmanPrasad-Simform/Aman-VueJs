@@ -1,12 +1,7 @@
 <template>
-    <section>
-        <div class="loading-container" v-if="isloading">
-            <Loading class="loader" />
-        </div>
-        <div v-else>
-            <CarForm />
-            <GalleryCard />
-        </div>
+    <section class="loading-container">
+        <Loading class="loader" v-if="isloading" />
+        <UserList />
     </section>
 </template>
 
@@ -18,16 +13,9 @@ import Loading from "../components/Loading.vue";
 
 const store = useGlobalStore();
 const { getIsLoading: isloading } = storeToRefs(store);
-const { getCarDetails: getCarAPI } = store;
 
-onMounted(async () => {
-    await getCarAPI();
-});
-
-// Create an async component using defineAsyncComponent
-const CarForm = defineAsyncComponent(() => import("../components/CarForm.vue"));
-const GalleryCard = defineAsyncComponent(() =>
-    import("../components/GalleryCard.vue")
+const UserList = defineAsyncComponent(() =>
+    import("../components/UserList.vue")
 );
 </script>
 

@@ -1,0 +1,23 @@
+{
+    "navbar": {
+        "tagLine": "-Accelerate your journey with us.",
+        "carShowRoomName": "CarNation",
+        "login": "Login",
+        "register": "Register",
+        "home": "Home",
+        "users": "Users",
+        "logout": "Logout"
+    },
+    "login": {
+        "login": "Login"
+    },
+    "register": {
+        "register": "Register"
+    },
+    "add-car": "Add Car",
+    "info": "Info",
+    "back": "Back",
+    "add-car-details": "Add Car Details",
+    "edit-car-details": "Edit Car Details",
+    "*indicates-required-field": "*indicates required field"
+}

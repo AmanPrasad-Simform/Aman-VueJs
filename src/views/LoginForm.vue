@@ -1,6 +1,6 @@
 <template>
     <section class="login-form">
-        <h1 class="title-header">Login</h1>
+        <h1 class="title-header text-h4">{{ $t("login.login") }}</h1>
         <VForm class="form" :validation-schema="schema" @submit="loginBtn">
             <div class="group">
                 <VField
@@ -34,6 +34,7 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import useGlobalStore from "../stores/globalStore";
 const router = useRouter();
@@ -51,26 +52,11 @@ async function loginBtn() {
     await store.getUserDetails();
     let response = await store.postLoginDetails(loginDetails);
     if (response.status == 200) {
-        let users = store.userDetails.find(
-            (user) =>
-                loginDetails.email == user.email &&
-                loginDetails.password == user.password
-        );
-        if (users) {
-            store.isLoggedIn = true;
-            const tokenID = users.id;
-            sessionStorage.setItem("isLoggedIn", true);
-            sessionStorage.setItem("isToken", tokenID);
-            router.push({
-                name: "home",
-            });
-        } else {
-            alert("Invalid Credentials");
-        }
-        resetButton();
-    } else {
-        return;
-    }
+        store.isLoggedIn = true;
+        router.push({
+            name: "home",
+        });
+    } else return;
 }
 </script>
 

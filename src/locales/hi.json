@@ -1,0 +1,23 @@
+{
+    "navbar": {
+        "tagLine": "-हमारे साथ अपनी यात्रा को गति दें.",
+        "carShowRoomName": "कारनेशन",
+        "login": "लॉगइन",
+        "register": "पंजीकरण",
+        "home": "होम",
+        "users": "उपयोगकर्ताओं",
+        "logout": "लॉगआउट"
+    },
+    "login": {
+        "login": "लॉगइन करें"
+    },
+    "register": {
+        "register": "पंजीकरण करें"
+    },
+    "add-car": "कार जोड़ें",
+    "info": "जानकारी",
+    "back": "पीछे",
+    "add-car-details": "कार विवरण जोड़ें",
+    "edit-car-details": "कार विवरण संपादित करें",
+    "*indicates-required-field": "*आवश्यक फ़ील्ड दर्शाता है"
+}

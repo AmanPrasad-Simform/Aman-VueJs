@@ -1,62 +1,58 @@
 <template>
     <section class="gallery-container">
         <section class="add-button-container">
-            <button
-                type="button"
-                class="add-button"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                @click="addCarData"
-            >
-                Add Car
+            <button type="button" class="add-button" @click="addCarData">
+                {{ $t("add-car") }}
             </button>
         </section>
         <section v-if="carList == ''" class="no-car-found">
             <h1>{{ emptyMessage }}</h1>
             <img src="../assets/no-cars-found.png" />
         </section>
-        <transition-group name="fade" tag="section" class="card-container">
-            <div
-                class="card-wrap"
-                v-for="(car, index) in carList"
-                :key="car.name"
-                :style="{ transitionDelay: `${0.1 * index}s` }"
-            >
-                <div class="card-image">
-                    <img :src="car.image" alt="CarImage" />
-                </div>
-                <div class="card-content">
-                    <h1 class="card-title">{{ car.name }}</h1>
-                    <p class="card-text">
-                        {{ car.details }}
-                    </p>
-                </div>
-                <div class="card-button">
-                    <router-link
-                        :to="{
-                            name: 'carDetail',
-                            params: { id: `${car.id}` },
-                        }"
-                    >
-                        <button class="card-btn">Info</button>
-                    </router-link>
-                    <div>
-                        <img
-                            src="../assets/editIcon.png"
-                            data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop"
-                            @click="editCarData(car)"
-                            class="edit-icon"
-                        />
-                        <img
-                            src="../assets/deleteIcon.png"
-                            @click="deleteCar(car.id, car.name)"
-                            class="delete-icon"
-                        />
+        <section class="card-container" v-else>
+            <transition-group name="fade">
+                <div
+                    class="card-wrap"
+                    v-for="(car, index) in carList"
+                    :key="car.name"
+                    :style="{ transitionDelay: `${0.1 * index}s` }"
+                >
+                    <div class="card-image">
+                        <img :src="car.image" alt="CarImage" />
+                    </div>
+                    <div class="card-content">
+                        <h1 class="card-title">{{ car.name }}</h1>
+                        <p class="card-text">
+                            {{ car.details }}
+                        </p>
+                    </div>
+                    <div class="card-button">
+                        <router-link
+                            :to="{
+                                name: 'carDetail',
+                                params: { id: `${car.id}` },
+                            }"
+                        >
+                            <button class="card-btn">
+                                {{ $t("info") }}
+                            </button>
+                        </router-link>
+                        <div>
+                            <img
+                                src="../assets/editIcon.png"
+                                @click="editCarData(car)"
+                                class="edit-icon"
+                            />
+                            <img
+                                src="../assets/deleteIcon.png"
+                                @click="deleteCar(car.id, car.name)"
+                                class="delete-icon"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </transition-group>
+            </transition-group>
+        </section>
     </section>
 </template>
 
@@ -70,14 +66,18 @@ const store = useGlobalStore();
 const {
     carDataToBeEdited,
     modalType,
+    openModal,
     getCarDetail: carList,
 } = storeToRefs(store);
 const { getCarDetails, deleteCarDetails } = store;
+
 function addCarData() {
     modalType.value = "add";
+    openModal.value = true;
 }
 function editCarData(car) {
     modalType.value = "edit";
+    openModal.value = true;
     carDataToBeEdited.value = { ...car };
 }
 function deleteCar(id, carName) {
@@ -105,6 +105,9 @@ function deleteCar(id, carName) {
 </script>
 
 <style scoped>
+* {
+    word-break: break-all;
+}
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
@@ -129,7 +132,7 @@ function deleteCar(id, carName) {
 
 .add-button-container {
     display: flex;
-    margin: 10px 50px;
+    margin: 0 150px;
     flex-direction: row-reverse;
 }
 
@@ -165,14 +168,13 @@ function deleteCar(id, carName) {
     overflow: hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    background: #f1f6f9;
+    background: #cfd8dc;
 }
 
 .card-wrap:hover {
     transform: scale(1.08);
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    filter: none;
 }
 
 .card-header {
@@ -185,7 +187,7 @@ function deleteCar(id, carName) {
 
 .card-content {
     display: flex;
-    color: #212a3e;
+    color: #39484a;
     flex-direction: column;
     align-items: center;
     width: 85%;
@@ -282,6 +284,7 @@ function deleteCar(id, carName) {
     color: #39484a;
     position: absolute;
     top: 25%;
+    font-size: 28px;
     left: 50%;
     transform: translate(-50%, -50%);
 }

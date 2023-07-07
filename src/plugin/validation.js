@@ -1,5 +1,21 @@
-import { Form as VForm, Field as VField, defineRule, ErrorMessage, configure } from "vee-validate"
-import { required, min, max, alpha_spaces as alphaSpaces, integer, url as URL, email, regex, confirmed } from "@vee-validate/rules"
+import {
+    Form as VForm,
+    Field as VField,
+    defineRule,
+    ErrorMessage,
+    configure,
+} from "vee-validate";
+import {
+    required,
+    min,
+    max,
+    alpha_spaces as alphaSpaces,
+    integer,
+    url as URL,
+    email,
+    regex,
+    confirmed,
+} from "@vee-validate/rules";
 
 export default {
     install(app) {
@@ -35,9 +51,11 @@ export default {
                     gender: `Please choose a value`,
                 };
 
-                const message = messages[ctx.rule.name] ? messages[ctx.rule.name] : `The field ${ctx.field} is invalid`;
+                const message = messages[ctx.rule.name]
+                    ? messages[ctx.rule.name]
+                    : `The field ${ctx.field} is invalid`;
                 return message;
-            }
-        })
-    }
-}
+            },
+        });
+    },
+};

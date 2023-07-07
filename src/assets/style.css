@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 * {
-  margin: 0px;
-  padding: 0px;
-  word-break: break-all;
+    margin: 0px;
+    padding: 0px;
 }
 .card-text::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 body {
-  background: #f1f6f9;
+    background: #f1f6f9;
 }

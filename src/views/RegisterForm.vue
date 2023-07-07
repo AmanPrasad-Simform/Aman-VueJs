@@ -1,6 +1,6 @@
 <template>
     <section class="register-form">
-        <h1 class="title-header">Register</h1>
+        <h1 class="title-header text-h4">{{ $t("register.register") }}</h1>
         <VForm class="form" :validation-schema="schema" @submit="registerBtn">
             <div class="group">
                 <VField
